@@ -2,6 +2,6 @@
 using namespace std;
 int main()
 {
-std::cout << "Hello, C++!" <<std::endl;
+std::cout << "Hello, C++! thinh." <<std::endl;
 return 0;
 }
