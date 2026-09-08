@@ -4,7 +4,6 @@ using namespace std;
 // tính lũy thùa x mũ n
 void tinhluythua(float x, int n);
 
-
 int main()
 {
     float x;
@@ -13,10 +12,6 @@ int main()
     cout <<"Nhap so mu n: "; cin >>n;
 
     tinhluythua(x,n);
-
-
-
-
     return 0;
 }
 
