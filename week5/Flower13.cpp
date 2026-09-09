@@ -194,3 +194,22 @@ for (int i = 0; i < n; i++) {
 
 cout << "Flowers with quantity < 5: "
      << countLow << endl;
+double minPrice, maxPrice;
+
+cout << "Minimum price: ";
+cin >> minPrice;
+
+cout << "Maximum price: ";
+cin >> maxPrice;
+
+int countRange = 0;
+
+for (int i = 0; i < n; i++) {
+    if (flowers[i].price >= minPrice &&
+        flowers[i].price <= maxPrice) {
+        countRange++;
+    }
+}
+
+cout << "Number of flowers in range: "
+     << countRange << endl;
