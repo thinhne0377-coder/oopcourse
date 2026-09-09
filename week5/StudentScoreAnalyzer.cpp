@@ -69,3 +69,28 @@ int main()
     // =====================================
     // 2. COUNT STUDENTS IN SCORE RANGE
     // =====================================
+    double a, b;
+
+    cout << "\n===== 2. SCORE RANGE =====\n";
+
+    cout << "Enter minimum score: ";
+    cin >> a;
+
+    cout << "Enter maximum score: ";
+    cin >> b;
+
+    int rangeCount = 0;
+
+    for (int i = 0; i < N; i++) {
+
+        if (scores[i] >= a && scores[i] <= b) {
+            rangeCount++;
+        }
+    }
+
+    cout << "Students in range: "
+         << rangeCount
+         << endl;
+        // =====================================
+    // 3. STUDENTS ABOVE AVERAGE
+    // =====================================
