@@ -18,3 +18,32 @@ do {
         cout << "Invalid! Enter from 1 to 20.\n";
     }
 } while (n < 1 || n > 20);
+for (int i = 0; i < n; i++) {
+    cout << "\nFlower " << i + 1 << ":\n";
+
+    cout << "Name: ";
+    cin >> ws;
+    getline(cin, flowers[i].name);
+
+    do {
+        cout << "Price: ";
+        cin >> flowers[i].price;
+
+        if (flowers[i].price <= 0) {
+            cout << "Price must be > 0!\n";
+        }
+    } while (flowers[i].price <= 0);
+
+    do {
+        cout << "Quantity: ";
+        cin >> flowers[i].quantity;
+
+        if (flowers[i].quantity < 0) {
+            cout << "Quantity must be >= 0!\n";
+        }
+    } while (flowers[i].quantity < 0);
+
+    cout << "Type: ";
+    cin >> ws;
+    getline(cin, flowers[i].type);
+}
