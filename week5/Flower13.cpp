@@ -98,3 +98,12 @@ for (int i = 0; i < n; i++) {
 }
 
 cout << "Total quantity: " << totalQuantity << endl;
+double sumPrice = 0;
+
+for (int i = 0; i < n; i++) {
+    sumPrice += flowers[i].price;
+}
+
+double averagePrice = sumPrice / n;
+
+cout << "Average price: " << averagePrice << endl;
