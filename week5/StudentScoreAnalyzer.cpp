@@ -49,4 +49,23 @@ int main()
     // =====================================
     // 1. COUNT EXCELLENT STUDENTS
     // =====================================
-            
+
+    int excellentCount = 0;
+
+    for (int i = 0; i < N; i++) {
+
+        if (scores[i] >= 9.0) {
+            excellentCount++;
+        }
+    }
+
+    cout << "\n===== 1. COUNT EXCELLENT =====\n";
+
+    cout << "Number of excellent students: "
+         << excellentCount
+         << endl;
+
+
+    // =====================================
+    // 2. COUNT STUDENTS IN SCORE RANGE
+    // =====================================
