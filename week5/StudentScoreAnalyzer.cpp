@@ -1,56 +1,36 @@
 #include <iostream>
-#include <stdio.h>
+
 using namespace std;
-int main() {
 
-  int n;
-  do {
+int main()
+{
+    return 0;
+}
+int N;
 
-    cout << "how many students? ";
-    cin >> n;
-    cout << endl;
+do {
+    cout << "Nhap so luong hoc sinh: ";
+    cin >> N;
 
-    if (n < 2 || n > 20) {
-      cout << "invalid number of students!\n";
-      cout << "Please enter a number from 2 to 20\n";
+    if (N < 2 || N > 20) {
+        cout << "So luong khong hop le! Vui long nhap tu 2 den 20.\n";
     }
 
-  } while (n < 2 || n > 20);
+} while (N < 2 || N > 20);
+double scores[20];
 
-  float a[100];
-  a[0] = 0;
-
-  for (int i = 1; i <= n; i++) {
-    cout << "Enter score for student " << i << ": ";
+for (int i = 0; i < N; i++) {
+    double score;
 
     do {
-      cin >> a[i];
-      if (a[i] < 0 || a[i] > 10)
-        cout << "Invalid score! Pleasee enter a value from 0 to 10: ";
-    } while (a[i] < 0 || a[i] > 10);
-  }
+        cout << "Nhap diem cho hoc sinh " << i + 1 << ": ";
+        cin >> score;
 
-  cout << endl;
-  cout << "==== STUDENT SCORES ====\n";
-  cout << endl;
+        if (score < 0 || score > 10) {
+            cout << "Diem khong hop le! Vui long nhap trong khoang tu 0 den 10: ";
+        }
 
-  for (int i = 1; i <= n; i++) {
-    printf("Student %d: %.1f\n", i, a[i]);
-  }
+    } while (score < 0 || score > 10);
 
-  cout << endl;
-  cout << "==== RESULTS ====\n";
-  cout << endl;
-
-  for (int i = 1; i <= n; i++) {
-    printf("Student %d: %.1f ", i, a[i]);
-    if (a[i] >= 5)
-      cout << "-----> PASS\n";
-    else
-      cout << "-----> FAIL\n";
-  }
-
-
-  
-  return 0;
+    scores[i] = score;
 }
