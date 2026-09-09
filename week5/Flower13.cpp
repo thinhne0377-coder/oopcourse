@@ -299,3 +299,25 @@ for (int i = 0; i < n; i++) {
         cout << flowers[i].name << endl;
     }
 }
+string type;
+cout << "Enter type: ";
+cin >> ws;
+getline(cin, type);
+
+int total = 0;
+int count = 0;
+
+for (int i = 0; i < n; i++) {
+    if (flowers[i].type == type) {
+        total += flowers[i].quantity;
+        count++;
+    }
+}
+
+if (count > 0) {
+    double average = (double)total / count;
+    cout << "Average quantity: " << average << endl;
+}
+else {
+    cout << "No flower of this type.\n";
+}
