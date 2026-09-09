@@ -8,3 +8,5 @@ struct Flower {
     int quantity;
     string type;
 };
+Flower flowers[20];
+int n;
