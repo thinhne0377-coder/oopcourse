@@ -34,3 +34,9 @@ for (int i = 0; i < N; i++) {
 
     scores[i] = score;
 }
+cout << "\n===== DANH SACH DIEM =====\n";
+
+for (int i = 0; i < N; i++) {
+    cout << "Hoc sinh " << i + 1
+         << ": " << scores[i] << "\n";
+}
