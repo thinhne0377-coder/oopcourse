@@ -184,3 +184,13 @@ if (exists)
     cout << "Yes, flower exists.\n";
 else
     cout << "No, flower does not exist.\n";
+int countLow = 0;
+
+for (int i = 0; i < n; i++) {
+    if (flowers[i].quantity < 5) {
+        countLow++;
+    }
+}
+
+cout << "Flowers with quantity < 5: "
+     << countLow << endl;
