@@ -142,3 +142,27 @@ for (int i = 0; i < n; i++) {
 if (!found) {
     cout << "No flower found.\n";
 }
+string searchName;
+
+cout << "Enter flower name: ";
+cin >> ws;
+getline(cin, searchName);
+
+bool found = false;
+
+for (int i = 0; i < n; i++) {
+    if (flowers[i].name == searchName) {
+        cout << "\nFound!\n";
+        cout << "Name: " << flowers[i].name << endl;
+        cout << "Price: " << flowers[i].price << endl;
+        cout << "Quantity: " << flowers[i].quantity << endl;
+        cout << "Type: " << flowers[i].type << endl;
+
+        found = true;
+        break;
+    }
+}
+
+if (!found) {
+    cout << "Flower not found.\n";
+}
