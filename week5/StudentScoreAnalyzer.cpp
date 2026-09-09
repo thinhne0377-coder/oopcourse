@@ -5,7 +5,10 @@ using namespace std;
 
 int main()
 {
-    
+    // =====================================
+    // NHAP SO LUONG HOC SINH
+    // =====================================
+
     int N;
 
     do {
@@ -20,7 +23,10 @@ int main()
     } while (N < 2 || N > 20);
 
 
-   
+    // =====================================
+    // NHAP DIEM
+    // =====================================
+
     double scores[20];
 
     for (int i = 0; i < N; i++) {
@@ -40,6 +46,9 @@ int main()
     }
 
 
+    // =====================================
+    // 1. COUNT EXCELLENT STUDENTS
+    // =====================================
 
     int excellentCount = 0;
 
@@ -56,6 +65,10 @@ int main()
          << excellentCount
          << endl;
 
+
+    // =====================================
+    // 2. COUNT STUDENTS IN SCORE RANGE
+    // =====================================
 
     double a, b;
 
@@ -81,6 +94,9 @@ int main()
          << endl;
 
 
+    // =====================================
+    // 3. STUDENTS ABOVE AVERAGE
+    // =====================================
 
     double sum = 0;
 
@@ -113,6 +129,10 @@ int main()
     }
 
 
+    // =====================================
+    // 4. SECOND HIGHEST SCORE
+    // =====================================
+
     double highest = scores[0];
     double secondHighest = -1;
 
@@ -141,6 +161,9 @@ int main()
          << endl;
 
 
+    // =====================================
+    // 5. SEARCH FOR A SCORE
+    // =====================================
 
     double searchScore;
 
@@ -170,6 +193,9 @@ int main()
     }
 
 
+    // =====================================
+    // 6. COUNT SCORE FREQUENCY
+    // =====================================
 
     cout << "\n===== 6. SCORE FREQUENCY =====\n";
 
@@ -193,6 +219,9 @@ int main()
          << endl;
 
 
+    // =====================================
+    // 7. FIRST FAILING STUDENT
+    // =====================================
 
     cout << "\n===== 7. FIRST FAILING STUDENT =====\n";
 
@@ -219,6 +248,9 @@ int main()
     }
 
 
+    // =====================================
+    // 8. COMPARE ADJACENT STUDENTS
+    // =====================================
 
     cout << "\n===== 8. COMPARE ADJACENT STUDENTS =====\n";
 
@@ -234,6 +266,10 @@ int main()
         }
     }
 
+
+    // =====================================
+    // 9. LONGEST PASS STREAK
+    // =====================================
 
     cout << "\n===== 9. LONGEST PASS STREAK =====\n";
 
@@ -261,6 +297,9 @@ int main()
          << endl;
 
 
+    // =====================================
+    // 10. SCORE DISTRIBUTION
+    // =====================================
 
     int count1 = 0;
     int count2 = 0;
@@ -298,3 +337,5 @@ int main()
 
     return 0;
 }
+
+            
