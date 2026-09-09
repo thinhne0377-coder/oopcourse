@@ -321,3 +321,41 @@ if (count > 0) {
 else {
     cout << "No flower of this type.\n";
 }
+cout << "\n===== SIMPLE REPORT =====\n";
+
+cout << "Number of flowers: " << n << endl;
+
+cout << "Total quantity: "
+     << totalQuantity << endl;
+
+cout << "Average price: "
+     << averagePrice << endl;
+
+cout << "Total value: "
+     << totalValue << endl;
+
+cout << "\nFlower types:\n";
+
+for (int i = 0; i < n; i++) {
+    bool alreadyCounted = false;
+
+    for (int j = 0; j < i; j++) {
+        if (flowers[i].type == flowers[j].type) {
+            alreadyCounted = true;
+            break;
+        }
+    }
+
+    if (!alreadyCounted) {
+        int count = 0;
+
+        for (int j = 0; j < n; j++) {
+            if (flowers[j].type == flowers[i].type) {
+                count++;
+            }
+        }
+
+        cout << flowers[i].type
+             << " : " << count << endl;
+    }
+}
