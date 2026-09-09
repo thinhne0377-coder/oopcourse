@@ -241,3 +241,21 @@ int main()
       // =====================================
     // 8. COMPARE ADJACENT STUDENTS
     // =====================================
+  cout << "\n===== 8. COMPARE ADJACENT STUDENTS =====\n";
+
+    for (int i = 0; i < N - 1; i++) {
+
+        if (scores[i + 1] > scores[i]) {
+
+            cout << "Student "
+                 << i + 2
+                 << " improved compared to Student "
+                 << i + 1
+                 << endl;
+        }
+    }
+
+
+    // =====================================
+    // 9. LONGEST PASS STREAK
+    // =====================================
