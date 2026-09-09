@@ -107,3 +107,17 @@ for (int i = 0; i < n; i++) {
 double averagePrice = sumPrice / n;
 
 cout << "Average price: " << averagePrice << endl;
+string searchType;
+int count = 0;
+
+cout << "Enter type: ";
+cin >> ws;
+getline(cin, searchType);
+
+for (int i = 0; i < n; i++) {
+    if (flowers[i].type == searchType) {
+        count++;
+    }
+}
+
+cout << "Number of " << searchType << ": " << count << endl;
