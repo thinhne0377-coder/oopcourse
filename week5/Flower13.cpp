@@ -2,360 +2,551 @@
 #include <string>
 using namespace std;
 
+// ==================================================
+// BƯỚC 1: TẠO STRUCT
+// ==================================================
+
 struct Flower {
     string name;
     double price;
     int quantity;
     string type;
 };
-Flower flowers[20];
-int n;
-do {
-    cout << "How many flowers? ";
-    cin >> n;
 
-    if (n < 1 || n > 20) {
-        cout << "Invalid! Enter from 1 to 20.\n";
-    }
-} while (n < 1 || n > 20);
-for (int i = 0; i < n; i++) {
-    cout << "\nFlower " << i + 1 << ":\n";
+int main() {
 
-    cout << "Name: ";
-    cin >> ws;
-    getline(cin, flowers[i].name);
+    // ==================================================
+    // BƯỚC 2: TẠO MẢNG
+    // ==================================================
+
+    Flower flowers[20];
+    int n;
+
+    // ==================================================
+    // BƯỚC 3: NHẬP SỐ LƯỢNG HOA
+    // ==================================================
 
     do {
-        cout << "Price: ";
-        cin >> flowers[i].price;
+        cout << "How many flowers (1-20): ";
+        cin >> n;
 
-        if (flowers[i].price <= 0) {
-            cout << "Price must be > 0!\n";
-        }
-    } while (flowers[i].price <= 0);
+        if (n < 1 || n > 20)
+            cout << "Invalid! Enter 1-20.\n";
 
-    do {
-        cout << "Quantity: ";
-        cin >> flowers[i].quantity;
+    } while (n < 1 || n > 20);
 
-        if (flowers[i].quantity < 0) {
-            cout << "Quantity must be >= 0!\n";
-        }
-    } while (flowers[i].quantity < 0);
 
-    cout << "Type: ";
+    // ==================================================
+    // BƯỚC 4: NHẬP THÔNG TIN HOA
+    // ==================================================
+
+    for (int i = 0; i < n; i++) {
+
+        cout << "\nFlower " << i + 1 << endl;
+
+        // Nhập tên
+        cout << "Name: ";
+        cin >> ws;
+        getline(cin, flowers[i].name);
+
+        // Nhập giá
+        do {
+            cout << "Price: ";
+            cin >> flowers[i].price;
+
+            if (flowers[i].price <= 0)
+                cout << "Price must be > 0!\n";
+
+        } while (flowers[i].price <= 0);
+
+        // Nhập số lượng
+        do {
+            cout << "Quantity: ";
+            cin >> flowers[i].quantity;
+
+            if (flowers[i].quantity < 0)
+                cout << "Quantity must be >= 0!\n";
+
+        } while (flowers[i].quantity < 0);
+
+        // Nhập loại
+        cout << "Type: ";
+        cin >> ws;
+        getline(cin, flowers[i].type);
+    }
+
+
+    // ==================================================
+    // BƯỚC 5: HIỂN THỊ DANH SÁCH
+    // TASK 1
+    // ==================================================
+
+    cout << "\n========== FLOWER SHOP ==========\n";
+
+    for (int i = 0; i < n; i++) {
+
+        cout << i + 1 << ". "
+             << flowers[i].name << " | "
+             << flowers[i].price << " | "
+             << flowers[i].quantity << " | "
+             << flowers[i].type << endl;
+    }
+
+
+    // ==================================================
+    // BƯỚC 6: TÌM HOA ĐẮT NHẤT
+    // TASK 2
+    // ==================================================
+
+    int maxPrice = 0;
+
+    for (int i = 1; i < n; i++) {
+
+        if (flowers[i].price > flowers[maxPrice].price)
+            maxPrice = i;
+    }
+
+    cout << "\nMost expensive: "
+         << flowers[maxPrice].name
+         << " - "
+         << flowers[maxPrice].price << endl;
+
+
+    // ==================================================
+    // BƯỚC 7: TÌM HOA RẺ NHẤT
+    // TASK 3
+    // ==================================================
+
+    int minPrice = 0;
+
+    for (int i = 1; i < n; i++) {
+
+        if (flowers[i].price < flowers[minPrice].price)
+            minPrice = i;
+    }
+
+    cout << "Cheapest: "
+         << flowers[minPrice].name
+         << " - "
+         << flowers[minPrice].price << endl;
+
+
+    // ==================================================
+    // BƯỚC 8: TÌM HOA CÓ SỐ LƯỢNG LỚN NHẤT
+    // TASK 4
+    // ==================================================
+
+    int maxQty = 0;
+
+    for (int i = 1; i < n; i++) {
+
+        if (flowers[i].quantity > flowers[maxQty].quantity)
+            maxQty = i;
+    }
+
+    cout << "Largest quantity: "
+         << flowers[maxQty].name
+         << " - "
+         << flowers[maxQty].quantity << endl;
+
+
+    // ==================================================
+    // BƯỚC 9: TỔNG SỐ LƯỢNG
+    // TASK 5
+    // ==================================================
+
+    int totalQty = 0;
+
+    for (int i = 0; i < n; i++) {
+        totalQty += flowers[i].quantity;
+    }
+
+    cout << "Total quantity: "
+         << totalQty << endl;
+
+
+    // ==================================================
+    // BƯỚC 10: GIÁ TRUNG BÌNH
+    // TASK 6
+    // ==================================================
+
+    double sumPrice = 0;
+
+    for (int i = 0; i < n; i++) {
+        sumPrice += flowers[i].price;
+    }
+
+    double avgPrice = sumPrice / n;
+
+    cout << "Average price: "
+         << avgPrice << endl;
+
+
+    // ==================================================
+    // BƯỚC 11: ĐẾM HOA THEO TYPE
+    // TASK 7
+    // ==================================================
+
+    string type;
+    int countType = 0;
+
+    cout << "\nEnter type to count: ";
     cin >> ws;
-    getline(cin, flowers[i].type);
-}
-cout << "\n===== FLOWER SHOP =====\n";
+    getline(cin, type);
 
-cout << "No\tName\tPrice\tQty\tType\n";
+    for (int i = 0; i < n; i++) {
 
-for (int i = 0; i < n; i++) {
-    cout << i + 1 << "\t"
-         << flowers[i].name << "\t"
-         << flowers[i].price << "\t"
-         << flowers[i].quantity << "\t"
-         << flowers[i].type << endl;
-}
-int maxPriceIndex = 0;
-
-for (int i = 1; i < n; i++) {
-    if (flowers[i].price > flowers[maxPriceIndex].price) {
-        maxPriceIndex = i;
+        if (flowers[i].type == type)
+            countType++;
     }
-}
 
-cout << "\nMost expensive flower: "
-     << flowers[maxPriceIndex].name
-     << " (" << flowers[maxPriceIndex].price << ")\n";
-int minPriceIndex = 0;
+    cout << "Number of " << type
+         << ": " << countType << endl;
 
-for (int i = 1; i < n; i++) {
-    if (flowers[i].price < flowers[minPriceIndex].price) {
-        minPriceIndex = i;
-    }
-}
 
-cout << "Cheapest flower: "
-     << flowers[minPriceIndex].name
-     << " (" << flowers[minPriceIndex].price << ")\n";
-int maxQuantityIndex = 0;
+    // ==================================================
+    // BƯỚC 12: TÌM HOA THEO TYPE
+    // TASK 8
+    // ==================================================
 
-for (int i = 1; i < n; i++) {
-    if (flowers[i].quantity > flowers[maxQuantityIndex].quantity) {
-        maxQuantityIndex = i;
-    }
-}
+    cout << "\nFlowers of type " << type << ":\n";
 
-cout << "Largest quantity: "
-     << flowers[maxQuantityIndex].name
-     << " (" << flowers[maxQuantityIndex].quantity << ")\n";
-int totalQuantity = 0;
+    bool found = false;
 
-for (int i = 0; i < n; i++) {
-    totalQuantity += flowers[i].quantity;
-}
+    for (int i = 0; i < n; i++) {
 
-cout << "Total quantity: " << totalQuantity << endl;
-double sumPrice = 0;
+        if (flowers[i].type == type) {
 
-for (int i = 0; i < n; i++) {
-    sumPrice += flowers[i].price;
-}
-
-double averagePrice = sumPrice / n;
-
-cout << "Average price: " << averagePrice << endl;
-string searchType;
-int count = 0;
-
-cout << "Enter type: ";
-cin >> ws;
-getline(cin, searchType);
-
-for (int i = 0; i < n; i++) {
-    if (flowers[i].type == searchType) {
-        count++;
-    }
-}
-
-cout << "Number of " << searchType << ": " << count << endl;
-string searchType;
-
-cout << "Enter type: ";
-cin >> ws;
-getline(cin, searchType);
-
-bool found = false;
-
-for (int i = 0; i < n; i++) {
-    if (flowers[i].type == searchType) {
-        cout << flowers[i].name << " - "
-             << flowers[i].price << " - "
-             << flowers[i].quantity << endl;
-
-        found = true;
-    }
-}
-
-if (!found) {
-    cout << "No flower found.\n";
-}
-string searchName;
-
-cout << "Enter flower name: ";
-cin >> ws;
-getline(cin, searchName);
-
-bool found = false;
-
-for (int i = 0; i < n; i++) {
-    if (flowers[i].name == searchName) {
-        cout << "\nFound!\n";
-        cout << "Name: " << flowers[i].name << endl;
-        cout << "Price: " << flowers[i].price << endl;
-        cout << "Quantity: " << flowers[i].quantity << endl;
-        cout << "Type: " << flowers[i].type << endl;
-
-        found = true;
-        break;
-    }
-}
-
-if (!found) {
-    cout << "Flower not found.\n";
-}
-string name;
-bool exists = false;
-
-cout << "Enter flower name: ";
-cin >> ws;
-getline(cin, name);
-
-for (int i = 0; i < n; i++) {
-    if (flowers[i].name == name) {
-        exists = true;
-        break;
-    }
-}
-
-if (exists)
-    cout << "Yes, flower exists.\n";
-else
-    cout << "No, flower does not exist.\n";
-int countLow = 0;
-
-for (int i = 0; i < n; i++) {
-    if (flowers[i].quantity < 5) {
-        countLow++;
-    }
-}
-
-cout << "Flowers with quantity < 5: "
-     << countLow << endl;
-double minPrice, maxPrice;
-
-cout << "Minimum price: ";
-cin >> minPrice;
-
-cout << "Maximum price: ";
-cin >> maxPrice;
-
-int countRange = 0;
-
-for (int i = 0; i < n; i++) {
-    if (flowers[i].price >= minPrice &&
-        flowers[i].price <= maxPrice) {
-        countRange++;
-    }
-}
-
-cout << "Number of flowers in range: "
-     << countRange << endl;
-double totalValue = 0;
-
-for (int i = 0; i < n; i++) {
-    totalValue += flowers[i].price * flowers[i].quantity;
-}
-
-cout << "Total value: " << totalValue << endl;
-int maxValueIndex = 0;
-
-for (int i = 1; i < n; i++) {
-    double currentValue =
-        flowers[i].price * flowers[i].quantity;
-
-    double maxValue =
-        flowers[maxValueIndex].price *
-        flowers[maxValueIndex].quantity;
-
-    if (currentValue > maxValue) {
-        maxValueIndex = i;
-    }
-}
-
-cout << "Most valuable flower: "
-     << flowers[maxValueIndex].name << endl;
-for (int i = 0; i < n - 1; i++) {
-    for (int j = 0; j < n - i - 1; j++) {
-
-        if (flowers[j].price > flowers[j + 1].price) {
-            Flower temp = flowers[j];
-            flowers[j] = flowers[j + 1];
-            flowers[j + 1] = temp;
+            cout << flowers[i].name << endl;
+            found = true;
         }
     }
-}
-for (int i = 0; i < n; i++) {
-    cout << flowers[i].name << " - "
-         << flowers[i].price << endl;
-}
-Flower temp = flowers[j];
-flowers[j] = flowers[j + 1];
-flowers[j + 1] = temp;
-for (int i = 0; i < n - 1; i++) {
-    for (int j = 0; j < n - i - 1; j++) {
 
-        if (flowers[j].name > flowers[j + 1].name) {
-            Flower temp = flowers[j];
-            flowers[j] = flowers[j + 1];
-            flowers[j + 1] = temp;
-        }
-    }
-}
-Flower tempArray[20];
+    if (!found)
+        cout << "No flower found.\n";
 
-for (int i = 0; i < n; i++) {
-    tempArray[i] = flowers[i];
-}
 
-for (int i = 0; i < n - 1; i++) {
-    for (int j = 0; j < n - i - 1; j++) {
+    // ==================================================
+    // BƯỚC 13: TÌM HOA THEO TÊN
+    // TASK 9
+    // ==================================================
 
-        if (tempArray[j].price < tempArray[j + 1].price) {
-            Flower temp = tempArray[j];
-            tempArray[j] = tempArray[j + 1];
-            tempArray[j + 1] = temp;
-        }
-    }
-}
+    string name;
 
-cout << "Top 3 most expensive:\n";
+    cout << "\nEnter flower name: ";
+    cin >> ws;
+    getline(cin, name);
 
-int limit = (n < 3) ? n : 3;
+    found = false;
 
-for (int i = 0; i < limit; i++) {
-    cout << tempArray[i].name << " - "
-         << tempArray[i].price << endl;
-}
-string keyword;
+    for (int i = 0; i < n; i++) {
 
-cout << "Enter keyword: ";
-cin >> keyword;
+        if (flowers[i].name == name) {
 
-for (int i = 0; i < n; i++) {
-    if (flowers[i].name.find(keyword) != string::npos) {
-        cout << flowers[i].name << endl;
-    }
-}
-string type;
-cout << "Enter type: ";
-cin >> ws;
-getline(cin, type);
+            cout << "\nFound!\n";
+            cout << "Name: " << flowers[i].name << endl;
+            cout << "Price: " << flowers[i].price << endl;
+            cout << "Quantity: " << flowers[i].quantity << endl;
+            cout << "Type: " << flowers[i].type << endl;
 
-int total = 0;
-int count = 0;
-
-for (int i = 0; i < n; i++) {
-    if (flowers[i].type == type) {
-        total += flowers[i].quantity;
-        count++;
-    }
-}
-
-if (count > 0) {
-    double average = (double)total / count;
-    cout << "Average quantity: " << average << endl;
-}
-else {
-    cout << "No flower of this type.\n";
-}
-cout << "\n===== SIMPLE REPORT =====\n";
-
-cout << "Number of flowers: " << n << endl;
-
-cout << "Total quantity: "
-     << totalQuantity << endl;
-
-cout << "Average price: "
-     << averagePrice << endl;
-
-cout << "Total value: "
-     << totalValue << endl;
-
-cout << "\nFlower types:\n";
-
-for (int i = 0; i < n; i++) {
-    bool alreadyCounted = false;
-
-    for (int j = 0; j < i; j++) {
-        if (flowers[i].type == flowers[j].type) {
-            alreadyCounted = true;
+            found = true;
             break;
         }
     }
 
-    if (!alreadyCounted) {
-        int count = 0;
+    if (!found)
+        cout << "Not found.\n";
 
-        for (int j = 0; j < n; j++) {
-            if (flowers[j].type == flowers[i].type) {
-                count++;
+
+    // ==================================================
+    // BƯỚC 14: KIỂM TRA HOA CÓ TỒN TẠI
+    // TASK 10
+    // ==================================================
+
+    cout << "\nEnter name to check: ";
+    cin >> ws;
+    getline(cin, name);
+
+    found = false;
+
+    for (int i = 0; i < n; i++) {
+
+        if (flowers[i].name == name) {
+            found = true;
+            break;
+        }
+    }
+
+    if (found)
+        cout << "Yes, flower exists.\n";
+    else
+        cout << "No, flower does not exist.\n";
+
+
+    // ==================================================
+    // BƯỚC 15: ĐẾM HOA CÓ QUANTITY < 5
+    // TASK 11
+    // ==================================================
+
+    int lowCount = 0;
+
+    for (int i = 0; i < n; i++) {
+
+        if (flowers[i].quantity < 5)
+            lowCount++;
+    }
+
+    cout << "\nQuantity < 5: "
+         << lowCount << endl;
+
+
+    // ==================================================
+    // BƯỚC 16: ĐẾM HOA TRONG KHOẢNG GIÁ
+    // TASK 12
+    // ==================================================
+
+    double minP, maxP;
+
+    cout << "\nEnter minimum price: ";
+    cin >> minP;
+
+    cout << "Enter maximum price: ";
+    cin >> maxP;
+
+    int priceCount = 0;
+
+    for (int i = 0; i < n; i++) {
+
+        if (flowers[i].price >= minP &&
+            flowers[i].price <= maxP) {
+
+            priceCount++;
+        }
+    }
+
+    cout << "Flowers in price range: "
+         << priceCount << endl;
+
+
+    // ==================================================
+    // BƯỚC 17: TỔNG GIÁ TRỊ
+    // TASK 13
+    // ==================================================
+
+    double totalValue = 0;
+
+    for (int i = 0; i < n; i++) {
+
+        totalValue +=
+            flowers[i].price *
+            flowers[i].quantity;
+    }
+
+    cout << "\nTotal value: "
+         << totalValue << endl;
+
+
+    // ==================================================
+    // BƯỚC 18: HOA CÓ GIÁ TRỊ LỚN NHẤT
+    // TASK 14
+    // ==================================================
+
+    int maxValue = 0;
+
+    for (int i = 1; i < n; i++) {
+
+        double value1 =
+            flowers[i].price *
+            flowers[i].quantity;
+
+        double value2 =
+            flowers[maxValue].price *
+            flowers[maxValue].quantity;
+
+        if (value1 > value2)
+            maxValue = i;
+    }
+
+    cout << "Most valuable: "
+         << flowers[maxValue].name << endl;
+
+
+    // ==================================================
+    // BƯỚC 19: SẮP XẾP THEO GIÁ TĂNG DẦN
+    // TASK 15
+    // ==================================================
+
+    for (int i = 0; i < n - 1; i++) {
+
+        for (int j = 0; j < n - i - 1; j++) {
+
+            if (flowers[j].price >
+                flowers[j + 1].price) {
+
+                Flower temp = flowers[j];
+
+                flowers[j] = flowers[j + 1];
+
+                flowers[j + 1] = temp;
             }
         }
-
-        cout << flowers[i].type
-             << " : " << count << endl;
     }
+
+    cout << "\nSorted by price:\n";
+
+    for (int i = 0; i < n; i++) {
+
+        cout << flowers[i].name
+             << " - "
+             << flowers[i].price << endl;
+    }
+
+
+    // ==================================================
+    // BƯỚC 20: SẮP XẾP THEO TÊN A -> Z
+    // TASK 16
+    // ==================================================
+
+    for (int i = 0; i < n - 1; i++) {
+
+        for (int j = 0; j < n - i - 1; j++) {
+
+            if (flowers[j].name >
+                flowers[j + 1].name) {
+
+                Flower temp = flowers[j];
+
+                flowers[j] = flowers[j + 1];
+
+                flowers[j + 1] = temp;
+            }
+        }
+    }
+
+    cout << "\nSorted by name:\n";
+
+    for (int i = 0; i < n; i++) {
+
+        cout << flowers[i].name << endl;
+    }
+
+
+    // ==================================================
+    // BƯỚC 21: TOP 3 HOA ĐẮT NHẤT
+    // TASK 17
+    // ==================================================
+
+    // Sắp xếp lại theo giá giảm dần
+
+    for (int i = 0; i < n - 1; i++) {
+
+        for (int j = 0; j < n - i - 1; j++) {
+
+            if (flowers[j].price <
+                flowers[j + 1].price) {
+
+                Flower temp = flowers[j];
+
+                flowers[j] = flowers[j + 1];
+
+                flowers[j + 1] = temp;
+            }
+        }
+    }
+
+    cout << "\nTop 3 expensive flowers:\n";
+
+    int limit = (n < 3) ? n : 3;
+
+    for (int i = 0; i < limit; i++) {
+
+        cout << i + 1 << ". "
+             << flowers[i].name
+             << " - "
+             << flowers[i].price << endl;
+    }
+
+
+    // ==================================================
+    // BƯỚC 22: TÌM TÊN CHỨA KEYWORD
+    // TASK 18
+    // ==================================================
+
+    string keyword;
+
+    cout << "\nEnter keyword: ";
+    cin >> keyword;
+
+    found = false;
+
+    for (int i = 0; i < n; i++) {
+
+        if (flowers[i].name.find(keyword)
+            != string::npos) {
+
+            cout << flowers[i].name << endl;
+
+            found = true;
+        }
+    }
+
+    if (!found)
+        cout << "No flower found.\n";
+
+
+    // ==================================================
+    // BƯỚC 23: TRUNG BÌNH QUANTITY THEO TYPE
+    // TASK 19
+    // ==================================================
+
+    cout << "\nEnter type: ";
+    cin >> ws;
+    getline(cin, type);
+
+    int total = 0;
+    int count = 0;
+
+    for (int i = 0; i < n; i++) {
+
+        if (flowers[i].type == type) {
+
+            total += flowers[i].quantity;
+            count++;
+        }
+    }
+
+    if (count > 0) {
+
+        double avg =
+            (double)total / count;
+
+        cout << "Average quantity: "
+             << avg << endl;
+    }
+    else {
+        cout << "No flower of this type.\n";
+    }
+
+
+    // ==================================================
+    // BƯỚC 24: SIMPLE REPORT
+    // TASK 20
+    // ==================================================
+
+    cout << "\n========== SIMPLE REPORT ==========\n";
+
+    cout << "Number of flowers: "
+         << n << endl;
+
+    cout << "Total quantity: "
+         << totalQty << endl;
+
+    cout << "Average price: "
+         << avgPrice << endl;
+
+    cout << "Total value: "
+         << totalValue << endl;
+
+
+    return 0;
 }
