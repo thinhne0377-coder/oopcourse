@@ -220,3 +220,20 @@ for (int i = 0; i < n; i++) {
 }
 
 cout << "Total value: " << totalValue << endl;
+int maxValueIndex = 0;
+
+for (int i = 1; i < n; i++) {
+    double currentValue =
+        flowers[i].price * flowers[i].quantity;
+
+    double maxValue =
+        flowers[maxValueIndex].price *
+        flowers[maxValueIndex].quantity;
+
+    if (currentValue > maxValue) {
+        maxValueIndex = i;
+    }
+}
+
+cout << "Most valuable flower: "
+     << flowers[maxValueIndex].name << endl;
