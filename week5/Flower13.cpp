@@ -264,3 +264,28 @@ for (int i = 0; i < n - 1; i++) {
         }
     }
 }
+Flower tempArray[20];
+
+for (int i = 0; i < n; i++) {
+    tempArray[i] = flowers[i];
+}
+
+for (int i = 0; i < n - 1; i++) {
+    for (int j = 0; j < n - i - 1; j++) {
+
+        if (tempArray[j].price < tempArray[j + 1].price) {
+            Flower temp = tempArray[j];
+            tempArray[j] = tempArray[j + 1];
+            tempArray[j + 1] = temp;
+        }
+    }
+}
+
+cout << "Top 3 most expensive:\n";
+
+int limit = (n < 3) ? n : 3;
+
+for (int i = 0; i < limit; i++) {
+    cout << tempArray[i].name << " - "
+         << tempArray[i].price << endl;
+}
