@@ -80,3 +80,14 @@ for (int i = 1; i < n; i++) {
 cout << "Cheapest flower: "
      << flowers[minPriceIndex].name
      << " (" << flowers[minPriceIndex].price << ")\n";
+int maxQuantityIndex = 0;
+
+for (int i = 1; i < n; i++) {
+    if (flowers[i].quantity > flowers[maxQuantityIndex].quantity) {
+        maxQuantityIndex = i;
+    }
+}
+
+cout << "Largest quantity: "
+     << flowers[maxQuantityIndex].name
+     << " (" << flowers[maxQuantityIndex].quantity << ")\n";
