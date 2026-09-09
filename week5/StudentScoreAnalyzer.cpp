@@ -215,3 +215,29 @@ int main()
     // =====================================
     // 7. FIRST FAILING STUDENT
     // =====================================
+     cout << "\n===== 7. FIRST FAILING STUDENT =====\n";
+
+    bool foundFail = false;
+
+    for (int i = 0; i < N; i++) {
+
+        if (scores[i] < 5) {
+
+            cout << "First failing student: Student "
+                 << i + 1
+                 << ": "
+                 << scores[i]
+                 << endl;
+
+            foundFail = true;
+
+            break;
+        }
+    }
+
+    if (!foundFail) {
+        cout << "All students pass!" << endl;
+    }
+      // =====================================
+    // 8. COMPARE ADJACENT STUDENTS
+    // =====================================
