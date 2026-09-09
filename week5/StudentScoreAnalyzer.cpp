@@ -288,3 +288,39 @@ int main()
     // =====================================
     // 10. SCORE DISTRIBUTION
     // =====================================
+    int count1 = 0;
+    int count2 = 0;
+    int count3 = 0;
+    int count4 = 0;
+    int count5 = 0;
+
+    for (int i = 0; i < N; i++) {
+
+        if (scores[i] < 5) {
+            count1++;
+        }
+        else if (scores[i] < 6.5) {
+            count2++;
+        }
+        else if (scores[i] < 8) {
+            count3++;
+        }
+        else if (scores[i] < 9) {
+            count4++;
+        }
+         else {
+            count5++;
+        }
+    }
+
+    cout << "\n===== 10. SCORE DISTRIBUTION =====\n";
+
+    cout << "0 - <5    : " << count1 << endl;
+    cout << "5 - <6.5  : " << count2 << endl;
+    cout << "6.5 - <8  : " << count3 << endl;
+    cout << "8 - <9    : " << count4 << endl;
+    cout << "9 - 10    : " << count5 << endl;
+
+
+    return 0;
+}
