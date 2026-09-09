@@ -91,3 +91,10 @@ for (int i = 1; i < n; i++) {
 cout << "Largest quantity: "
      << flowers[maxQuantityIndex].name
      << " (" << flowers[maxQuantityIndex].quantity << ")\n";
+int totalQuantity = 0;
+
+for (int i = 0; i < n; i++) {
+    totalQuantity += flowers[i].quantity;
+}
+
+cout << "Total quantity: " << totalQuantity << endl;
