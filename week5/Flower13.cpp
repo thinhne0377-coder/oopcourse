@@ -213,3 +213,10 @@ for (int i = 0; i < n; i++) {
 
 cout << "Number of flowers in range: "
      << countRange << endl;
+double totalValue = 0;
+
+for (int i = 0; i < n; i++) {
+    totalValue += flowers[i].price * flowers[i].quantity;
+}
+
+cout << "Total value: " << totalValue << endl;
