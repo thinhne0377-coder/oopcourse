@@ -166,3 +166,21 @@ for (int i = 0; i < n; i++) {
 if (!found) {
     cout << "Flower not found.\n";
 }
+string name;
+bool exists = false;
+
+cout << "Enter flower name: ";
+cin >> ws;
+getline(cin, name);
+
+for (int i = 0; i < n; i++) {
+    if (flowers[i].name == name) {
+        exists = true;
+        break;
+    }
+}
+
+if (exists)
+    cout << "Yes, flower exists.\n";
+else
+    cout << "No, flower does not exist.\n";
