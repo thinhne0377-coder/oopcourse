@@ -47,3 +47,14 @@ for (int i = 0; i < n; i++) {
     cin >> ws;
     getline(cin, flowers[i].type);
 }
+cout << "\n===== FLOWER SHOP =====\n";
+
+cout << "No\tName\tPrice\tQty\tType\n";
+
+for (int i = 0; i < n; i++) {
+    cout << i + 1 << "\t"
+         << flowers[i].name << "\t"
+         << flowers[i].price << "\t"
+         << flowers[i].quantity << "\t"
+         << flowers[i].type << endl;
+}
