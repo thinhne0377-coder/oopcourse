@@ -69,3 +69,14 @@ for (int i = 1; i < n; i++) {
 cout << "\nMost expensive flower: "
      << flowers[maxPriceIndex].name
      << " (" << flowers[maxPriceIndex].price << ")\n";
+int minPriceIndex = 0;
+
+for (int i = 1; i < n; i++) {
+    if (flowers[i].price < flowers[minPriceIndex].price) {
+        minPriceIndex = i;
+    }
+}
+
+cout << "Cheapest flower: "
+     << flowers[minPriceIndex].name
+     << " (" << flowers[minPriceIndex].price << ")\n";
