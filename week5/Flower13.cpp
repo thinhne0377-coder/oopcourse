@@ -237,3 +237,13 @@ for (int i = 1; i < n; i++) {
 
 cout << "Most valuable flower: "
      << flowers[maxValueIndex].name << endl;
+for (int i = 0; i < n - 1; i++) {
+    for (int j = 0; j < n - i - 1; j++) {
+
+        if (flowers[j].price > flowers[j + 1].price) {
+            Flower temp = flowers[j];
+            flowers[j] = flowers[j + 1];
+            flowers[j + 1] = temp;
+        }
+    }
+}
