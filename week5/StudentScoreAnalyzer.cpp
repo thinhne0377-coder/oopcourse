@@ -159,3 +159,59 @@ int main()
     // =====================================
     // 5. SEARCH FOR A SCORE
     // =====================================
+ double searchScore;
+
+    cout << "\n===== 5. SEARCH FOR SCORE =====\n";
+
+    cout << "Enter score to search: ";
+    cin >> searchScore;
+
+    bool found = false;
+
+    cout << "Found at:\n";
+
+    for (int i = 0; i < N; i++) {
+
+        if (scores[i] == searchScore) {
+
+            cout << "Student "
+                 << i + 1
+                 << endl;
+
+            found = true;
+        }
+    }
+ if (!found) {
+        cout << "Score not found.\n";
+    }
+
+
+    // =====================================
+    // 6. COUNT SCORE FREQUENCY
+    // =====================================
+
+    cout << "\n===== 6. SCORE FREQUENCY =====\n";
+
+    cout << "Enter score: ";
+    cin >> searchScore;
+
+    int frequency = 0;
+
+    for (int i = 0; i < N; i++) {
+
+        if (scores[i] == searchScore) {
+            frequency++;
+        }
+    }
+
+    cout << "Score "
+         << searchScore
+          << " appears "
+         << frequency
+         << " times."
+         << endl;
+
+
+    // =====================================
+    // 7. FIRST FAILING STUDENT
+    // =====================================
