@@ -289,3 +289,13 @@ for (int i = 0; i < limit; i++) {
     cout << tempArray[i].name << " - "
          << tempArray[i].price << endl;
 }
+string keyword;
+
+cout << "Enter keyword: ";
+cin >> keyword;
+
+for (int i = 0; i < n; i++) {
+    if (flowers[i].name.find(keyword) != string::npos) {
+        cout << flowers[i].name << endl;
+    }
+}
