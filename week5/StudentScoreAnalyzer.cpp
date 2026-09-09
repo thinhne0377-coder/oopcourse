@@ -27,4 +27,26 @@ int main()
     // NHAP DIEM
     // =====================================
 
+    double scores[20];
+
+    for (int i = 0; i < N; i++) {
+
+        do {
+            cout << "Nhap diem cho hoc sinh "
+                 << i + 1 << ": ";
+
+            cin >> scores[i];
+
+            if (scores[i] < 0 || scores[i] > 10) {
+                cout << "Diem khong hop le! "
+                     << "Vui long nhap tu 0 den 10.\n";
+            }
+
+        } while (scores[i] < 0 || scores[i] > 10);
+    }
+
+
+    // =====================================
+    // 1. COUNT EXCELLENT STUDENTS
+    // =====================================
             
