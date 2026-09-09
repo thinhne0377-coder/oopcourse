@@ -254,3 +254,13 @@ for (int i = 0; i < n; i++) {
 Flower temp = flowers[j];
 flowers[j] = flowers[j + 1];
 flowers[j + 1] = temp;
+for (int i = 0; i < n - 1; i++) {
+    for (int j = 0; j < n - i - 1; j++) {
+
+        if (flowers[j].name > flowers[j + 1].name) {
+            Flower temp = flowers[j];
+            flowers[j] = flowers[j + 1];
+            flowers[j + 1] = temp;
+        }
+    }
+}
