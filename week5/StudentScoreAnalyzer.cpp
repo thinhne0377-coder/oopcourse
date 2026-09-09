@@ -259,3 +259,32 @@ int main()
     // =====================================
     // 9. LONGEST PASS STREAK
     // =====================================
+  cout << "\n===== 9. LONGEST PASS STREAK =====\n";
+
+    int currentStreak = 0;
+    int longestStreak = 0;
+
+    for (int i = 0; i < N; i++) {
+
+        if (scores[i] >= 5) {
+
+            currentStreak++;
+
+            if (currentStreak > longestStreak) {
+                longestStreak = currentStreak;
+            }
+        }
+        else {
+            currentStreak = 0;
+        }
+    }
+
+    cout << "Longest pass streak: "
+         << longestStreak
+         << " students"
+         << endl;
+
+
+    // =====================================
+    // 10. SCORE DISTRIBUTION
+    // =====================================
