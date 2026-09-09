@@ -40,3 +40,17 @@ for (int i = 0; i < N; i++) {
     cout << "Hoc sinh " << i + 1
          << ": " << scores[i] << "\n";
 }
+cout << "\n===== KET QUA =====\n";
+
+for (int i = 0; i < N; i++) {
+
+    cout << "Hoc sinh " << i + 1
+         << ": " << scores[i] << " -> ";
+
+    if (scores[i] >= 5.0) {
+        cout << "DAU\n";
+    }
+    else {
+        cout << "ROT\n";
+    }
+}
