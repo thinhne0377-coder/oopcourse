@@ -5,9 +5,9 @@ using namespace std;
 
 int main()
 {
-    // ==============================
-    // 1. NHAP SO LUONG HOC SINH
-    // ==============================
+    // =====================================
+    // NHAP SO LUONG HOC SINH
+    // =====================================
 
     int N;
 
@@ -23,185 +23,317 @@ int main()
     } while (N < 2 || N > 20);
 
 
-    // ==============================
-    // 2. NHAP DIEM
-    // ==============================
+    // =====================================
+    // NHAP DIEM
+    // =====================================
 
     double scores[20];
 
     for (int i = 0; i < N; i++) {
 
-        double score;
-
         do {
             cout << "Nhap diem cho hoc sinh "
                  << i + 1 << ": ";
 
-            cin >> score;
+            cin >> scores[i];
 
-            if (score < 0 || score > 10) {
+            if (scores[i] < 0 || scores[i] > 10) {
                 cout << "Diem khong hop le! "
-                     << "Vui long nhap trong khoang tu 0 den 10.\n";
+                     << "Vui long nhap tu 0 den 10.\n";
             }
 
-        } while (score < 0 || score > 10);
-
-        scores[i] = score;
+        } while (scores[i] < 0 || scores[i] > 10);
     }
 
 
-    // ==============================
-    // 3. HIEN THI MANG DIEM
-    // ==============================
+    // =====================================
+    // 1. COUNT EXCELLENT STUDENTS
+    // =====================================
 
-    cout << "\n===== DANH SACH DIEM =====\n";
+    int excellentCount = 0;
 
     for (int i = 0; i < N; i++) {
 
-        cout << "Hoc sinh "
-             << i + 1
-             << ": "
-             << fixed
-             << setprecision(1)
-             << scores[i]
-             << "\n";
+        if (scores[i] >= 9.0) {
+            excellentCount++;
+        }
     }
 
+    cout << "\n===== 1. COUNT EXCELLENT =====\n";
 
-    // ==============================
-    // 4. KIEM TRA DAU / ROT
-    // ==============================
+    cout << "Number of excellent students: "
+         << excellentCount
+         << endl;
 
-    cout << "\n===== KET QUA =====\n";
+
+    // =====================================
+    // 2. COUNT STUDENTS IN SCORE RANGE
+    // =====================================
+
+    double a, b;
+
+    cout << "\n===== 2. SCORE RANGE =====\n";
+
+    cout << "Enter minimum score: ";
+    cin >> a;
+
+    cout << "Enter maximum score: ";
+    cin >> b;
+
+    int rangeCount = 0;
 
     for (int i = 0; i < N; i++) {
 
-        cout << "Hoc sinh "
-             << i + 1
-             << ": "
-             << fixed
-             << setprecision(1)
-             << scores[i]
-             << " -> ";
-
-        if (scores[i] >= 5.0) {
-            cout << "DAU\n";
-        }
-        else {
-            cout << "ROT\n";
+        if (scores[i] >= a && scores[i] <= b) {
+            rangeCount++;
         }
     }
 
+    cout << "Students in range: "
+         << rangeCount
+         << endl;
 
-    // ==============================
-    // 5. DEM SO HOC SINH DAU / ROT
-    // ==============================
 
-    int passedCount = 0;
-    int failedCount = 0;
+    // =====================================
+    // 3. STUDENTS ABOVE AVERAGE
+    // =====================================
+
+    double sum = 0;
 
     for (int i = 0; i < N; i++) {
-
-        if (scores[i] >= 5.0) {
-            passedCount++;
-        }
-        else {
-            failedCount++;
-        }
+        sum += scores[i];
     }
 
-    // Tinh ty le dau
-    double passRate =
-        ((double)passedCount / N) * 100;
+    double average = sum / N;
 
+    cout << "\n===== 3. ABOVE AVERAGE =====\n";
 
-    cout << "\n===== THONG KE =====\n";
-
-    cout << "So hoc sinh Dau : "
-         << passedCount
-         << "\n";
-
-    cout << "So hoc sinh Rot : "
-         << failedCount
-         << "\n";
-
-    cout << "Ty le dau       : "
+    cout << "Average score: "
          << fixed
-         << setprecision(0)
-         << passRate
-         << "%\n";
+         << setprecision(2)
+         << average
+         << endl;
+
+    cout << "Students above average:\n";
+
+    for (int i = 0; i < N; i++) {
+
+        if (scores[i] > average) {
+
+            cout << "Student "
+                 << i + 1
+                 << ": "
+                 << scores[i]
+                 << endl;
+        }
+    }
 
 
-    // ==============================
-    // 6. TIM DIEM CAO NHAT / THAP NHAT
-    // ==============================
+    // =====================================
+    // 4. SECOND HIGHEST SCORE
+    // =====================================
 
-    double maxScore = scores[0];
-    double minScore = scores[0];
+    double highest = scores[0];
+    double secondHighest = -1;
 
     for (int i = 1; i < N; i++) {
 
-        if (scores[i] > maxScore) {
-            maxScore = scores[i];
-        }
+        if (scores[i] > highest) {
 
-        if (scores[i] < minScore) {
-            minScore = scores[i];
+            secondHighest = highest;
+            highest = scores[i];
+        }
+        else if (scores[i] > secondHighest &&
+                 scores[i] < highest) {
+
+            secondHighest = scores[i];
         }
     }
 
-    cout << "\n===== DIEM CAO NHAT VA THAP NHAT =====\n";
+    cout << "\n===== 4. SECOND HIGHEST =====\n";
 
-    cout << "Diem cao nhat : "
-         << fixed
-         << setprecision(1)
-         << maxScore
-         << "\n";
+    cout << "Highest score: "
+         << highest
+         << endl;
 
-    cout << "Diem thap nhat: "
-         << fixed
-         << setprecision(1)
-         << minScore
-         << "\n";
+    cout << "Second highest score: "
+         << secondHighest
+         << endl;
 
 
-    // ==============================
-    // 7. XEP LOAI HOC SINH
-    // ==============================
+    // =====================================
+    // 5. SEARCH FOR A SCORE
+    // =====================================
 
-    cout << "\n===== XEP LOAI =====\n";
+    double searchScore;
+
+    cout << "\n===== 5. SEARCH FOR SCORE =====\n";
+
+    cout << "Enter score to search: ";
+    cin >> searchScore;
+
+    bool found = false;
+
+    cout << "Found at:\n";
 
     for (int i = 0; i < N; i++) {
 
-        cout << "Hoc sinh "
-             << i + 1
-             << ": "
-             << fixed
-             << setprecision(1)
-             << scores[i]
-             << " -> ";
+        if (scores[i] == searchScore) {
 
-        if (scores[i] >= 9.0) {
-            cout << "Xuat sac\n";
+            cout << "Student "
+                 << i + 1
+                 << endl;
+
+            found = true;
         }
-        else if (scores[i] >= 8.0) {
-            cout << "Gioi\n";
+    }
+
+    if (!found) {
+        cout << "Score not found.\n";
+    }
+
+
+    // =====================================
+    // 6. COUNT SCORE FREQUENCY
+    // =====================================
+
+    cout << "\n===== 6. SCORE FREQUENCY =====\n";
+
+    cout << "Enter score: ";
+    cin >> searchScore;
+
+    int frequency = 0;
+
+    for (int i = 0; i < N; i++) {
+
+        if (scores[i] == searchScore) {
+            frequency++;
         }
-        else if (scores[i] >= 6.5) {
-            cout << "Kha\n";
+    }
+
+    cout << "Score "
+         << searchScore
+         << " appears "
+         << frequency
+         << " times."
+         << endl;
+
+
+    // =====================================
+    // 7. FIRST FAILING STUDENT
+    // =====================================
+
+    cout << "\n===== 7. FIRST FAILING STUDENT =====\n";
+
+    bool foundFail = false;
+
+    for (int i = 0; i < N; i++) {
+
+        if (scores[i] < 5) {
+
+            cout << "First failing student: Student "
+                 << i + 1
+                 << ": "
+                 << scores[i]
+                 << endl;
+
+            foundFail = true;
+
+            break;
         }
-        else if (scores[i] >= 5.0) {
-            cout << "Trung binh\n";
-        }
-        else {
-            cout << "Yeu\n";
+    }
+
+    if (!foundFail) {
+        cout << "All students pass!" << endl;
+    }
+
+
+    // =====================================
+    // 8. COMPARE ADJACENT STUDENTS
+    // =====================================
+
+    cout << "\n===== 8. COMPARE ADJACENT STUDENTS =====\n";
+
+    for (int i = 0; i < N - 1; i++) {
+
+        if (scores[i + 1] > scores[i]) {
+
+            cout << "Student "
+                 << i + 2
+                 << " improved compared to Student "
+                 << i + 1
+                 << endl;
         }
     }
 
 
-    // ==============================
-    // KET THUC CHUONG TRINH
-    // ==============================
+    // =====================================
+    // 9. LONGEST PASS STREAK
+    // =====================================
+
+    cout << "\n===== 9. LONGEST PASS STREAK =====\n";
+
+    int currentStreak = 0;
+    int longestStreak = 0;
+
+    for (int i = 0; i < N; i++) {
+
+        if (scores[i] >= 5) {
+
+            currentStreak++;
+
+            if (currentStreak > longestStreak) {
+                longestStreak = currentStreak;
+            }
+        }
+        else {
+            currentStreak = 0;
+        }
+    }
+
+    cout << "Longest pass streak: "
+         << longestStreak
+         << " students"
+         << endl;
+
+
+    // =====================================
+    // 10. SCORE DISTRIBUTION
+    // =====================================
+
+    int count1 = 0;
+    int count2 = 0;
+    int count3 = 0;
+    int count4 = 0;
+    int count5 = 0;
+
+    for (int i = 0; i < N; i++) {
+
+        if (scores[i] < 5) {
+            count1++;
+        }
+        else if (scores[i] < 6.5) {
+            count2++;
+        }
+        else if (scores[i] < 8) {
+            count3++;
+        }
+        else if (scores[i] < 9) {
+            count4++;
+        }
+        else {
+            count5++;
+        }
+    }
+
+    cout << "\n===== 10. SCORE DISTRIBUTION =====\n";
+
+    cout << "0 - <5    : " << count1 << endl;
+    cout << "5 - <6.5  : " << count2 << endl;
+    cout << "6.5 - <8  : " << count3 << endl;
+    cout << "8 - <9    : " << count4 << endl;
+    cout << "9 - 10    : " << count5 << endl;
+
 
     return 0;
 }
