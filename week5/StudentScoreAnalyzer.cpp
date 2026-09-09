@@ -94,3 +94,37 @@ int main()
         // =====================================
     // 3. STUDENTS ABOVE AVERAGE
     // =====================================
+    double sum = 0;
+
+    for (int i = 0; i < N; i++) {
+        sum += scores[i];
+    }
+
+    double average = sum / N;
+
+    cout << "\n===== 3. ABOVE AVERAGE =====\n";
+
+    cout << "Average score: "
+         << fixed
+         << setprecision(2)
+         << average
+         << endl;
+
+    cout << "Students above average:\n";
+
+    for (int i = 0; i < N; i++) {
+
+        if (scores[i] > average) {
+
+            cout << "Student "
+                 << i + 1
+                 << ": "
+                  << scores[i]
+                 << endl;
+        }
+    }
+
+
+    // =====================================
+    // 4. SECOND HIGHEST SCORE
+    // =====================================
