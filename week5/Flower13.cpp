@@ -58,3 +58,14 @@ for (int i = 0; i < n; i++) {
          << flowers[i].quantity << "\t"
          << flowers[i].type << endl;
 }
+int maxPriceIndex = 0;
+
+for (int i = 1; i < n; i++) {
+    if (flowers[i].price > flowers[maxPriceIndex].price) {
+        maxPriceIndex = i;
+    }
+}
+
+cout << "\nMost expensive flower: "
+     << flowers[maxPriceIndex].name
+     << " (" << flowers[maxPriceIndex].price << ")\n";
