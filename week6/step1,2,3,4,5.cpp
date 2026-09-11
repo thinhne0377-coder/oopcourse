@@ -34,3 +34,13 @@ void printStudentInfo(string name, int id) {
     cout << "ID   : " << id << endl;
     cout << "------------------------" << endl;
 }
+// ==================================================
+// STEP 4: Function with parameters and one return value
+// ==================================================
+
+double calculateAverage(double score1, double score2) {
+    double sum = score1 + score2;
+    double average = sum / 2.0;
+
+    return average;
+}
