@@ -342,3 +342,23 @@ void findFirstFailingStudent(int N, double scores[])
              << endl;
     }
 }
+// =====================================================
+// 8. COMPARE ADJACENT STUDENTS
+// =====================================================
+
+void compareAdjacentStudents(int N, double scores[])
+{
+    cout << "\n===== 8. COMPARE ADJACENT STUDENTS =====\n";
+
+    for (int i = 0; i < N - 1; i++)
+    {
+        if (scores[i + 1] > scores[i])
+        {
+            cout << "Student "
+                 << i + 2
+                 << " improved compared to Student "
+                 << i + 1
+                 << endl;
+        }
+    }
+}
