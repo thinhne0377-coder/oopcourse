@@ -14,3 +14,12 @@ int main()
     
     return 0;
 }
+int main()
+{
+    int id;
+
+    cout << "Enter your student ID: ";
+    cin >> id;
+
+    return 0;
+}
