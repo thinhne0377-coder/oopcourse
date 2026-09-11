@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 using namespace std;
+
 struct ScoreInfo {
     double sum;
     double average;
@@ -8,6 +9,7 @@ struct ScoreInfo {
     double maxScore;
     double minScore;
 };
+
 ScoreInfo analyzeScores(const vector<double>& scores) {
     ScoreInfo result;
 
@@ -20,7 +22,8 @@ ScoreInfo analyzeScores(const vector<double>& scores) {
         result.minScore = 0;
         return result;
     }
- result.minScore = scores[0];
+
+    result.minScore = scores[0];
     result.maxScore = scores[0];
 
     for (double s : scores) {
@@ -37,8 +40,10 @@ ScoreInfo analyzeScores(const vector<double>& scores) {
 
     return result;
 }
+
 int main() {
     vector<double> scores = {8.5, 7.0, 9.5, 6.0, 8.0};
+
     ScoreInfo info = analyzeScores(scores);
 
     cout << "Total: " << info.sum << endl;
