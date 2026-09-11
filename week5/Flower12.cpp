@@ -57,3 +57,26 @@ int main() {
     // =========================
     // DISPLAY
     // =========================
+    cout << "\n\n===== FLOWER SHOP =====\n";
+
+    cout << left
+         << setw(5) << "No"
+         << setw(15) << "Name"
+         << setw(10) << "Price"
+         << setw(10) << "Qty"
+         << setw(15) << "Type"
+         << endl;
+
+    for (int i = 0; i < n; i++) {
+        cout << left
+             << setw(5) << i + 1
+             << setw(15) << name[i]
+             << setw(10) << price[i]
+             << setw(10) << quantity[i]
+             << setw(15) << type[i]
+             << endl;
+    }
+
+    // =========================
+    // MOST EXPENSIVE
+    // =========================
