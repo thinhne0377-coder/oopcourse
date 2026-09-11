@@ -5,3 +5,7 @@ void showStudentID(int id)
 #include <iostream>
 
 using namespace std;
+void showStudentID(int id)
+{
+    cout << "Student ID: " << id << endl;
+}
