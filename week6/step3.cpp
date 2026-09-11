@@ -15,3 +15,5 @@ int main()
     double score;
     cout << "Enter student name: ";
 getline(cin, name);
+cout << "Enter score: ";
+cin >> score;
