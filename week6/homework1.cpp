@@ -246,3 +246,37 @@ void findSecondHighestScore(int N, double scores[])
          << secondHighest
          << endl;
 }
+// =====================================================
+// 5. SEARCH FOR A SCORE
+// Display all students having this score
+// =====================================================
+
+void searchForScore(int N, double scores[])
+{
+    double searchScore;
+    bool found = false;
+
+    cout << "\n===== 5. SEARCH FOR SCORE =====\n";
+
+    cout << "Enter score to search: ";
+    cin >> searchScore;
+
+    cout << "Found at:\n";
+
+    for (int i = 0; i < N; i++)
+    {
+        if (scores[i] == searchScore)
+        {
+            cout << "Student "
+                 << i + 1
+                 << endl;
+
+            found = true;
+        }
+    }
+
+    if (!found)
+    {
+        cout << "Score not found.\n";
+    }
+}
