@@ -172,3 +172,48 @@ int main() {
     // =========================
     // SEARCH
     // =========================
+char choice;
+
+    do {
+
+        string searchName;
+
+        cout << "\nEnter flower name to search: ";
+        cin >> searchName;
+
+        int foundIndex = -1;
+
+        for (int i = 0; i < n; i++) {
+
+            if (name[i] == searchName) {
+                foundIndex = i;
+                break;
+            }
+        }
+
+        if (foundIndex != -1) {
+
+            cout << "Found!\n";
+            cout << "Price: "
+                 << price[foundIndex] << endl;
+
+            cout << "Quantity: "
+                 << quantity[foundIndex] << endl;
+
+            cout << "Type: "
+                 << type[foundIndex] << endl;
+
+        } else {
+
+            cout << "Flower not found.\n";
+        }
+
+        cout << "\nSearch another flower? (y/n): ";
+        cin >> choice;
+
+    } while (choice == 'y' || choice == 'Y');
+
+    cout << "\nProgram ended.\n";
+
+    return 0;
+}
