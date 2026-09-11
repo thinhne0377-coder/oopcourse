@@ -111,3 +111,10 @@ int main() {
     int studentID = 2112001;
 
     showStudentID(studentID);
+    // ------------------------------------------------
+    // STEP 3: Gọi hàm có nhiều tham số
+    // ------------------------------------------------
+
+    string studentName = "Nguyen An";
+
+    printStudentInfo(studentName, studentID);
