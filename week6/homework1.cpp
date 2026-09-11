@@ -173,3 +173,43 @@ void countStudentsInRange(int N, double scores[])
          << rangeCount
          << endl;
 }
+// =====================================================
+// 3. FIND STUDENTS ABOVE AVERAGE
+// =====================================================
+
+void findStudentsAboveAverage(int N, double scores[])
+{
+    double sum = 0;
+
+    // Tinh tong
+    for (int i = 0; i < N; i++)
+    {
+        sum += scores[i];
+    }
+
+    // Tinh diem trung binh
+    double average = sum / N;
+
+    cout << "\n===== 3. ABOVE AVERAGE =====\n";
+
+    cout << "Average score: "
+         << fixed
+         << setprecision(2)
+         << average
+         << endl;
+
+    cout << "Students above average:\n";
+
+    // Tim hoc sinh tren trung binh
+    for (int i = 0; i < N; i++)
+    {
+        if (scores[i] > average)
+        {
+            cout << "Student "
+                 << i + 1
+                 << ": "
+                 << scores[i]
+                 << endl;
+        }
+    }
+}
