@@ -17,3 +17,4 @@ int main()
 getline(cin, name);
 cout << "Enter score: ";
 cin >> score;
+showScore(name, score);
