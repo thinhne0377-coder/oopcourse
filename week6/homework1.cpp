@@ -280,3 +280,32 @@ void searchForScore(int N, double scores[])
         cout << "Score not found.\n";
     }
 }
+// =====================================================
+// 6. COUNT SCORE FREQUENCY
+// =====================================================
+
+void countScoreFrequency(int N, double scores[])
+{
+    double searchScore;
+    int frequency = 0;
+
+    cout << "\n===== 6. SCORE FREQUENCY =====\n";
+
+    cout << "Enter score: ";
+    cin >> searchScore;
+
+    for (int i = 0; i < N; i++)
+    {
+        if (scores[i] == searchScore)
+        {
+            frequency++;
+        }
+    }
+
+    cout << "Score "
+         << searchScore
+         << " appears "
+         << frequency
+         << " times."
+         << endl;
+}
