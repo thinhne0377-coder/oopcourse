@@ -118,3 +118,17 @@ int main() {
     string studentName = "Nguyen An";
 
     printStudentInfo(studentName, studentID);
+// ------------------------------------------------
+    // STEP 4: Gọi hàm trả về 1 kết quả
+    // ------------------------------------------------
+
+    double math = 8.5;
+    double english = 9.0;
+
+    double average = calculateAverage(math, english);
+
+    cout << "\n===== STEP 4: CALCULATE AVERAGE =====" << endl;
+    cout << "Math score: " << math << endl;
+    cout << "English score: " << english << endl;
+    cout << "Average score = " << average << endl;
+
