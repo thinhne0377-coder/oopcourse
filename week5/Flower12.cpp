@@ -102,3 +102,32 @@ int main() {
     // =========================
     // ANALYSIS
     // =========================
+    int totalQuantity = 0;
+    double totalPrice = 0;
+
+    for (int i = 0; i < n; i++) {
+        totalQuantity += quantity[i];
+        totalPrice += price[i];
+    }
+
+    double averagePrice = totalPrice / n;
+
+    cout << "\n===== ANALYSIS =====\n";
+
+    cout << "Most expensive flower: "
+         << name[maxIndex]
+         << " (" << price[maxIndex] << ")\n";
+
+    cout << "Cheapest flower: "
+         << name[minIndex]
+         << " (" << price[minIndex] << ")\n";
+
+    cout << "Total quantity: "
+         << totalQuantity << endl;
+
+    cout << "Average price: "
+         << averagePrice << endl;
+
+    // =========================
+    // COUNT BY TYPE
+    // =========================
