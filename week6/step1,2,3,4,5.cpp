@@ -23,3 +23,14 @@ void showStudentID(int id) {
     cout << "\n===== STEP 2: SHOW STUDENT ID =====" << endl;
     cout << "Student ID: " << id << endl;
 }
+// ==================================================
+// STEP 3: Function with multiple parameters, no return value
+// ==================================================
+
+void printStudentInfo(string name, int id) {
+    cout << "\n===== STEP 3: STUDENT INFORMATION =====" << endl;
+    cout << "------------------------" << endl;
+    cout << "Name : " << name << endl;
+    cout << "ID   : " << id << endl;
+    cout << "------------------------" << endl;
+}
