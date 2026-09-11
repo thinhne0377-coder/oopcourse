@@ -27,3 +27,33 @@ int main() {
     // =========================
     // INPUT FLOWER INFORMATION
     // =========================
+    for (int i = 0; i < n; i++) {
+
+        cout << "\nFlower " << i + 1 << ":\n";
+
+        cout << "Name: ";
+        cin >> name[i];
+
+        cout << "Price: ";
+        cin >> price[i];
+
+        while (price[i] <= 0) {
+            cout << "Price must be > 0. Enter again: ";
+            cin >> price[i];
+        }
+
+        cout << "Quantity: ";
+        cin >> quantity[i];
+
+        while (quantity[i] < 0) {
+            cout << "Quantity must be >= 0. Enter again: ";
+            cin >> quantity[i];
+        }
+
+        cout << "Type: ";
+        cin >> type[i];
+    }
+
+    // =========================
+    // DISPLAY
+    // =========================
