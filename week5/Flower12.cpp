@@ -91,3 +91,14 @@ int main() {
     // =========================
     // CHEAPEST
     // =========================
+    int minIndex = 0;
+
+    for (int i = 1; i < n; i++) {
+        if (price[i] < price[minIndex]) {
+            minIndex = i;
+        }
+    }
+
+    // =========================
+    // ANALYSIS
+    // =========================
