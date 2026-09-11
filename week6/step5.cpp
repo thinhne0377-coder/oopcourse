@@ -37,3 +37,5 @@ ScoreInfo analyzeScores(const vector<double>& scores) {
 
     return result;
 }
+int main() {
+    vector<double> scores = {8.5, 7.0, 9.5, 6.0, 8.0};
