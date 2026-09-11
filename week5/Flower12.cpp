@@ -80,3 +80,14 @@ int main() {
     // =========================
     // MOST EXPENSIVE
     // =========================
+    int maxIndex = 0;
+
+    for (int i = 1; i < n; i++) {
+        if (price[i] > price[maxIndex]) {
+            maxIndex = i;
+        }
+    }
+
+    // =========================
+    // CHEAPEST
+    // =========================
