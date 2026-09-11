@@ -1,9 +1,6 @@
 #include <iostream>
 using namespace std;
-void showMenu()
-{
-    
-}
+
 void showMenu()
 {
     cout << "===== MENU =====" << endl;
@@ -12,8 +9,10 @@ void showMenu()
     cout << "3. Exit" << endl;
     cout << "================" << endl;
 }
+
 int main()
 {
-    
+    showMenu();
+
     return 0;
 }
