@@ -8,3 +8,8 @@ void showScore(string name, double score)
     cout << "Score: " << score << endl;
     cout << "Keep going!" << endl;
 }
+(string name, double score)
+int main()
+{
+    string name;
+    double score;
