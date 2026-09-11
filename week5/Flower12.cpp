@@ -131,3 +131,44 @@ int main() {
     // =========================
     // COUNT BY TYPE
     // =========================
+     string types[MAX];
+    int counts[MAX] = {0};
+
+    int typeCount = 0;
+
+    for (int i = 0; i < n; i++) {
+
+        int found = -1;
+
+        for (int j = 0; j < typeCount; j++) {
+
+            if (types[j] == type[i]) {
+                found = j;
+                break;
+            }
+        }
+
+        if (found == -1) {
+
+            types[typeCount] = type[i];
+            counts[typeCount] = 1;
+            typeCount++;
+
+        } else {
+
+            counts[found]++;
+        }
+    }
+
+    cout << "\n===== COUNT BY TYPE =====\n";
+
+    for (int i = 0; i < typeCount; i++) {
+        cout << types[i]
+             << " : "
+             << counts[i]
+             << endl;
+    }
+
+    // =========================
+    // SEARCH
+    // =========================
