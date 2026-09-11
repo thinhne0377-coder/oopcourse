@@ -21,3 +21,4 @@ cin >> a;
 
 cout << "Nhap so b: ";
 cin >> b;
+int max = maxValue(a, b);
