@@ -309,3 +309,36 @@ void countScoreFrequency(int N, double scores[])
          << " times."
          << endl;
 }
+// =====================================================
+// 7. FIND FIRST FAILING STUDENT
+// Failing score < 5
+// =====================================================
+
+void findFirstFailingStudent(int N, double scores[])
+{
+    bool foundFail = false;
+
+    cout << "\n===== 7. FIRST FAILING STUDENT =====\n";
+
+    for (int i = 0; i < N; i++)
+    {
+        if (scores[i] < 5)
+        {
+            cout << "First failing student: Student "
+                 << i + 1
+                 << ": "
+                 << scores[i]
+                 << endl;
+
+            foundFail = true;
+
+            break;
+        }
+    }
+
+    if (!foundFail)
+    {
+        cout << "All students pass!"
+             << endl;
+    }
+}
