@@ -15,3 +15,11 @@ void showMenu() {
     cout << "3. Exit" << endl;
     cout << "==============" << endl;
 }
+// ==================================================
+// STEP 2: Function with one parameter, no return value
+// ==================================================
+
+void showStudentID(int id) {
+    cout << "\n===== STEP 2: SHOW STUDENT ID =====" << endl;
+    cout << "Student ID: " << id << endl;
+}
