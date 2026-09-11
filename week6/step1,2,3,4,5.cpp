@@ -132,3 +132,21 @@ int main() {
     cout << "English score: " << english << endl;
     cout << "Average score = " << average << endl;
 
+// ------------------------------------------------
+    // STEP 5: Gọi hàm trả về nhiều kết quả
+    // ------------------------------------------------
+
+    vector<double> scores = {8.5, 7.0, 9.5, 6.0, 8.0};
+
+    ScoreInfo info = analyzeScores(scores);
+
+    cout << "\n===== STEP 5: MULTIPLE RESULTS =====" << endl;
+    cout << "Total: " << info.sum << endl;
+    cout << "Average: " << info.average << endl;
+    cout << "Max score: " << info.maxScore << endl;
+    cout << "Min score: " << info.minScore << endl;
+    cout << "Count: " << info.count << endl;
+
+
+    return 0;
+}
