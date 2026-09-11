@@ -21,5 +21,7 @@ int main()
     cout << "Enter your student ID: ";
     cin >> id;
 
+    showStudentID(id);
+
     return 0;
 }
