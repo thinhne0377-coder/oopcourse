@@ -16,3 +16,14 @@ int main() {
     // =========================
     // INPUT NUMBER OF FLOWERS
     // =========================
+    cout << "How many flowers? ";
+    cin >> n;
+
+    while (n < 1 || n > MAX) {
+        cout << "Invalid! Enter number from 1 to 20: ";
+        cin >> n;
+    }
+
+    // =========================
+    // INPUT FLOWER INFORMATION
+    // =========================
