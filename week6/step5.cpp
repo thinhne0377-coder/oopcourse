@@ -20,3 +20,20 @@ ScoreInfo analyzeScores(const vector<double>& scores) {
         result.minScore = 0;
         return result;
     }
+ result.minScore = scores[0];
+    result.maxScore = scores[0];
+
+    for (double s : scores) {
+        result.sum += s;
+
+        if (s > result.maxScore)
+            result.maxScore = s;
+
+        if (s < result.minScore)
+            result.minScore = s;
+    }
+
+    result.average = result.sum / result.count;
+
+    return result;
+}
