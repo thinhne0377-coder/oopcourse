@@ -143,3 +143,33 @@ void countExcellentStudents(int N, double scores[])
          << excellentCount
          << endl;
 }
+// =====================================================
+// 2. COUNT STUDENTS IN SCORE RANGE
+// Range [a, b]
+// =====================================================
+
+void countStudentsInRange(int N, double scores[])
+{
+    double a, b;
+    int rangeCount = 0;
+
+    cout << "\n===== 2. SCORE RANGE =====\n";
+
+    cout << "Enter minimum score: ";
+    cin >> a;
+
+    cout << "Enter maximum score: ";
+    cin >> b;
+
+    for (int i = 0; i < N; i++)
+    {
+        if (scores[i] >= a && scores[i] <= b)
+        {
+            rangeCount++;
+        }
+    }
+
+    cout << "Students in range: "
+         << rangeCount
+         << endl;
+}
