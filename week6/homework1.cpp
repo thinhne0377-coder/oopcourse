@@ -120,3 +120,26 @@ void inputStudents(int &N, double scores[])
         } while (scores[i] < 0 || scores[i] > 10);
     }
 }
+// =====================================================
+// 1. COUNT EXCELLENT STUDENTS
+// Score >= 9.0
+// =====================================================
+
+void countExcellentStudents(int N, double scores[])
+{
+    int excellentCount = 0;
+
+    for (int i = 0; i < N; i++)
+    {
+        if (scores[i] >= 9.0)
+        {
+            excellentCount++;
+        }
+    }
+
+    cout << "\n===== 1. COUNT EXCELLENT =====\n";
+
+    cout << "Number of excellent students: "
+         << excellentCount
+         << endl;
+}
