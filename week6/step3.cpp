@@ -1,20 +1,32 @@
-void showScore(string name, double score)
 #include <iostream>
 #include <string>
+
 using namespace std;
+
+// Ham hien thi ten va diem sinh vien
 void showScore(string name, double score)
 {
     cout << "Student: " << name << endl;
     cout << "Score: " << score << endl;
     cout << "Keep going!" << endl;
 }
-(string name, double score)
+
 int main()
 {
+    // Khai bao bien
     string name;
     double score;
+
+    // Nhap ten sinh vien
     cout << "Enter student name: ";
-getline(cin, name);
-cout << "Enter score: ";
-cin >> score;
-showScore(name, score);
+    getline(cin, name);
+
+    // Nhap diem
+    cout << "Enter score: ";
+    cin >> score;
+
+    // Goi ham
+    showScore(name, score);
+
+    return 0;
+}
