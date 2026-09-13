@@ -146,3 +146,30 @@ void cout_eachtype(Flower DS[], int N) {
     printf("%-20s : %d\n", DS[i].type, count);
   }
 }
+// câu 8: find all flowers of a given type
+void findflower_bytype(Flower DS[], int N) {
+
+  char a[50];
+  int daco;
+
+  do {
+    daco = 0;
+    cout << "Nhap type hoa can tim: ";
+    cin.getline(a, 50);
+
+    for (int i = 0; i < N; i++) {
+      if (strcmp(DS[i].type, a) == 0) {
+        daco = 1;
+        break;
+      }
+    }
+
+    if (daco == 1) {
+      for (int i = 0; i < N; i++) {
+        if (strcmp(DS[i].type, a) == 0)
+          cout << DS[i].name << endl;
+      }
+    } else
+      cout << "Ko co hoa theo type da go, vui long nhap lai!\n";
+  } while (daco == 0);
+}
