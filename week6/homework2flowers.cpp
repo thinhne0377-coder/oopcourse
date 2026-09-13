@@ -280,3 +280,20 @@ void mostvalueflower(Flower DS[], int N) {
     }
   }
 }
+// câu 15: sort flowers by price (tăng dần)
+void sort_price(Flower DS[], int N) {
+
+  for (int i = 0; i < N - 1; i++) {
+    for (int j = 0; j < N; j++)
+      if (DS[i].price > DS[j].price)
+        swap(DS[i].price, DS[j].price);
+  }
+
+  printf("====== SORT FLOWERS BY PRICE ======\n");
+  printf("%-12s|%-32s|%4s|%10s|%20s\n", "No", "Name", "Price", "Qty", "Type");
+
+  for (int i = 0; i < N; i++) {
+    printf("%-12d|%-32s|%4.1f|%10d|%20s\n", DS[i].no, DS[i].name, DS[i].price,
+           DS[i].quantity, DS[i].type);
+  }
+}
