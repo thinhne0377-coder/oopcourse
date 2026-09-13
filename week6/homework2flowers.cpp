@@ -297,3 +297,61 @@ void sort_price(Flower DS[], int N) {
            DS[i].quantity, DS[i].type);
   }
 }
+// câu 16: sort flowers name AZ
+void sort_name(Flower DS[], int N) {
+  for (int i = 0; i < N - 1; i++) {
+    for (int j = i + 1; j < N; j++) {
+      if (strcmp(DS[i].name, DS[j].name) > 0)
+        swap(DS[i].name, DS[j].name);
+    }
+  }
+
+  printf("====== SORT FLOWERS BY NAME ======\n");
+  printf("%-12s|%-32s|%4s|%10s|%20s\n", "No", "Name", "Price", "Qty", "Type");
+
+  for (int i = 0; i < N; i++) {
+    printf("%-12d|%-32s|%4.1f|%10d|%20s\n", DS[i].no, DS[i].name, DS[i].price,
+           DS[i].quantity, DS[i].type);
+  }
+}
+
+int main() {
+
+  Flower flowers[20];
+  int N;
+  do {
+    cout << "Number of flowers: ";
+    cin >> N;
+    if (N < 1 || N > 20)
+      cout << "please enter the suitable number of flowers from 1 to 20!";
+  } while (N < 1 || N > 20);
+
+  cin.ignore();
+  nhapflowers(flowers, N);
+  inflowers(flowers, N);
+  max_price(flowers, N);
+  min_price(flowers, N);
+  max_quantity(flowers, N);
+  sum_quantity(flowers, N);
+  average_price(flowers, N);
+  cout_eachtype(flowers, N);
+  findflower_bytype(flowers, N);
+
+  Flower x;
+  x = search_name(flowers, N);
+  cout << "In thong tin hoa: \n";
+  cout << "No      : " << x.no << endl;
+  cout << "Name    : " << x.name << endl;
+  cout << "Price   : " << x.price << endl;
+  cout << "Quantity: " << x.quantity << endl;
+  cout << "Type    : " << x.type << endl;
+
+  checkflower(flowers, N);
+  count_flowers_lowerquantity(flowers, N);
+  count_flowers_pricerange(flowers, N);
+  total_value(flowers, N);
+  mostvalueflower(flowers, N);
+  sort_name(flowers, N);
+
+  return 0;
+}
