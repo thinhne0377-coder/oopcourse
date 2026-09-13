@@ -173,3 +173,24 @@ void findflower_bytype(Flower DS[], int N) {
       cout << "Ko co hoa theo type da go, vui long nhap lai!\n";
   } while (daco == 0);
 }
+// câu 9: search by name
+Flower search_name(Flower DS[], int N) {
+  char a[50];
+  int found = 0;
+  do {
+
+    cout << "Nhap name cua flowers: ";
+    cin.getline(a, 50);
+
+    for (int i = 0; i < N; i++) {
+      if (strcmp(DS[i].name, a) == 0) {
+        found = 1;
+        return DS[i];
+      }
+    }
+
+    if (found == 0)
+      cout << "K tim thay hoa theo ten go! Vu long nhap lai!\n";
+
+  } while (found == 0);
+}
