@@ -254,3 +254,13 @@ void count_flowers_pricerange(Flower DS[], int N) {
 
   } while (count == 0);
 }
+// câu 13: calculate total value (price x quantity)
+void total_value(Flower DS[], int N) {
+
+  float sum = 0;
+  for (int i = 0; i < N; i++) {
+    sum = sum + (DS[i].price * DS[i].quantity);
+  }
+
+  cout << "Total value (price x quantity): " << sum << endl;
+}
