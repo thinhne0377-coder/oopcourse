@@ -85,3 +85,23 @@ void min_price(Flower DS[], int N) {
     }
   }
 }
+// câu 4: find the flower with the largest quantity
+void max_quantity(Flower DS[], int N) {
+  int max = DS[0].quantity;
+
+  for (int i = 1; i < N; i++) {
+    if (DS[i].quantity > max) {
+      max = DS[i].quantity;
+    }
+  }
+
+  printf("====== HOA CÓ NHIỀU QUANTITY NHẤT ======\n");
+  printf("%-12s|%-32s|%4s|%10s|%20s\n", "No", "Name", "Price", "Qty", "Type");
+
+  for (int i = 0; i < N; i++) {
+    if (DS[i].quantity == max) {
+      printf("%-12d|%-32s|%4.1f|%10d|%20s\n", DS[i].no, DS[i].name, DS[i].price,
+             DS[i].quantity, DS[i].type);
+    }
+  }
+}
