@@ -156,3 +156,10 @@ int main()
 
         nhapComputer(ds[i]);
     }
+// XUAT DANH SACH
+cout << "\n\n******** DANH SACH COMPUTER ********\n";
+
+    for (int i = 0; i < n; i++)
+    {
+        ds[i].print();
+    }
