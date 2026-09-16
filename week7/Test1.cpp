@@ -30,9 +30,7 @@ struct Computer
         cout << "==============================" << endl;
     }
 };
-// ==================================================
 // FUNCTION NHAP 1 COMPUTER
-// ==================================================
 
 void nhapComputer(Computer &c)
 {
@@ -57,4 +55,17 @@ void nhapComputer(Computer &c)
 
     cout << "Nhap year: ";
     cin >> c.year;
+}
+// 1. GET COMPUTER BY ID
+Computer* getComputerById(Computer ds[], int n, int id)
+{
+    for (int i = 0; i < n; i++)
+    {
+        if (ds[i].id == id)
+        {
+            return &ds[i];
+        }
+    }
+
+    return nullptr;
 }
