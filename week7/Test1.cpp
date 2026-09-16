@@ -117,3 +117,26 @@ void getUsernameAndPwd(Computer ds[], int n, int id)
              << id << endl;
     }
 }
+// CLASS LAB
+class Lab
+{
+private:
+    string maPhong;
+
+public:
+
+    // Constructor
+    Lab(string ma)
+    {
+        maPhong = ma;
+    }
+
+    // showLabInfo()
+    void showLabInfo()
+    {
+        cout << "\n========== LAB ==========" << endl;
+        cout << "Ma phong: " << maPhong << endl;
+        cout << "Chuc nang: Phong may tinh" << endl;
+        cout << "=========================" << endl;
+    }
+};
