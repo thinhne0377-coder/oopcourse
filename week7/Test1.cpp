@@ -199,3 +199,13 @@ int id;
     {
         cout << "Khong tim thay!" << endl;
     }
+    // 3. GET COMPUTERS THEO YEAR
+     int year;
+
+    cout << "\nNhap nam can tim: ";
+    cin >> year;
+
+    cout << "\n===== CAC COMPUTER CO YEAR >= "
+         << year << " =====\n";
+
+    getComputers(ds, n, year);
