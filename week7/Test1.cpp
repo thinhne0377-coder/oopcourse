@@ -69,3 +69,16 @@ Computer* getComputerById(Computer ds[], int n, int id)
 
     return nullptr;
 }
+// 2. GET COMPUTER BY NAME
+Computer* getComputerByName(Computer ds[], int n, string tenMay)
+{
+    for (int i = 0; i < n; i++)
+    {
+        if (ds[i].tenMay == tenMay)
+        {
+            return &ds[i];
+        }
+    }
+
+    return nullptr;
+}
