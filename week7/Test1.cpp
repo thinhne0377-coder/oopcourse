@@ -209,3 +209,10 @@ int id;
          << year << " =====\n";
 
     getComputers(ds, n, year);
+// 4. GET USERNAME + PASSWORD
+cout << "\nNhap ID de lay Username va Password: ";
+    cin >> id;
+
+    cout << "\n===== USERNAME & PASSWORD =====\n";
+
+    getUsernameAndPwd(ds, n, id);
