@@ -140,3 +140,19 @@ public:
         cout << "=========================" << endl;
     }
 };
+// MAIN
+int main()
+{
+    Computer ds[100];
+    int n;
+// NHAP SO LUONG COMPUTER
+ cout << "Nhap so luong computer: ";
+    cin >> n;
+// NHAP DANH SACH COMPUTER
+    for (int i = 0; i < n; i++)
+    {
+        cout << "\n========== COMPUTER "
+             << i + 1 << " ==========\n";
+
+        nhapComputer(ds[i]);
+    }
