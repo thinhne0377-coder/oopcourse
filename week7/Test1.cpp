@@ -163,3 +163,20 @@ cout << "\n\n******** DANH SACH COMPUTER ********\n";
     {
         ds[i].print();
     }
+// 1. TIM COMPUTER THEO ID
+int id;
+
+    cout << "\nNhap ID can tim: ";
+    cin >> id;
+
+    Computer* c = getComputerById(ds, n, id);
+
+    if (c != nullptr)
+    {
+        cout << "\nTim thay Computer:\n";
+        c->print();
+    }
+    else
+    {
+        cout << "Khong tim thay!" << endl;
+    }
