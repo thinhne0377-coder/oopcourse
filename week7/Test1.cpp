@@ -1,25 +1,21 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
-#include <vector>
-#include <utility>
 
 using namespace std;
 
-// =====================================================
+// =====================================
 // STRUCT USER
-// =====================================================
-struct User
-{
+// =====================================
+struct User {
     string username;
     string pwd;
 };
 
-// =====================================================
+// =====================================
 // STRUCT COMPUTER
-// =====================================================
-struct Computer
-{
+// =====================================
+struct Computer {
     string id;
     string name;
     string os;
@@ -28,346 +24,270 @@ struct Computer
     int year;
 };
 
-// =====================================================
+// =====================================
 // STRUCT LAB
-// =====================================================
-struct Lab
-{
+// =====================================
+struct Lab {
     string roomCode;
     string function;
 };
 
-// =====================================================
-// 1. NHAP THONG TIN LAB VA COMPUTER
-// =====================================================
+// =====================================
+// NHAP THONG TIN LAB VA COMPUTER
+// =====================================
 void inputLabAndComputers(Lab &lab, Computer computers[], int &n)
 {
-    cout << "========================================\n";
-    cout << "          INPUT LAB INFORMATION\n";
-    cout << "========================================\n";
+    cout << "=== INPUT LAB INFO ===\n";
 
     cout << "Enter Room Code: ";
-    getline(cin >> ws, lab.roomCode);
+    getline(cin, lab.roomCode);
 
     cout << "Enter Lab Function: ";
-    getline(cin >> ws, lab.function);
+    getline(cin, lab.function);
 
-    // Nhap so luong Computer
-    do
-    {
+    // Nhap so luong may tinh
+    do {
         cout << "\nEnter number of computers (1 <= N <= 20): ";
         cin >> n;
 
-        if (n < 1 || n > 20)
-        {
+        if (n < 1 || n > 20) {
             cout << "Invalid number! Please enter from 1 to 20.\n";
         }
 
     } while (n < 1 || n > 20);
 
-    // Nhap thong tin Computer
+    cin.ignore();
+
+    // Nhap thong tin computer
     for (int i = 0; i < n; i++)
     {
-        cout << "\n========================================\n";
-        cout << " Enter information for Computer "
-             << i + 1 << "\n";
-        cout << "========================================\n";
+        cout << "\n--- Enter info for Computer "
+             << i + 1 << " ---\n";
 
         cout << "ID: ";
-        getline(cin >> ws, computers[i].id);
+        getline(cin, computers[i].id);
 
         cout << "Name: ";
-        getline(cin >> ws, computers[i].name);
+        getline(cin, computers[i].name);
 
         cout << "OS: ";
-        getline(cin >> ws, computers[i].os);
+        getline(cin, computers[i].os);
 
         cout << "Username: ";
-        getline(cin >> ws, computers[i].user.username);
+        getline(cin, computers[i].user.username);
 
         cout << "Password: ";
-        getline(cin >> ws, computers[i].user.pwd);
+        getline(cin, computers[i].user.pwd);
 
         cout << "Model: ";
-        getline(cin >> ws, computers[i].model);
+        getline(cin, computers[i].model);
 
         cout << "Year: ";
         cin >> computers[i].year;
+
+        cin.ignore();
     }
 }
 
-// =====================================================
+// =====================================
 // HIEN THI THONG TIN LAB
-// =====================================================
+// =====================================
 void showLabInfo(const Lab &lab)
 {
-    cout << "\n========================================\n";
-    cout << "             LAB INFORMATION\n";
-    cout << "========================================\n";
+    cout << "\n=== LAB INFORMATION ===\n";
 
-    cout << "Room Code : " << lab.roomCode << endl;
-    cout << "Function  : " << lab.function << endl;
+    cout << "Room Code: " << lab.roomCode << endl;
+    cout << "Function : " << lab.function << endl;
 }
 
-// =====================================================
-// HAM HIEN THI 1 COMPUTER
-// =====================================================
-void printComputer(const Computer &c)
-{
-    cout << "\n----------------------------------------\n";
-    cout << "ID       : " << c.id << endl;
-    cout << "Name     : " << c.name << endl;
-    cout << "OS       : " << c.os << endl;
-    cout << "Username : " << c.user.username << endl;
-    cout << "Password : " << c.user.pwd << endl;
-    cout << "Model    : " << c.model << endl;
-    cout << "Year     : " << c.year << endl;
-    cout << "----------------------------------------\n";
-}
-
-// =====================================================
-// 2. Computer getComputerById(id)
-//
-// Tim Computer theo ID
-//
-// Neu tim thay:
-//      return computer
-//
-// Neu khong tim thay:
-//      return Computer rong
-// =====================================================
-Computer getComputerById(
-    Computer computers[],
+// =====================================
+// 1) void getComputerInfo(id)
+// Tim va in thong tin Computer theo ID
+// =====================================
+void getComputerInfo(
+    const Computer computers[],
     int n,
-    string id)
+    string targetId)
+{
+    bool found = false;
+
+    for (int i = 0; i < n; i++)
+    {
+        if (computers[i].id == targetId)
+        {
+            cout << "\n=== COMPUTER INFORMATION ===\n";
+
+            cout << "ID       : " << computers[i].id << endl;
+            cout << "Name     : " << computers[i].name << endl;
+            cout << "OS       : " << computers[i].os << endl;
+            cout << "Username : " << computers[i].user.username << endl;
+            cout << "Password : " << computers[i].user.pwd << endl;
+            cout << "Model    : " << computers[i].model << endl;
+            cout << "Year     : " << computers[i].year << endl;
+
+            found = true;
+            break;
+        }
+    }
+
+    if (!found)
+    {
+        cout << "\nComputer with ID '"
+             << targetId
+             << "' not found.\n";
+    }
+}
+
+// =====================================
+// 2) Computer getComputerById(id)
+// Tim va TRA VE doi tuong Computer
+// =====================================
+Computer getComputerById(
+    const Computer computers[],
+    int n,
+    string targetId)
 {
     for (int i = 0; i < n; i++)
     {
-        if (computers[i].id == id)
+        if (computers[i].id == targetId)
         {
             return computers[i];
         }
     }
 
     // Khong tim thay
-    Computer emptyComputer;
-    emptyComputer.id = "";
-
-    return emptyComputer;
+    return Computer{
+        "",
+        "N/A",
+        "N/A",
+        {"N/A", "N/A"},
+        "N/A",
+        0
+    };
 }
 
-// =====================================================
-// 1. void getComputerInfo(id)
-//
-// Tim Computer theo ID va IN thong tin
-// =====================================================
-void getComputerInfo(
-    Computer computers[],
-    int n,
-    string id)
+// =====================================
+// 3) Computer[] getComputers()
+// Tra ve con tro den mang Computer
+// =====================================
+const Computer* getComputers(
+    const Computer computers[])
 {
-    Computer c = getComputerById(computers, n, id);
-
-    if (c.id == "")
-    {
-        cout << "\nComputer with ID = " << id
-             << " not found!\n";
-        return;
-    }
-
-    cout << "\n========================================\n";
-    cout << "          COMPUTER INFORMATION\n";
-    cout << "========================================\n";
-
-    printComputer(c);
+    return computers;
 }
 
-// =====================================================
-// 3. Computer[] getComputers(x)
-//
-// Trong C++ khong the viet:
-// Computer[] getComputers()
-//
-// Ta dung vector<Computer> de thay cho Computer[]
-//
-// O day x la YEAR.
-// Lay tat ca Computer co year == x.
-// =====================================================
-vector<Computer> getComputers(
-    Computer computers[],
+// =====================================
+// 4) getUserAndPwd(id)
+// Lay User gom username + password
+// thong qua ID Computer
+// =====================================
+User getUserAndPassword(
+    const Computer computers[],
     int n,
-    int x)
+    string targetId)
 {
-    vector<Computer> result;
-
     for (int i = 0; i < n; i++)
     {
-        if (computers[i].year == x)
+        if (computers[i].id == targetId)
         {
-            result.push_back(computers[i]);
+            return computers[i].user;
         }
     }
 
-    return result;
+    // Khong tim thay
+    return User{"N/A", "N/A"};
 }
 
-// =====================================================
-// 4. getOsAndPwd(id)
-//
-// Lay OS va Password cua Computer theo ID
-//
-// pair<string, string>
-// first  = OS
-// second = Password
-// =====================================================
-pair<string, string> getOsAndPwd(
-    Computer computers[],
-    int n,
-    string id)
-{
-    Computer c = getComputerById(computers, n, id);
-
-    if (c.id == "")
-    {
-        return make_pair("", "");
-    }
-
-    return make_pair(c.os, c.user.pwd);
-}
-
-// =====================================================
-// HIEN THI DANH SACH COMPUTER
-// =====================================================
-void showAllComputers(
-    Computer computers[],
-    int n)
-{
-    cout << "\n========================================\n";
-    cout << "             COMPUTER LIST\n";
-    cout << "========================================\n";
-
-    for (int i = 0; i < n; i++)
-    {
-        cout << "\nComputer " << i + 1 << ":";
-        printComputer(computers[i]);
-    }
-}
-
-// =====================================================
+// =====================================
 // MAIN
-// =====================================================
+// =====================================
 int main()
 {
     Lab lab;
+
     Computer computers[20];
+
     int n = 0;
 
-    // -------------------------------------------------
+    // =================================
     // NHAP DU LIEU
-    // -------------------------------------------------
+    // =================================
     inputLabAndComputers(lab, computers, n);
 
-    // -------------------------------------------------
-    // HIEN THI THONG TIN LAB
-    // -------------------------------------------------
+    // =================================
+    // HIEN THI LAB
+    // =================================
     showLabInfo(lab);
 
-    // -------------------------------------------------
-    // HIEN THI TAT CA COMPUTER
-    // -------------------------------------------------
-    showAllComputers(computers, n);
-
-    // =================================================
-    // TEST FUNCTION 1
-    // void getComputerInfo(id)
-    // =================================================
+    // =================================
+    // 1) getComputerInfo(id)
+    // =================================
     string searchId;
 
-    cout << "\n========================================\n";
-    cout << "        1. GET COMPUTER INFO\n";
-    cout << "========================================\n";
+    cout << "\nEnter Computer ID to print info: ";
+    getline(cin, searchId);
 
-    cout << "Enter Computer ID: ";
-    getline(cin >> ws, searchId);
-
-    getComputerInfo(computers, n, searchId);
-
-    // =================================================
-    // TEST FUNCTION 2
-    // Computer getComputerById(id)
-    // =================================================
-    cout << "\n========================================\n";
-    cout << "        2. GET COMPUTER BY ID\n";
-    cout << "========================================\n";
-
-    Computer c = getComputerById(
+    getComputerInfo(
         computers,
         n,
         searchId
     );
 
-    if (c.id == "")
+    // =================================
+    // 2) getComputerById(id)
+    // =================================
+    cout << "\nEnter Computer ID to return Computer object: ";
+    getline(cin, searchId);
+
+    Computer comp =
+        getComputerById(
+            computers,
+            n,
+            searchId
+        );
+
+    cout << "\n=== RETURNED COMPUTER OBJECT ===\n";
+
+    cout << "ID    : " << comp.id << endl;
+    cout << "Name  : " << comp.name << endl;
+    cout << "OS    : " << comp.os << endl;
+    cout << "Model : " << comp.model << endl;
+    cout << "Year  : " << comp.year << endl;
+
+    // =================================
+    // 3) getComputers()
+    // =================================
+    cout << "\n=== ALL COMPUTERS ===\n";
+
+    const Computer* list =
+        getComputers(computers);
+
+    for (int i = 0; i < n; i++)
     {
-        cout << "Computer not found!\n";
-    }
-    else
-    {
-        cout << "Computer found:\n";
-        printComputer(c);
-    }
-
-    // =================================================
-    // TEST FUNCTION 3
-    // Computer[] getComputers(x)
-    // =================================================
-    int year;
-
-    cout << "\n========================================\n";
-    cout << "        3. GET COMPUTERS BY YEAR\n";
-    cout << "========================================\n";
-
-    cout << "Enter year: ";
-    cin >> year;
-
-    vector<Computer> result =
-        getComputers(computers, n, year);
-
-    if (result.empty())
-    {
-        cout << "No computer found in year "
-             << year << ".\n";
-    }
-    else
-    {
-        cout << "\nComputers in year "
-             << year << ":\n";
-
-        for (int i = 0; i < result.size(); i++)
-        {
-            printComputer(result[i]);
-        }
+        cout << i + 1
+             << ". ID: " << list[i].id
+             << " | Name: " << list[i].name
+             << " | OS: " << list[i].os
+             << endl;
     }
 
-    // =================================================
-    // TEST FUNCTION 4
-    // getOsAndPwd(id)
-    // =================================================
-    cout << "\n========================================\n";
-    cout << "        4. GET OS AND PASSWORD\n";
-    cout << "========================================\n";
+    // =================================
+    // 4) getUserAndPassword(id)
+    // =================================
+    cout << "\nEnter Computer ID to get Username & Password: ";
+    getline(cin, searchId);
 
-    pair<string, string> info =
-        getOsAndPwd(computers, n, searchId);
+    User u =
+        getUserAndPassword(
+            computers,
+            n,
+            searchId
+        );
 
-    if (info.first == "" && info.second == "")
-    {
-        cout << "Computer not found!\n";
-    }
-    else
-    {
-        cout << "OS       : " << info.first << endl;
-        cout << "Password : " << info.second << endl;
-    }
+    cout << "\n=== USER INFORMATION ===\n";
+
+    cout << "Username : " << u.username << endl;
+    cout << "Password : " << u.pwd << endl;
 
     return 0;
 }
