@@ -30,3 +30,31 @@ struct Computer
         cout << "==============================" << endl;
     }
 };
+// ==================================================
+// FUNCTION NHAP 1 COMPUTER
+// ==================================================
+
+void nhapComputer(Computer &c)
+{
+    cout << "Nhap ID: ";
+    cin >> c.id;
+    cin.ignore();
+
+    cout << "Nhap ten may: ";
+    getline(cin, c.tenMay);
+
+    cout << "Nhap HDH: ";
+    getline(cin, c.hdh);
+
+    cout << "Nhap username: ";
+    getline(cin, c.username);
+
+    cout << "Nhap password: ";
+    getline(cin, c.pwd);
+
+    cout << "Nhap model: ";
+    getline(cin, c.model);
+
+    cout << "Nhap year: ";
+    cin >> c.year;
+}
