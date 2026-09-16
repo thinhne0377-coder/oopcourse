@@ -180,3 +180,22 @@ int id;
     {
         cout << "Khong tim thay!" << endl;
     }
+// 2. TIM COMPUTER THEO TEN
+ string tenMay;
+
+    cin.ignore();
+
+    cout << "\nNhap ten may can tim: ";
+    getline(cin, tenMay);
+
+    c = getComputerByName(ds, n, tenMay);
+
+    if (c != nullptr)
+    {
+        cout << "\nTim thay Computer:\n";
+        c->print();
+    }
+    else
+    {
+        cout << "Khong tim thay!" << endl;
+    }
