@@ -82,3 +82,22 @@ Computer* getComputerByName(Computer ds[], int n, string tenMay)
 
     return nullptr;
 }
+// 3. GET COMPUTERS
+void getComputers(Computer ds[], int n, int x)
+{
+    bool found = false;
+
+    for (int i = 0; i < n; i++)
+    {
+        if (ds[i].year >= x)
+        {
+            ds[i].print();
+            found = true;
+        }
+    }
+
+    if (!found)
+    {
+        cout << "Khong tim thay computer!" << endl;
+    }
+}
