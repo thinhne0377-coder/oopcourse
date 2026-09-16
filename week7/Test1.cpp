@@ -101,3 +101,19 @@ void getComputers(Computer ds[], int n, int x)
         cout << "Khong tim thay computer!" << endl;
     }
 }
+// 4. GET USERNAME AND PASSWORD BY ID
+void getUsernameAndPwd(Computer ds[], int n, int id)
+{
+    Computer* c = getComputerById(ds, n, id);
+
+    if (c != nullptr)
+    {
+        cout << "Username: " << c->username << endl;
+        cout << "Password: " << c->pwd << endl;
+    }
+    else
+    {
+        cout << "Khong tim thay Computer co ID = "
+             << id << endl;
+    }
+}
