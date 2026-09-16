@@ -1,10 +1,12 @@
 #include <iostream>
 #include <string>
+
 using namespace std;
 
-// ===============================
+// ==================================================
 // KHAI BAO STRUCT COMPUTER
-// ===============================
+// ==================================================
+
 struct Computer
 {
     int id;
@@ -14,4 +16,3 @@ struct Computer
     string pwd;
     string model;
     int year;
-};
