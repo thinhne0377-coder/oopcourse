@@ -216,3 +216,11 @@ cout << "\nNhap ID de lay Username va Password: ";
     cout << "\n===== USERNAME & PASSWORD =====\n";
 
     getUsernameAndPwd(ds, n, id);
+    // LAB
+    Lab lab("AS-104");
+
+    lab.showLabInfo();
+
+
+    return 0;
+}
