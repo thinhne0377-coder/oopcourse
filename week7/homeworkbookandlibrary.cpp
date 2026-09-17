@@ -133,7 +133,7 @@ int main(){
 
     // Find the library
     cout << "=================================" << endl;
-    cout << "========WELCOME TO HCMUTE========" << endl;
+    cout << "========Welcome to the library========" << endl;
     cout << "=================================" << endl;
     if (oopLibrary.inputLibrary()){
         oopLibrary.outputLibrary();
