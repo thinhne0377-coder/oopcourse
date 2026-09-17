@@ -41,23 +41,29 @@ struct Library{
 
     Book bookList[MAX];
 
-    void inputLibrary(){
+    bool inputLibrary(){
         cout << "*************************" << endl;
         cout << "Enter the id of the library: ";
         cin >> idLibrary;
-        
+
         cin.ignore();
 
         cout << "Enter the name of the library: ";
         getline (cin, nameLibrary);
+
+        if (!checkLibrary(idLibrary, nameLibrary)){
+            cout << "Sorry we don't have this library" << endl;
+            return false;
+        }
 
         cout << "Enter the number of the book: ";
         cin >> bookNumber;
 
         for (int i= 0; i < bookNumber; i++){
             bookList[i].inputInfo();
-        }
+            }
         cout << "*************************" << endl;
+        return true;
     }
 
     void outputLibrary(){
@@ -68,20 +74,10 @@ struct Library{
         for (int i = 0; i < bookNumber; i++){
             bookList[i].outputInfo();
         }
-        cout << "<<<<<<<<<<<<<<<<<<<<<<<<<" << endl;
     }
 
-    bool checkLibrary (){
-        if (idLibrary == 123 && nameLibrary == "A5-103"){
-            cout << "======================" << endl;
-            cout << "Welcome to the library" << endl;
-            cout << "======================" << endl;
-            return true;
-        }
-        else {
-            cout << "Sorry we don't have this library" << endl;
-            return false;
-        }
+    bool checkLibrary (int id, string name){
+        return(id == 123 && name == "A5-103");
     }
 
     void addBook (Book s){
@@ -110,7 +106,7 @@ struct Library{
         }
     }
 
-    // Get the book info with the ID and return the whole struct
+    // Show the book info with the ID and return the whole struct
     Book showBookInfo (int idSearch){
         for (int i = 0; i < bookNumber; i++){
             if (bookList[i].idBook == idSearch){
@@ -125,15 +121,37 @@ struct Library{
         }
         Book emptyBook;
         emptyBook.idBook = -1;
-        emptyBook.nameBook == "N/A" ;
-        emptyBook.author == "N/A";
+        emptyBook.nameBook = "N/A" ;
+        emptyBook.author = "N/A";
         return emptyBook;
     }
 };
 
 
 int main(){
-    cout << "Hello World" << endl;
+    Library oopLibrary;
+
+    // Find the library
+    cout << "=================================" << endl;
+    cout << "========WELCOME TO HCMUTE========" << endl;
+    cout << "=================================" << endl;
+    if (oopLibrary.inputLibrary()){
+        oopLibrary.outputLibrary();
+    }
+
+    // Get the book info directly when searching for ID
+    int idSearch;
+    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+    cout << "Enter the ID u wanna search (void): ";
+    cin >> idSearch;
+
+    oopLibrary.getBookInfo(idSearch);
+
+    // Show the book info directly when searching for ID
+    cout << "Enter the ID u wanna search (Struct): ";
+    cin >> idSearch;
     
     return 0;
 }
+
+
