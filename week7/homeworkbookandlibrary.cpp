@@ -41,6 +41,10 @@ struct Library{
 
     Book bookList[MAX];
 
+    bool checkLibrary (int id, string name){
+        return(id == 123 && name == "A5-103");
+    }
+
     bool inputLibrary(){
         cout << "*************************" << endl;
         cout << "Enter the id of the library: ";
@@ -76,10 +80,6 @@ struct Library{
         }
     }
 
-    bool checkLibrary (int id, string name){
-        return(id == 123 && name == "A5-103");
-    }
-
     void addBook (Book s){
         if (bookNumber < MAX){
             bookList[bookNumber] = s;
@@ -100,10 +100,8 @@ struct Library{
                 bookList[i].outputInfo();
                 return;
             }
-            else {
-                cout << "Sorry there is no ID: " << idSearch << " match with the book" << endl;
-            }
         }
+        cout << "Sorry there is no ID: " << idSearch << " match with the book" << endl;
     }
 
     // Show the book info with the ID and return the whole struct
@@ -150,8 +148,16 @@ int main(){
     // Show the book info directly when searching for ID
     cout << "Enter the ID u wanna search (Struct): ";
     cin >> idSearch;
-    
+
+    Book s = oopLibrary.showBookInfo(idSearch);
+    if (s.idBook != -1){
+        cout << " --> Found the ID  :" << s.idBook << endl;
+        cout << "   | Name          :" << s.nameBook << endl;
+        cout << "   | Author        :" << s.author << endl;
+    }
+    else{
+        cout << " --> The ID: " << idSearch << " does not exist" << endl;
+    }
     return 0;
 }
-
 
