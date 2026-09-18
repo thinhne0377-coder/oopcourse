@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-// Function swap hai giá trị sử dụng reference
+// Function swap hai gia tri bang Reference
 void swapValues(int& x, int& y)
 {
     int temp = x;
@@ -11,17 +11,17 @@ void swapValues(int& x, int& y)
 
 int main()
 {
-    // Khai báo hai biến
+    // Khai bao hai bien
     int a = 5;
     int b = 10;
 
-    // Hiển thị trước khi swap
+    // Hien thi truoc khi swap
     cout << "Before: a = " << a << ", b = " << b << endl;
 
-    // Gọi function swap
+    // Goi ham swap
     swapValues(a, b);
 
-    // Hiển thị sau khi swap
+    // Hien thi sau khi swap
     cout << "After: a = " << a << ", b = " << b << endl;
 
     return 0;
