@@ -201,3 +201,18 @@ void updateFood(Restaurant &r) {
 
     cout << "\nKhong tim thay mon an!\n";
 }
+// =====================================================
+// 7. TIM MON AN + KIEM TRA SO LUONG
+// =====================================================
+
+int findFood(const Restaurant &r, string foodID) {
+
+    for (int i = 0; i < r.foodCount; i++) {
+
+        if (r.foods[i].id == foodID) {
+            return i;
+        }
+    }
+
+    return -1;
+}
