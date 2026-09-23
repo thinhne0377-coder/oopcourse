@@ -216,3 +216,75 @@ int findFood(const Restaurant &r, string foodID) {
 
     return -1;
 }
+// =====================================================
+// 8. TAO DON HANG MOI
+// =====================================================
+
+void createOrder(Restaurant &r) {
+
+    if (r.orderCount >= 100) {
+        cout << "\nDanh sach don hang da day!\n";
+        return;
+    }
+
+    string foodID;
+    int quantity;
+
+    cin.ignore();
+
+    cout << "\n================ TAO DON HANG ================\n";
+
+    Order &o = r.orders[r.orderCount];
+
+    cout << "Ma don hang: ";
+    getline(cin, o.id);
+
+    cout << "Ten khach hang: ";
+    getline(cin, o.customerName);
+
+    cout << "Dia chi giao hang: ";
+    getline(cin, o.address);
+
+    cout << "Nhap ma mon an: ";
+    getline(cin, foodID);
+
+    // Tim mon an
+    int index = findFood(r, foodID);
+
+    if (index == -1) {
+        cout << "\nKhong tim thay mon an!\n";
+        return;
+    }
+
+    cout << "Nhap so luong: ";
+    cin >> quantity;
+
+    // Kiem tra so luong
+    if (quantity <= 0) {
+        cout << "\nSo luong khong hop le!\n";
+        return;
+    }
+
+    if (quantity > r.foods[index].quantity) {
+        cout << "\nKhong du so luong mon an!\n";
+        cout << "So luong hien co: "
+             << r.foods[index].quantity << endl;
+        return;
+    }
+
+    // Luu thong tin mon an vao Order
+    o.food = r.foods[index];
+
+    // Luu so luong dat
+    o.quantity = quantity;
+
+    // Trang thai mac dinh
+    o.status = "Cho xu ly";
+
+    // Tru so luong mon an
+    r.foods[index].quantity -= quantity;
+
+    r.orderCount++;
+
+    cout << "\nTao don hang thanh cong!\n";
+}
