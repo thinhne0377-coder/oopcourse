@@ -436,3 +436,25 @@ void updateOrderStatus(Restaurant &r) {
 
     cout << "\nKhong tim thay don hang!\n";
 }
+// =====================================================
+// 13. THONG KE TONG DOANH THU
+// =====================================================
+
+void calculateRevenue(const Restaurant &r) {
+
+    double total = 0;
+
+    for (int i = 0; i < r.orderCount; i++) {
+
+        if (r.orders[i].status == "Da hoan thanh") {
+
+            total += calculateOrderTotal(r.orders[i]);
+        }
+    }
+
+    cout << "\n============================================\n";
+    cout << "TONG DOANH THU CAC DON DA HOAN THANH: "
+         << fixed << setprecision(2)
+         << total << endl;
+    cout << "============================================\n";
+}
