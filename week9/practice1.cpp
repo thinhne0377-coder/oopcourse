@@ -161,3 +161,43 @@ void searchFood(const Restaurant &r) {
         cout << "\nKhong tim thay mon an!\n";
     }
 }
+// =====================================================
+// 6. CAP NHAT GIA HOAC SO LUONG MON AN
+// =====================================================
+
+void updateFood(Restaurant &r) {
+    if (r.foodCount == 0) {
+        cout << "\nChua co mon an nao!\n";
+        return;
+    }
+
+    string id;
+
+    cin.ignore();
+
+    cout << "\n===== CAP NHAT MON AN =====\n";
+    cout << "Nhap ma mon can cap nhat: ";
+    getline(cin, id);
+
+    for (int i = 0; i < r.foodCount; i++) {
+
+        if (r.foods[i].id == id) {
+
+            cout << "\nMon an hien tai:\n";
+            cout << "Ten: " << r.foods[i].name << endl;
+            cout << "Gia: " << r.foods[i].price << endl;
+            cout << "So luong: " << r.foods[i].quantity << endl;
+
+            cout << "\nNhap gia moi: ";
+            cin >> r.foods[i].price;
+
+            cout << "Nhap so luong moi: ";
+            cin >> r.foods[i].quantity;
+
+            cout << "\nCap nhat thanh cong!\n";
+            return;
+        }
+    }
+
+    cout << "\nKhong tim thay mon an!\n";
+}
