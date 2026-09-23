@@ -35,3 +35,26 @@ struct Restaurant {
     Order orders[100];  // Danh sach don hang
     int orderCount;
 };
+// =====================================================
+// 2. NHAP THONG TIN CUA HANG
+// =====================================================
+
+void inputRestaurant(Restaurant &r) {
+    cin.ignore();
+
+    cout << "\n===== NHAP THONG TIN CUA HANG =====\n";
+
+    cout << "Ten cua hang: ";
+    getline(cin, r.name);
+
+    cout << "Dia chi: ";
+    getline(cin, r.address);
+
+    cout << "So dien thoai: ";
+    getline(cin, r.phone);
+
+    r.foodCount = 0;
+    r.orderCount = 0;
+
+    cout << "\nNhap thong tin cua hang thanh cong!\n";
+}
