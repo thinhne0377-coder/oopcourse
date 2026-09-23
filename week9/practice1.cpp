@@ -501,3 +501,134 @@ void menu() {
     cout << "====================================================\n";
     cout << "Nhap lua chon: ";
 }
+// =====================================================
+// MAIN
+// =====================================================
+
+int main() {
+
+    Restaurant restaurant;
+
+    restaurant.foodCount = 0;
+    restaurant.orderCount = 0;
+
+    int choice;
+
+    do {
+
+        menu();
+        cin >> choice;
+
+        switch (choice) {
+
+        case 1:
+            inputRestaurant(restaurant);
+            break;
+
+        case 2:
+            addFood(restaurant);
+            break;
+
+        case 3:
+            displayFoods(restaurant);
+            break;
+
+        case 4:
+            searchFood(restaurant);
+            break;
+
+        case 5:
+            updateFood(restaurant);
+            break;
+
+        case 6:
+            createOrder(restaurant);
+            break;
+
+        case 7:
+        {
+            string foodID;
+
+            cin.ignore();
+
+            cout << "\nNhap ma mon can kiem tra: ";
+            getline(cin, foodID);
+
+            int index = findFood(restaurant, foodID);
+
+            if (index == -1) {
+                cout << "Khong tim thay mon an!\n";
+            }
+            else {
+                cout << "Mon an ton tai!\n";
+                cout << "Ten mon: "
+                     << restaurant.foods[index].name << endl;
+                cout << "So luong con lai: "
+                     << restaurant.foods[index].quantity << endl;
+            }
+
+            break;
+        }
+
+        case 8:
+        {
+            string orderID;
+
+            cin.ignore();
+
+            cout << "\nNhap ma don hang: ";
+            getline(cin, orderID);
+
+            bool found = false;
+
+            for (int i = 0; i < restaurant.orderCount; i++) {
+
+                if (restaurant.orders[i].id == orderID) {
+
+                    double total =
+                        calculateOrderTotal(restaurant.orders[i]);
+
+                    cout << "\nTong tien don hang: "
+                         << fixed << setprecision(2)
+                         << total << endl;
+
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                cout << "\nKhong tim thay don hang!\n";
+            }
+
+            break;
+        }
+
+        case 9:
+            displayOrders(restaurant);
+            break;
+
+        case 10:
+            searchOrder(restaurant);
+            break;
+
+        case 11:
+            updateOrderStatus(restaurant);
+            break;
+
+        case 12:
+            calculateRevenue(restaurant);
+            break;
+
+        case 0:
+            cout << "\nCam on ban da su dung chuong trinh!\n";
+            break;
+
+        default:
+            cout << "\nLua chon khong hop le!\n";
+        }
+
+    } while (choice != 0);
+
+    return 0;
+}
