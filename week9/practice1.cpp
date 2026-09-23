@@ -90,3 +90,34 @@ void addFood(Restaurant &r) {
 
     cout << "\nThem mon an thanh cong!\n";
 }
+// =====================================================
+// 4. HIEN THI DANH SACH MON AN
+// =====================================================
+
+void displayFoods(const Restaurant &r) {
+    if (r.foodCount == 0) {
+        cout << "\nChua co mon an nao!\n";
+        return;
+    }
+
+    cout << "\n================ DANH SACH MON AN ================\n";
+
+    cout << left
+         << setw(10) << "Ma mon"
+         << setw(25) << "Ten mon"
+         << setw(15) << "Don gia"
+         << setw(15) << "So luong"
+         << endl;
+
+    cout << string(65, '-') << endl;
+
+    for (int i = 0; i < r.foodCount; i++) {
+        cout << left
+             << setw(10) << r.foods[i].id
+             << setw(25) << r.foods[i].name
+             << setw(15) << fixed << setprecision(2)
+             << r.foods[i].price
+             << setw(15) << r.foods[i].quantity
+             << endl;
+    }
+}
