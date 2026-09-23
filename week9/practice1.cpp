@@ -458,3 +458,18 @@ void calculateRevenue(const Restaurant &r) {
          << total << endl;
     cout << "============================================\n";
 }
+// =====================================================
+// 14. HIEN THI THONG TIN CUA HANG
+// =====================================================
+
+void displayRestaurant(const Restaurant &r) {
+
+    cout << "\n=============== THONG TIN CUA HANG ===============\n";
+
+    cout << "Ten cua hang: " << r.name << endl;
+    cout << "Dia chi: " << r.address << endl;
+    cout << "So dien thoai: " << r.phone << endl;
+
+    cout << "So mon an: " << r.foodCount << endl;
+    cout << "So don hang: " << r.orderCount << endl;
+}
