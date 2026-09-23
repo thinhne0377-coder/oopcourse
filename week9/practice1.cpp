@@ -288,3 +288,11 @@ void createOrder(Restaurant &r) {
 
     cout << "\nTao don hang thanh cong!\n";
 }
+// =====================================================
+// 9. TINH TONG TIEN CUA DON HANG
+// =====================================================
+
+double calculateOrderTotal(const Order &o) {
+
+    return o.food.price * o.quantity;
+}
