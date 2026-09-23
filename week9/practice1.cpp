@@ -473,3 +473,31 @@ void displayRestaurant(const Restaurant &r) {
     cout << "So mon an: " << r.foodCount << endl;
     cout << "So don hang: " << r.orderCount << endl;
 }
+// =====================================================
+// MENU
+// =====================================================
+
+void menu() {
+
+    cout << "\n\n";
+    cout << "====================================================\n";
+    cout << "        QUAN LY CUA HANG GIAO DO AN\n";
+    cout << "====================================================\n";
+
+    cout << "1.  Nhap thong tin cua hang\n";
+    cout << "2.  Them mon an moi\n";
+    cout << "3.  Hien thi danh sach mon an\n";
+    cout << "4.  Tim mon an theo ma hoac ten\n";
+    cout << "5.  Cap nhat gia hoac so luong mon an\n";
+    cout << "6.  Tao don hang moi\n";
+    cout << "7.  Kiem tra mon an ton tai va du so luong\n";
+    cout << "8.  Tinh tong tien cua don hang\n";
+    cout << "9.  Hien thi danh sach cac don hang\n";
+    cout << "10. Tim don hang theo ma\n";
+    cout << "11. Cap nhat trang thai don hang\n";
+    cout << "12. Thong ke tong doanh thu\n";
+    cout << "0.  Thoat\n";
+
+    cout << "====================================================\n";
+    cout << "Nhap lua chon: ";
+}
