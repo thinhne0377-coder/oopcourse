@@ -58,3 +58,35 @@ void inputRestaurant(Restaurant &r) {
 
     cout << "\nNhap thong tin cua hang thanh cong!\n";
 }
+// =====================================================
+// 3. THEM MON AN MOI
+// =====================================================
+
+void addFood(Restaurant &r) {
+    if (r.foodCount >= 100) {
+        cout << "\nDanh sach mon an da day!\n";
+        return;
+    }
+
+    Food &f = r.foods[r.foodCount];
+
+    cin.ignore();
+
+    cout << "\n===== THEM MON AN =====\n";
+
+    cout << "Ma mon: ";
+    getline(cin, f.id);
+
+    cout << "Ten mon: ";
+    getline(cin, f.name);
+
+    cout << "Don gia: ";
+    cin >> f.price;
+
+    cout << "So luong con lai: ";
+    cin >> f.quantity;
+
+    r.foodCount++;
+
+    cout << "\nThem mon an thanh cong!\n";
+}
