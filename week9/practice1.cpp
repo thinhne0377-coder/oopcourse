@@ -395,3 +395,44 @@ void searchOrder(const Restaurant &r) {
 
     cout << "\nKhong tim thay don hang!\n";
 }
+// =====================================================
+// 12. CAP NHAT TRANG THAI DON HANG
+// =====================================================
+
+void updateOrderStatus(Restaurant &r) {
+
+    if (r.orderCount == 0) {
+        cout << "\nChua co don hang nao!\n";
+        return;
+    }
+
+    string id;
+    string status;
+
+    cin.ignore();
+
+    cout << "\n===== CAP NHAT TRANG THAI DON HANG =====\n";
+
+    cout << "Nhap ma don hang: ";
+    getline(cin, id);
+
+    for (int i = 0; i < r.orderCount; i++) {
+
+        if (r.orders[i].id == id) {
+
+            cout << "\nTrang thai hien tai: "
+                 << r.orders[i].status << endl;
+
+            cout << "Nhap trang thai moi: ";
+            getline(cin, status);
+
+            r.orders[i].status = status;
+
+            cout << "\nCap nhat trang thai thanh cong!\n";
+
+            return;
+        }
+    }
+
+    cout << "\nKhong tim thay don hang!\n";
+}
