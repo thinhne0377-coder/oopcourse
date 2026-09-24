@@ -1,634 +1,536 @@
 #include <iostream>
 #include <string>
-#include <iomanip>
+#include <cctype>
 
 using namespace std;
 
 // =====================================================
-// 1. KHAI BAO STRUCT
+// STRUCT FOOD - THONG TIN MON AN
 // =====================================================
-
 struct Food {
-    string id;          // Ma mon
-    string name;        // Ten mon
-    double price;       // Don gia
-    int quantity;       // So luong con lai
+    string id;
+    string name;
+    double price;
+    int quantity;
 };
 
+// =====================================================
+// STRUCT ORDER - THONG TIN DON HANG
+// =====================================================
 struct Order {
-    string id;          // Ma don hang
-    string customerName;// Ten khach hang
-    string address;     // Dia chi giao hang
-    Food food;          // Mon an duoc dat
-    int quantity;       // So luong dat
-    string status;      // Trang thai
+    string id;
+    string customerName;
+    string phone;
+    string address;
+    string foodName;
+    int quantity;
+    string status;
 };
 
-struct Restaurant {
-    string name;        // Ten cua hang
-    string address;     // Dia chi
-    string phone;       // So dien thoai
-
-    Food foods[100];    // Danh sach mon an
-    int foodCount;
-
-    Order orders[100];  // Danh sach don hang
-    int orderCount;
-};
 // =====================================================
-// 2. NHAP THONG TIN CUA HANG
+// CHUYEN CHUOI VE CHU THUONG
 // =====================================================
-
-void inputRestaurant(Restaurant &r) {
-    cin.ignore();
-
-    cout << "\n===== NHAP THONG TIN CUA HANG =====\n";
-
-    cout << "Ten cua hang: ";
-    getline(cin, r.name);
-
-    cout << "Dia chi: ";
-    getline(cin, r.address);
-
-    cout << "So dien thoai: ";
-    getline(cin, r.phone);
-
-    r.foodCount = 0;
-    r.orderCount = 0;
-
-    cout << "\nNhap thong tin cua hang thanh cong!\n";
-}
-// =====================================================
-// 3. THEM MON AN MOI
-// =====================================================
-
-void addFood(Restaurant &r) {
-    if (r.foodCount >= 100) {
-        cout << "\nDanh sach mon an da day!\n";
-        return;
+string toLower(string s) {
+    for (int i = 0; i < (int)s.length(); i++) {
+        s[i] = tolower((unsigned char)s[i]);
     }
 
-    Food &f = r.foods[r.foodCount];
-
-    cin.ignore();
-
-    cout << "\n===== THEM MON AN =====\n";
-
-    cout << "Ma mon: ";
-    getline(cin, f.id);
-
-    cout << "Ten mon: ";
-    getline(cin, f.name);
-
-    cout << "Don gia: ";
-    cin >> f.price;
-
-    cout << "So luong con lai: ";
-    cin >> f.quantity;
-
-    r.foodCount++;
-
-    cout << "\nThem mon an thanh cong!\n";
+    return s;
 }
-// =====================================================
-// 4. HIEN THI DANH SACH MON AN
-// =====================================================
 
-void displayFoods(const Restaurant &r) {
-    if (r.foodCount == 0) {
-        cout << "\nChua co mon an nao!\n";
-        return;
+// =====================================================
+// XOA KHOANG TRANG DAU VA CUOI
+// =====================================================
+string trim(string s) {
+
+    int start = 0;
+    int end = (int)s.length() - 1;
+
+    while (start <= end && s[start] == ' ') {
+        start++;
     }
 
-    cout << "\n================ DANH SACH MON AN ================\n";
+    while (end >= start && s[end] == ' ') {
+        end--;
+    }
 
-    cout << left
-         << setw(10) << "Ma mon"
-         << setw(25) << "Ten mon"
-         << setw(15) << "Don gia"
-         << setw(15) << "So luong"
+    if (start > end) {
+        return "";
+    }
+
+    return s.substr(start, end - start + 1);
+}
+
+// =====================================================
+// CHUAN HOA TEN MON AN
+// - XOA KHOANG TRANG DAU/CUOI
+// - XOA KHOANG TRANG THUA GIUA CAC TU
+// - VIET HOA CHU CAI DAU MOI TU
+// =====================================================
+string normalizeFoodName(string s) {
+
+    s = trim(s);
+
+    string result = "";
+    bool newWord = true;
+
+    for (int i = 0; i < (int)s.length(); i++) {
+
+        if (s[i] == ' ') {
+
+            if (!result.empty() && result[result.length() - 1] != ' ') {
+                result += ' ';
+            }
+
+            newWord = true;
+        }
+        else {
+
+            if (newWord) {
+                result += toupper((unsigned char)s[i]);
+                newWord = false;
+            }
+            else {
+                result += tolower((unsigned char)s[i]);
+            }
+        }
+    }
+
+    // Xoa khoang trang cuoi neu co
+    if (!result.empty() && result[result.length() - 1] == ' ') {
+        result.erase(result.length() - 1);
+    }
+
+    return result;
+}
+
+// =====================================================
+// 1. NHAP VA HIEN THI TEN CUA HANG
+// =====================================================
+void step1() {
+
+    string restaurantName;
+
+    cout << "\n===== BUOC 1: NHAP VA HIEN THI TEN CUA HANG =====\n";
+
+    cout << "Nhap ten cua hang: ";
+    getline(cin, restaurantName);
+
+    cout << "Chao mung den voi ["
+         << restaurantName
+         << "]!"
+         << endl;
+}
+
+// =====================================================
+// 2. CHUAN HOA TEN MON AN
+// =====================================================
+string step2() {
+
+    string foodName;
+
+    cout << "\n===== BUOC 2: CHUAN HOA TEN MON AN =====\n";
+
+    cout << "Nhap ten mon an: ";
+    getline(cin, foodName);
+
+    string result = normalizeFoodName(foodName);
+
+    cout << "Ten mon sau khi chuan hoa: "
+         << result
          << endl;
 
-    cout << string(65, '-') << endl;
-
-    for (int i = 0; i < r.foodCount; i++) {
-        cout << left
-             << setw(10) << r.foods[i].id
-             << setw(25) << r.foods[i].name
-             << setw(15) << fixed << setprecision(2)
-             << r.foods[i].price
-             << setw(15) << r.foods[i].quantity
-             << endl;
-    }
+    return result;
 }
-// =====================================================
-// 5. TIM MON AN THEO MA HOAC TEN
-// =====================================================
 
-void searchFood(const Restaurant &r) {
-    if (r.foodCount == 0) {
-        cout << "\nChua co mon an nao!\n";
-        return;
+// =====================================================
+// 3. TAO MA DON HANG
+// - NHAP TEN KHACH HANG
+// - NHAP SO DIEN THOAI
+// - TAO MA DON HANG
+// =====================================================
+string step3() {
+
+    string customerName;
+    string phone;
+
+    cout << "\n===== BUOC 3: TAO MA DON HANG =====\n";
+
+    cout << "Nhap ten khach hang: ";
+    getline(cin, customerName);
+
+    cout << "Nhap so dien thoai: ";
+    getline(cin, phone);
+
+    customerName = trim(customerName);
+
+    // Lay tu dau tien cua ten khach hang
+    string firstPart = "";
+
+    for (int i = 0; i < (int)customerName.length(); i++) {
+
+        if (customerName[i] != ' ') {
+            firstPart += customerName[i];
+        }
+        else {
+            break;
+        }
     }
 
-    string keyword;
+    // Lay 4 so cuoi cua so dien thoai
+    string phonePart;
 
-    cin.ignore();
+    if (phone.length() >= 4) {
+        phonePart = phone.substr(phone.length() - 4);
+    }
+    else {
+        phonePart = phone;
+    }
 
-    cout << "\n===== TIM MON AN =====\n";
-    cout << "Nhap ma hoac ten mon an: ";
-    getline(cin, keyword);
+    string orderId = "DH_" + firstPart + "_" + phonePart;
+
+    cout << "Ma don hang: "
+         << orderId
+         << endl;
+
+    return orderId;
+}
+
+// =====================================================
+// 4. KIEM TRA MON AN
+// - NHAP TEN MON
+// - KIEM TRA TRONG DANH SACH MON AN
+// =====================================================
+void step4(Food foods[], int foodCount) {
+
+    string foodName;
+
+    cout << "\n===== BUOC 4: KIEM TRA MON AN =====\n";
+
+    cout << "Nhap ten mon an can kiem tra: ";
+    getline(cin, foodName);
+
+    foodName = normalizeFoodName(foodName);
 
     bool found = false;
 
-    for (int i = 0; i < r.foodCount; i++) {
+    for (int i = 0; i < foodCount; i++) {
 
-        if (r.foods[i].id == keyword ||
-            r.foods[i].name == keyword) {
+        if (toLower(foods[i].name) == toLower(foodName)) {
 
-            cout << "\nTim thay mon an:\n";
+            cout << "Mon an co ton tai trong danh sach!\n";
+            cout << "Ma mon: " << foods[i].id << endl;
+            cout << "Ten mon: " << foods[i].name << endl;
+            cout << "Gia: " << foods[i].price << endl;
+            cout << "So luong: " << foods[i].quantity << endl;
 
-            cout << "Ma mon: " << r.foods[i].id << endl;
-            cout << "Ten mon: " << r.foods[i].name << endl;
-            cout << "Don gia: " << r.foods[i].price << endl;
-            cout << "So luong: " << r.foods[i].quantity << endl;
+            found = true;
+            break;
+        }
+    }
+
+    if (!found) {
+        cout << "Mon an khong ton tai trong danh sach!\n";
+    }
+}
+
+// =====================================================
+// 6. THAY DOI TRANG THAI DON HANG
+// =====================================================
+void step6(Order orders[], int orderCount) {
+
+    string orderId;
+    string newStatus;
+
+    cout << "\n===== BUOC 6: THAY DOI TRANG THAI DON HANG =====\n";
+
+    cout << "Nhap ma don hang: ";
+    getline(cin, orderId);
+
+    cout << "Nhap trang thai moi: ";
+    getline(cin, newStatus);
+
+    bool found = false;
+
+    for (int i = 0; i < orderCount; i++) {
+
+        if (toLower(orders[i].id) == toLower(orderId)) {
+
+            orders[i].status = newStatus;
+
+            cout << "Cap nhat trang thai thanh cong!\n";
+            cout << "Ma don hang: "
+                 << orders[i].id
+                 << endl;
+
+            cout << "Trang thai moi: "
+                 << orders[i].status
+                 << endl;
+
+            found = true;
+            break;
+        }
+    }
+
+    if (!found) {
+        cout << "Khong tim thay don hang!\n";
+    }
+}
+
+// =====================================================
+// 7. TIM CAC DON HANG THEO TEN KHACH HANG
+// - KHONG PHAN BIET HOA/THUONG
+// - TIM THEO TU KHOA
+// =====================================================
+void step7(Order orders[], int orderCount) {
+
+    string keyword;
+
+    cout << "\n===== BUOC 7: TIM DON HANG THEO TEN KHACH HANG =====\n";
+
+    cout << "Nhap tu khoa ten khach hang: ";
+    getline(cin, keyword);
+
+    keyword = toLower(keyword);
+
+    bool found = false;
+
+    for (int i = 0; i < orderCount; i++) {
+
+        string customer = toLower(orders[i].customerName);
+
+        if (customer.find(keyword) != string::npos) {
+
+            cout << "\nDon hang tim thay:\n";
+
+            cout << "Ma don hang: "
+                 << orders[i].id
+                 << endl;
+
+            cout << "Ten khach hang: "
+                 << orders[i].customerName
+                 << endl;
+
+            cout << "So dien thoai: "
+                 << orders[i].phone
+                 << endl;
+
+            cout << "Dia chi: "
+                 << orders[i].address
+                 << endl;
+
+            cout << "Mon an: "
+                 << orders[i].foodName
+                 << endl;
+
+            cout << "So luong: "
+                 << orders[i].quantity
+                 << endl;
+
+            cout << "Trang thai: "
+                 << orders[i].status
+                 << endl;
+
+            cout << "-------------------------\n";
 
             found = true;
         }
     }
 
     if (!found) {
-        cout << "\nKhong tim thay mon an!\n";
+        cout << "Khong tim thay don hang nao!\n";
     }
 }
+
 // =====================================================
-// 6. CAP NHAT GIA HOAC SO LUONG MON AN
+// 9. THONG KE MON AN BAN CHAY
+// - NHAP TEN MON
+// - DEM SO LAN MON XUAT HIEN TRONG CAC DON HANG
 // =====================================================
+void step9(Order orders[], int orderCount) {
 
-void updateFood(Restaurant &r) {
-    if (r.foodCount == 0) {
-        cout << "\nChua co mon an nao!\n";
-        return;
-    }
+    string foodName;
 
-    string id;
+    cout << "\n===== BUOC 9: THONG KE MON AN BAN CHAY =====\n";
 
-    cin.ignore();
+    cout << "Nhap ten mon an: ";
+    getline(cin, foodName);
 
-    cout << "\n===== CAP NHAT MON AN =====\n";
-    cout << "Nhap ma mon can cap nhat: ";
-    getline(cin, id);
+    foodName = normalizeFoodName(foodName);
 
-    for (int i = 0; i < r.foodCount; i++) {
+    int count = 0;
 
-        if (r.foods[i].id == id) {
+    for (int i = 0; i < orderCount; i++) {
 
-            cout << "\nMon an hien tai:\n";
-            cout << "Ten: " << r.foods[i].name << endl;
-            cout << "Gia: " << r.foods[i].price << endl;
-            cout << "So luong: " << r.foods[i].quantity << endl;
+        if (toLower(orders[i].foodName) ==
+            toLower(foodName)) {
 
-            cout << "\nNhap gia moi: ";
-            cin >> r.foods[i].price;
-
-            cout << "Nhap so luong moi: ";
-            cin >> r.foods[i].quantity;
-
-            cout << "\nCap nhat thanh cong!\n";
-            return;
+            count += orders[i].quantity;
         }
     }
 
-    cout << "\nKhong tim thay mon an!\n";
+    cout << "Mon an: "
+         << foodName
+         << endl;
+
+    cout << "So luong da ban: "
+         << count
+         << endl;
 }
+
 // =====================================================
-// 7. TIM MON AN + KIEM TRA SO LUONG
+// 10. TAO THONG BAO GIAO HANG
 // =====================================================
+void step10() {
 
-int findFood(const Restaurant &r, string foodID) {
+    string customerName;
+    string orderId;
+    string address;
 
-    for (int i = 0; i < r.foodCount; i++) {
+    cout << "\n===== BUOC 10: TAO THONG BAO GIAO HANG =====\n";
 
-        if (r.foods[i].id == foodID) {
-            return i;
-        }
-    }
-
-    return -1;
-}
-// =====================================================
-// 8. TAO DON HANG MOI
-// =====================================================
-
-void createOrder(Restaurant &r) {
-
-    if (r.orderCount >= 100) {
-        cout << "\nDanh sach don hang da day!\n";
-        return;
-    }
-
-    string foodID;
-    int quantity;
-
-    cin.ignore();
-
-    cout << "\n================ TAO DON HANG ================\n";
-
-    Order &o = r.orders[r.orderCount];
-
-    cout << "Ma don hang: ";
-    getline(cin, o.id);
-
-    cout << "Ten khach hang: ";
-    getline(cin, o.customerName);
-
-    cout << "Dia chi giao hang: ";
-    getline(cin, o.address);
-
-    cout << "Nhap ma mon an: ";
-    getline(cin, foodID);
-
-    // Tim mon an
-    int index = findFood(r, foodID);
-
-    if (index == -1) {
-        cout << "\nKhong tim thay mon an!\n";
-        return;
-    }
-
-    cout << "Nhap so luong: ";
-    cin >> quantity;
-
-    // Kiem tra so luong
-    if (quantity <= 0) {
-        cout << "\nSo luong khong hop le!\n";
-        return;
-    }
-
-    if (quantity > r.foods[index].quantity) {
-        cout << "\nKhong du so luong mon an!\n";
-        cout << "So luong hien co: "
-             << r.foods[index].quantity << endl;
-        return;
-    }
-
-    // Luu thong tin mon an vao Order
-    o.food = r.foods[index];
-
-    // Luu so luong dat
-    o.quantity = quantity;
-
-    // Trang thai mac dinh
-    o.status = "Cho xu ly";
-
-    // Tru so luong mon an
-    r.foods[index].quantity -= quantity;
-
-    r.orderCount++;
-
-    cout << "\nTao don hang thanh cong!\n";
-}
-// =====================================================
-// 9. TINH TONG TIEN CUA DON HANG
-// =====================================================
-
-double calculateOrderTotal(const Order &o) {
-
-    return o.food.price * o.quantity;
-}
-// =====================================================
-// 10. HIEN THI DANH SACH DON HANG
-// =====================================================
-
-void displayOrders(const Restaurant &r) {
-
-    if (r.orderCount == 0) {
-        cout << "\nChua co don hang nao!\n";
-        return;
-    }
-
-    cout << "\n================ DANH SACH DON HANG ================\n";
-
-    for (int i = 0; i < r.orderCount; i++) {
-
-        cout << "\n----------- Don hang " << i + 1
-             << " -----------\n";
-
-        cout << "Ma don hang: "
-             << r.orders[i].id << endl;
-
-        cout << "Khach hang: "
-             << r.orders[i].customerName << endl;
-
-        cout << "Dia chi: "
-             << r.orders[i].address << endl;
-
-        cout << "Mon an: "
-             << r.orders[i].food.name << endl;
-
-        cout << "So luong: "
-             << r.orders[i].quantity << endl;
-
-        cout << "Don gia: "
-             << fixed << setprecision(2)
-             << r.orders[i].food.price << endl;
-
-        cout << "Tong tien: "
-             << calculateOrderTotal(r.orders[i])
-             << endl;
-
-        cout << "Trang thai: "
-             << r.orders[i].status << endl;
-    }
-}
-// =====================================================
-// 11. TIM DON HANG THEO MA
-// =====================================================
-
-void searchOrder(const Restaurant &r) {
-
-    if (r.orderCount == 0) {
-        cout << "\nChua co don hang nao!\n";
-        return;
-    }
-
-    string id;
-
-    cin.ignore();
-
-    cout << "\n===== TIM DON HANG =====\n";
+    cout << "Nhap ten khach hang: ";
+    getline(cin, customerName);
 
     cout << "Nhap ma don hang: ";
-    getline(cin, id);
+    getline(cin, orderId);
 
-    for (int i = 0; i < r.orderCount; i++) {
+    cout << "Nhap dia chi: ";
+    getline(cin, address);
 
-        if (r.orders[i].id == id) {
+    cout << "\nThong bao giao hang:\n";
 
-            cout << "\nTim thay don hang!\n";
-
-            cout << "Ma don: "
-                 << r.orders[i].id << endl;
-
-            cout << "Khach hang: "
-                 << r.orders[i].customerName << endl;
-
-            cout << "Dia chi: "
-                 << r.orders[i].address << endl;
-
-            cout << "Mon an: "
-                 << r.orders[i].food.name << endl;
-
-            cout << "So luong: "
-                 << r.orders[i].quantity << endl;
-
-            cout << "Tong tien: "
-                 << calculateOrderTotal(r.orders[i])
-                 << endl;
-
-            cout << "Trang thai: "
-                 << r.orders[i].status << endl;
-
-            return;
-        }
-    }
-
-    cout << "\nKhong tim thay don hang!\n";
+    cout << "Don hang ["
+         << orderId
+         << "] cua ["
+         << customerName
+         << "] dang duoc giao den ["
+         << address
+         << "]. Cam on ban!"
+         << endl;
 }
-// =====================================================
-// 12. CAP NHAT TRANG THAI DON HANG
-// =====================================================
 
-void updateOrderStatus(Restaurant &r) {
-
-    if (r.orderCount == 0) {
-        cout << "\nChua co don hang nao!\n";
-        return;
-    }
-
-    string id;
-    string status;
-
-    cin.ignore();
-
-    cout << "\n===== CAP NHAT TRANG THAI DON HANG =====\n";
-
-    cout << "Nhap ma don hang: ";
-    getline(cin, id);
-
-    for (int i = 0; i < r.orderCount; i++) {
-
-        if (r.orders[i].id == id) {
-
-            cout << "\nTrang thai hien tai: "
-                 << r.orders[i].status << endl;
-
-            cout << "Nhap trang thai moi: ";
-            getline(cin, status);
-
-            r.orders[i].status = status;
-
-            cout << "\nCap nhat trang thai thanh cong!\n";
-
-            return;
-        }
-    }
-
-    cout << "\nKhong tim thay don hang!\n";
-}
-// =====================================================
-// 13. THONG KE TONG DOANH THU
-// =====================================================
-
-void calculateRevenue(const Restaurant &r) {
-
-    double total = 0;
-
-    for (int i = 0; i < r.orderCount; i++) {
-
-        if (r.orders[i].status == "Da hoan thanh") {
-
-            total += calculateOrderTotal(r.orders[i]);
-        }
-    }
-
-    cout << "\n============================================\n";
-    cout << "TONG DOANH THU CAC DON DA HOAN THANH: "
-         << fixed << setprecision(2)
-         << total << endl;
-    cout << "============================================\n";
-}
-// =====================================================
-// 14. HIEN THI THONG TIN CUA HANG
-// =====================================================
-
-void displayRestaurant(const Restaurant &r) {
-
-    cout << "\n=============== THONG TIN CUA HANG ===============\n";
-
-    cout << "Ten cua hang: " << r.name << endl;
-    cout << "Dia chi: " << r.address << endl;
-    cout << "So dien thoai: " << r.phone << endl;
-
-    cout << "So mon an: " << r.foodCount << endl;
-    cout << "So don hang: " << r.orderCount << endl;
-}
-// =====================================================
-// MENU
-// =====================================================
-
-void menu() {
-
-    cout << "\n\n";
-    cout << "====================================================\n";
-    cout << "        QUAN LY CUA HANG GIAO DO AN\n";
-    cout << "====================================================\n";
-
-    cout << "1.  Nhap thong tin cua hang\n";
-    cout << "2.  Them mon an moi\n";
-    cout << "3.  Hien thi danh sach mon an\n";
-    cout << "4.  Tim mon an theo ma hoac ten\n";
-    cout << "5.  Cap nhat gia hoac so luong mon an\n";
-    cout << "6.  Tao don hang moi\n";
-    cout << "7.  Kiem tra mon an ton tai va du so luong\n";
-    cout << "8.  Tinh tong tien cua don hang\n";
-    cout << "9.  Hien thi danh sach cac don hang\n";
-    cout << "10. Tim don hang theo ma\n";
-    cout << "11. Cap nhat trang thai don hang\n";
-    cout << "12. Thong ke tong doanh thu\n";
-    cout << "0.  Thoat\n";
-
-    cout << "====================================================\n";
-    cout << "Nhap lua chon: ";
-}
 // =====================================================
 // MAIN
 // =====================================================
-
 int main() {
 
-    Restaurant restaurant;
+    // =================================================
+    // DANH SACH MON AN CO SAN
+    // =================================================
+    Food foods[100];
 
-    restaurant.foodCount = 0;
-    restaurant.orderCount = 0;
+    int foodCount = 4;
 
-    int choice;
+    foods[0].id = "F01";
+    foods[0].name = "Banh Mi";
+    foods[0].price = 25000;
+    foods[0].quantity = 20;
 
-    do {
+    foods[1].id = "F02";
+    foods[1].name = "Pho Bo";
+    foods[1].price = 40000;
+    foods[1].quantity = 15;
 
-        menu();
-        cin >> choice;
+    foods[2].id = "F03";
+    foods[2].name = "Com Ga";
+    foods[2].price = 45000;
+    foods[2].quantity = 10;
 
-        switch (choice) {
+    foods[3].id = "F04";
+    foods[3].name = "Bun Bo";
+    foods[3].price = 40000;
+    foods[3].quantity = 12;
 
-        case 1:
-            inputRestaurant(restaurant);
-            break;
 
-        case 2:
-            addFood(restaurant);
-            break;
+    // =================================================
+    // DANH SACH DON HANG CO SAN
+    // =================================================
+    Order orders[100];
 
-        case 3:
-            displayFoods(restaurant);
-            break;
+    int orderCount = 4;
 
-        case 4:
-            searchFood(restaurant);
-            break;
+    orders[0].id = "DH_An_1234";
+    orders[0].customerName = "Nguyen Van An";
+    orders[0].phone = "0912341234";
+    orders[0].address = "Go Vap";
+    orders[0].foodName = "Banh Mi";
+    orders[0].quantity = 2;
+    orders[0].status = "Dang chuan bi";
 
-        case 5:
-            updateFood(restaurant);
-            break;
+    orders[1].id = "DH_Binh_5678";
+    orders[1].customerName = "Tran Van Binh";
+    orders[1].phone = "0987655678";
+    orders[1].address = "Quan 3";
+    orders[1].foodName = "Pho Bo";
+    orders[1].quantity = 1;
+    orders[1].status = "Dang giao";
 
-        case 6:
-            createOrder(restaurant);
-            break;
+    orders[2].id = "DH_An_4321";
+    orders[2].customerName = "Nguyen Van An";
+    orders[2].phone = "0909124321";
+    orders[2].address = "Tan Binh";
+    orders[2].foodName = "Banh Mi";
+    orders[2].quantity = 3;
+    orders[2].status = "Hoan thanh";
 
-        case 7:
-        {
-            string foodID;
+    orders[3].id = "DH_Linh_1111";
+    orders[3].customerName = "Le Thi Linh";
+    orders[3].phone = "0911111111";
+    orders[3].address = "Quan 1";
+    orders[3].foodName = "Com Ga";
+    orders[3].quantity = 2;
+    orders[3].status = "Dang giao";
 
-            cin.ignore();
 
-            cout << "\nNhap ma mon can kiem tra: ";
-            getline(cin, foodID);
+    // =================================================
+    // 1. NHAP VA HIEN THI TEN CUA HANG
+    // =================================================
+    step1();
 
-            int index = findFood(restaurant, foodID);
 
-            if (index == -1) {
-                cout << "Khong tim thay mon an!\n";
-            }
-            else {
-                cout << "Mon an ton tai!\n";
-                cout << "Ten mon: "
-                     << restaurant.foods[index].name << endl;
-                cout << "So luong con lai: "
-                     << restaurant.foods[index].quantity << endl;
-            }
+    // =================================================
+    // 2. CHUAN HOA TEN MON AN
+    // =================================================
+    step2();
 
-            break;
-        }
 
-        case 8:
-        {
-            string orderID;
+    // =================================================
+    // 3. TAO MA DON HANG
+    // =================================================
+    step3();
 
-            cin.ignore();
 
-            cout << "\nNhap ma don hang: ";
-            getline(cin, orderID);
+    // =================================================
+    // 4. KIEM TRA MON AN
+    // =================================================
+    step4(foods, foodCount);
 
-            bool found = false;
 
-            for (int i = 0; i < restaurant.orderCount; i++) {
 
-                if (restaurant.orders[i].id == orderID) {
+    // =================================================
+    // 6. THAY DOI TRANG THAI DON HANG
+    // =================================================
+    step6(orders, orderCount);
 
-                    double total =
-                        calculateOrderTotal(restaurant.orders[i]);
 
-                    cout << "\nTong tien don hang: "
-                         << fixed << setprecision(2)
-                         << total << endl;
+    // =================================================
+    // 7. TIM DON HANG THEO TEN KHACH HANG
+    // =================================================
+    step7(orders, orderCount);
 
-                    found = true;
-                    break;
-                }
-            }
 
-            if (!found) {
-                cout << "\nKhong tim thay don hang!\n";
-            }
+    // =================================================
+    // 9. THONG KE MON AN BAN CHAY
+    // =================================================
+    step9(orders, orderCount);
 
-            break;
-        }
 
-        case 9:
-            displayOrders(restaurant);
-            break;
+    // =================================================
+    // 10. TAO THONG BAO GIAO HANG
+    // =================================================
+    step10();
 
-        case 10:
-            searchOrder(restaurant);
-            break;
-
-        case 11:
-            updateOrderStatus(restaurant);
-            break;
-
-        case 12:
-            calculateRevenue(restaurant);
-            break;
-
-        case 0:
-            cout << "\nCam on ban da su dung chuong trinh!\n";
-            break;
-
-        default:
-            cout << "\nLua chon khong hop le!\n";
-        }
-
-    } while (choice != 0);
 
     return 0;
 }
