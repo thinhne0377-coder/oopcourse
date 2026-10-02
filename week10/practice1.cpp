@@ -10,7 +10,6 @@ public:
     double price;
     int quantity;
 
-    // Nhap thong tin mon an
     void input() {
         cout << "Nhap ten: ";
         getline(cin, name);
@@ -19,50 +18,54 @@ public:
         cin >> price;
 
         quantity = 0;
-
         cin.ignore();
     }
 
-    // Hien thi thong tin mon an
     void display() {
-        cout << name << " - " << price
-             << " (" << quantity << ")" << endl;
+        cout << name << " - "
+             << price << " (" << quantity << ")" << endl;
     }
 };
 
 int main() {
     Food foods[3];
 
-    // Tao 3 mon an
-    cout << "=== NHAP THONG TIN 3 MON AN ===" << endl;
-
+    // ==========================================
+    // 1. Tao 3 mon an va nhap thong tin
+    // ==========================================
     for (int i = 0; i < 3; i++) {
-        cout << "\nMon an thu " << i + 1 << ":" << endl;
         foods[i].input();
     }
 
-    // In danh sach mon an
-    cout << "\n=== DANH SACH MON AN ===" << endl;
+    // ==========================================
+    // 2. In thong tin cac mon an
+    // ==========================================
+    cout << "\n=== Danh sach mon an ===" << endl;
 
     for (int i = 0; i < 3; i++) {
         foods[i].display();
     }
 
-    // Tim mon an theo ten
-    string searchName;
+    // ==========================================
+    // 3. Tim mon an theo ten
+    // ==========================================
+    string nameSearch;
 
     cout << "\nNhap ten mon an can tim: ";
-    getline(cin, searchName);
+    getline(cin, nameSearch);
 
     bool found = false;
 
     for (int i = 0; i < 3; i++) {
-        if (foods[i].name == searchName) {
+        if (foods[i].name == nameSearch) {
             cout << "\nTim thay mon an:" << endl;
             foods[i].display();
 
-            // Cap nhat gia
+            // ==================================
+            // 4. Cap nhat gia cua mon an
+            // ==================================
             double newPrice;
+
             cout << "Nhap gia moi: ";
             cin >> newPrice;
 
@@ -77,8 +80,11 @@ int main() {
         cout << "Khong tim thay mon an!" << endl;
     }
 
-    // Hien thi lai danh sach
-    cout << "\n=== DANH SACH MON AN SAU KHI CAP NHAT ===" << endl;
+    // ==========================================
+    // 5. Hien thi lai danh sach mon an
+    // ==========================================
+    cout << "\n=== Danh sach mon an sau khi cap nhat ==="
+         << endl;
 
     for (int i = 0; i < 3; i++) {
         foods[i].display();
