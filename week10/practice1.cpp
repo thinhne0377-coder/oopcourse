@@ -1,7 +1,9 @@
 #include <iostream>
 #include <string>
-
+#include <algorithm>  
 using namespace std;
+
+#define MAX 100
 
 class Food {
 public:
@@ -10,85 +12,117 @@ public:
     double price;
     int quantity;
 
-    void input() {
-        cout << "Nhap ten: ";
+    void inputSingle() {
+        cin.ignore(); 
+        cout << "Food's id: ";
+        getline(cin, id);
+
+        cout << "Food's name: ";
         getline(cin, name);
 
-        cout << "Nhap gia: ";
+        cout << "Food's price: ";
         cin >> price;
 
-        quantity = 0;
-        cin.ignore();
+        cout << "Quantity: ";
+        cin >> quantity;
     }
 
-    void display() {
-        cout << name << " - "
-             << price << " (" << quantity << ")" << endl;
+    void displaySingle(int index) {
+        cout << "Food " << index << ": " << endl;
+        cout << "  ID         : " << id << endl;
+        cout << "  Name       : " << name << endl;
+        cout << "  Price      : " << price << endl;
+        cout << "  Quantity   : " << quantity << endl;
+    }
+};
+
+class FoodManager {
+    int foodCount  = 0;
+    Food foods[MAX];
+
+public:
+    void inputList() {
+        cout << "Enter the number of food: ";
+        cin >> foodCount;
+
+        if (foodCount > MAX) {
+            cout << "Exceeds maximum limit! Setting count to " << MAX << endl;
+            foodCount = MAX;
+        }
+
+        for (int i = 0; i < foodCount; i++) {
+            cout << "\nInput food " << i + 1 << ": " << endl;
+            foods[i].inputSingle();
+        }
+    }
+
+    void displayList() {
+        cout << "\n***********************" << endl;
+        if (foodCount == 0) {
+            cout << "No food available in the list." << endl;
+        } else {
+            for (int i = 0; i < foodCount; i++) {
+                foods[i].displaySingle(i + 1);
+                cout << "-----------------------" << endl;
+            }
+        }
+        cout << "***********************" << endl;
+    }
+
+    int findFoodIndex(string key) {
+        cout << "Enter the id or name of the food u wanna find: ";
+        getline (cin, key);
+        for (int i = 0; i < foodCount; i++) {
+            if (foods[i].id == key ||(foods[i].name) == key) {
+                return i; 
+            }
+        }
+        return -1; // Không tìm thấy
+    }
+
+    // Hàm cập nhật giá và số lượng món ăn
+    void updateFood(string key) {
+        int idx = findFoodIndex(key);
+        if (idx != -1) {
+            cout << "\n --> Food found: " << foods[idx].name << endl;
+            
+            cout << "Enter new price: ";
+            cin >> foods[idx].price;
+
+            cout << "Enter new quantity: ";
+            cin >> foods[idx].quantity;
+
+            cout << " --> Updated food info successfully!" << endl;
+        } else {
+            cout << " --> Food not found!" << endl;
+        }
     }
 };
 
 int main() {
-    Food foods[3];
+    FoodManager manager; // Tạo đối tượng quản lý
 
-    // ==========================================
-    // 1. Tao 3 mon an va nhap thong tin
-    // ==========================================
-    for (int i = 0; i < 3; i++) {
-        foods[i].input();
-    }
+    cout << "===========================" << endl;
+    cout << "  FOOD MANAGEMENT SYSTEM   " << endl;
+    cout << "===========================" << endl;
 
-    // ==========================================
-    // 2. In thong tin cac mon an
-    // ==========================================
-    cout << "\n=== Danh sach mon an ===" << endl;
+    // 1. Nhập danh sách món ăn
+    manager.inputList();
 
-    for (int i = 0; i < 3; i++) {
-        foods[i].display();
-    }
+    // 2. Hiển thị danh sách vừa nhập
+    manager.displayList();
 
-    // ==========================================
-    // 3. Tim mon an theo ten
-    // ==========================================
-    string nameSearch;
+    // 3. Thử nghiệm tính năng Tìm kiếm & Cập nhật
+    string searchKey;
+    cin.ignore(); // Xóa bộ nhớ đệm
+    cout << "\nEnter ID or Name of food to update: ";
+    getline(cin, searchKey);
 
-    cout << "\nNhap ten mon an can tim: ";
-    getline(cin, nameSearch);
+    manager.updateFood(searchKey);
 
-    bool found = false;
-
-    for (int i = 0; i < 3; i++) {
-        if (foods[i].name == nameSearch) {
-            cout << "\nTim thay mon an:" << endl;
-            foods[i].display();
-
-            // ==================================
-            // 4. Cap nhat gia cua mon an
-            // ==================================
-            double newPrice;
-
-            cout << "Nhap gia moi: ";
-            cin >> newPrice;
-
-            foods[i].price = newPrice;
-
-            found = true;
-            break;
-        }
-    }
-
-    if (!found) {
-        cout << "Khong tim thay mon an!" << endl;
-    }
-
-    // ==========================================
-    // 5. Hien thi lai danh sach mon an
-    // ==========================================
-    cout << "\n=== Danh sach mon an sau khi cap nhat ==="
-         << endl;
-
-    for (int i = 0; i < 3; i++) {
-        foods[i].display();
-    }
+    // 4. Hiển thị lại danh sách sau khi cập nhật
+    cout << "\n--- List after update ---";
+    manager.displayList();
 
     return 0;
 }
