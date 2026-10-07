@@ -5,7 +5,7 @@
 using namespace std;
 
 // ======================================================
-// HAM CHUYEN CHUOI VE CHU THUONG
+// CHUYEN CHUOI VE CHU THUONG
 // ======================================================
 string toLower(string s) {
     for (size_t i = 0; i < s.length(); i++) {
@@ -27,6 +27,7 @@ private:
     int second;
 
 public:
+
     // Constructor mac dinh
     Date() {
         year = 2000;
@@ -47,7 +48,7 @@ public:
         second = s;
     }
 
-    // Nhap Date
+    // Nhap ngay gio
     void input() {
         cout << "Nhap nam: ";
         cin >> year;
@@ -70,29 +71,14 @@ public:
         cin.ignore();
     }
 
-    // Xuat Date
+    // Xuat ngay gio
     void display() const {
-        cout << year << "/";
-
-        if (month < 10)
-            cout << "0";
-        cout << month << "/";
-
-        if (day < 10)
-            cout << "0";
-        cout << day << " ";
-
-        if (hour < 10)
-            cout << "0";
-        cout << hour << ":";
-
-        if (minute < 10)
-            cout << "0";
-        cout << minute << ":";
-
-        if (second < 10)
-            cout << "0";
-        cout << second;
+        cout << year << "/"
+             << (month < 10 ? "0" : "") << month << "/"
+             << (day < 10 ? "0" : "") << day << " "
+             << (hour < 10 ? "0" : "") << hour << ":"
+             << (minute < 10 ? "0" : "") << minute << ":"
+             << (second < 10 ? "0" : "") << second;
     }
 
     int getYear() const {
@@ -119,11 +105,12 @@ private:
     string cccd;
 
 public:
+
     // ==================================================
-    // CAC CONSTRUCTOR
+    // CONSTRUCTORS
     // ==================================================
 
-    // 1. Constructor mac dinh
+    // 1. Student()
     Student() {
         name = "";
         address = "";
@@ -131,7 +118,7 @@ public:
         cccd = "";
     }
 
-    // 2. Constructor voi name
+    // 2. Student(string)
     Student(string n) {
         name = n;
         address = "";
@@ -139,7 +126,7 @@ public:
         cccd = "";
     }
 
-    // 3. Constructor voi Date
+    // 3. Student(Date)
     Student(Date d) {
         name = "";
         address = "";
@@ -147,28 +134,28 @@ public:
         cccd = "";
     }
 
-    // 4. Constructor voi name + address
-    Student(string name, string address) {
-        this->name = name;
-        this->address = address;
+    // 4. Student(string, string)
+    Student(string n, string addr) {
+        name = n;
+        address = addr;
         birthdate = Date();
         cccd = "";
     }
 
-    // 5. Constructor voi name + address + birthdate
-    Student(string name, string address, Date birthdate) {
-        this->name = name;
-        this->address = address;
-        this->birthdate = birthdate;
+    // 5. Student(string, string, Date)
+    Student(string n, string addr, Date d) {
+        name = n;
+        address = addr;
+        birthdate = d;
         cccd = "";
     }
 
-    // 6. Constructor day du
-    Student(string name, string address, Date birthdate, string cccd) {
-        this->name = name;
-        this->address = address;
-        this->birthdate = birthdate;
-        this->cccd = cccd;
+    // 6. Student(string, string, Date, string)
+    Student(string n, string addr, Date d, string id) {
+        name = n;
+        address = addr;
+        birthdate = d;
+        cccd = id;
     }
 
     // ==================================================
@@ -181,7 +168,7 @@ public:
         cout << "Nhap dia chi: ";
         getline(cin, address);
 
-        cout << "Nhap ngay gio sinh:\n";
+        cout << "Nhap ngay gio sinh:" << endl;
         birthdate.input();
 
         cout << "Nhap CCCD: ";
@@ -192,16 +179,22 @@ public:
     // XUAT THONG TIN SINH VIEN
     // ==================================================
     void displayStudentInfo() const {
-        cout << "Ho ten   : " << name << endl;
-        cout << "Dia chi  : " << address << endl;
+        cout << "==============================" << endl;
+        cout << "       STUDENT INFO" << endl;
+        cout << "==============================" << endl;
 
-        cout << "Ngay sinh: ";
+        cout << "Name     : " << name << endl;
+        cout << "Address  : " << address << endl;
+
+        cout << "Birthdate: ";
         birthdate.display();
         cout << endl;
 
         cout << "CCCD     : " << cccd << endl;
 
-        cout << "----------------------------------------" << endl;
+        cout << "Age      : " << getAge() << endl;
+
+        cout << "------------------------------" << endl;
     }
 
     // ==================================================
@@ -235,13 +228,14 @@ public:
 // TIM SINH VIEN THEO CCCD
 // ======================================================
 Student getStudent(Student list[], int n, string cccd) {
+
     for (int i = 0; i < n; i++) {
+
         if (list[i].getCccd() == cccd) {
             return list[i];
         }
     }
 
-    // Khong tim thay
     return Student();
 }
 
@@ -263,13 +257,14 @@ Student* getStudents(
 ) {
     count = 0;
 
-    string keyword = toLower(name);
+    string searchName = toLower(name);
 
-    // Dem so sinh vien tim thay
+    // Dem so sinh vien
     for (int i = 0; i < n; i++) {
+
         string studentName = toLower(list[i].getName());
 
-        if (studentName.find(keyword) != string::npos) {
+        if (studentName.find(searchName) != string::npos) {
             count++;
         }
     }
@@ -278,15 +273,16 @@ Student* getStudents(
         return nullptr;
     }
 
-    // Cap phat mang ket qua
+    // Tao mang ket qua
     Student* result = new Student[count];
 
     int index = 0;
 
     for (int i = 0; i < n; i++) {
+
         string studentName = toLower(list[i].getName());
 
-        if (studentName.find(keyword) != string::npos) {
+        if (studentName.find(searchName) != string::npos) {
             result[index] = list[i];
             index++;
         }
@@ -309,6 +305,7 @@ Student* getStudentsbyAge(
 
     // Dem so sinh vien
     for (int i = 0; i < n; i++) {
+
         if (list[i].getAge(currentYear) == age) {
             count++;
         }
@@ -318,12 +315,13 @@ Student* getStudentsbyAge(
         return nullptr;
     }
 
-    // Cap phat mang ket qua
+    // Tao mang ket qua
     Student* result = new Student[count];
 
     int index = 0;
 
     for (int i = 0; i < n; i++) {
+
         if (list[i].getAge(currentYear) == age) {
             result[index] = list[i];
             index++;
@@ -339,14 +337,17 @@ Student* getStudentsbyAge(
 int main() {
 
     // ==================================================
-    // TAO CAC DOI TUONG STUDENT
+    // TAO SINH VIEN
     // ==================================================
 
     Student student1;
 
     Student student2("huong");
 
-    Student student3("", "vo van ngan");
+    Student student3(
+        "",
+        "vo van ngan"
+    );
 
     Student student4(
         "Nguyen Van An",
@@ -377,15 +378,18 @@ int main() {
     students[4] = student5;
 
     // ==================================================
-    // HIEN THI DANH SACH SINH VIEN
+    // HIEN THI DANH SACH
     // ==================================================
 
-    cout << "==========================================" << endl;
-    cout << "     DANH SACH SINH VIEN BAN DAU" << endl;
-    cout << "==========================================" << endl;
+    cout << "========================================" << endl;
+    cout << "   DANH SACH SINH VIEN BAN DAU" << endl;
+    cout << "========================================" << endl;
 
     for (int i = 0; i < n; i++) {
-        cout << "\nSinh vien " << i + 1 << ":" << endl;
+
+        cout << endl;
+        cout << "Sinh vien " << i + 1 << ":" << endl;
+
         students[i].displayStudentInfo();
     }
 
@@ -393,20 +397,26 @@ int main() {
     // TIM THEO CCCD
     // ==================================================
 
-    cout << "\n==========================================" << endl;
-    cout << "     TIM SINH VIEN THEO CCCD" << endl;
-    cout << "==========================================" << endl;
-
-    string cccdSearch = "079204001234";
+    cout << endl;
+    cout << "========================================" << endl;
+    cout << "   TIM SINH VIEN THEO CCCD" << endl;
+    cout << "========================================" << endl;
 
     Student foundByCccd =
-        getStudent(students, n, cccdSearch);
+        getStudent(
+            students,
+            n,
+            "079204001234"
+        );
 
     if (!foundByCccd.getCccd().empty()) {
-        cout << "Tim thay sinh vien:\n";
+
+        cout << "Tim thay sinh vien:" << endl;
+
         foundByCccd.displayStudentInfo();
-    }
-    else {
+
+    } else {
+
         cout << "Khong tim thay sinh vien!" << endl;
     }
 
@@ -414,11 +424,10 @@ int main() {
     // TIM THEO TEN
     // ==================================================
 
-    cout << "\n==========================================" << endl;
-    cout << "     TIM SINH VIEN THEO TEN" << endl;
-    cout << "==========================================" << endl;
-
-    string nameSearch = "huong";
+    cout << endl;
+    cout << "========================================" << endl;
+    cout << "   TIM SINH VIEN THEO TEN" << endl;
+    cout << "========================================" << endl;
 
     int countName = 0;
 
@@ -426,7 +435,7 @@ int main() {
         getStudents(
             students,
             n,
-            nameSearch,
+            "huong",
             countName
         );
 
@@ -440,8 +449,9 @@ int main() {
         }
 
         delete[] foundByName;
-    }
-    else {
+
+    } else {
+
         cout << "Khong tim thay sinh vien nao!" << endl;
     }
 
@@ -449,11 +459,10 @@ int main() {
     // TIM THEO TUOI
     // ==================================================
 
-    cout << "\n==========================================" << endl;
-    cout << "     TIM SINH VIEN THEO TUOI" << endl;
-    cout << "==========================================" << endl;
-
-    int ageSearch = 22;
+    cout << endl;
+    cout << "========================================" << endl;
+    cout << "   TIM SINH VIEN THEO TUOI" << endl;
+    cout << "========================================" << endl;
 
     int countAge = 0;
 
@@ -461,15 +470,13 @@ int main() {
         getStudentsbyAge(
             students,
             n,
-            ageSearch,
+            22,
             countAge
         );
 
     if (foundByAge != nullptr) {
 
-        cout << "So sinh vien "
-             << ageSearch
-             << " tuoi: "
+        cout << "So sinh vien 22 tuoi: "
              << countAge << endl;
 
         for (int i = 0; i < countAge; i++) {
@@ -477,8 +484,9 @@ int main() {
         }
 
         delete[] foundByAge;
-    }
-    else {
+
+    } else {
+
         cout << "Khong tim thay sinh vien nao!" << endl;
     }
 
