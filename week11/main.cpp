@@ -1,11 +1,13 @@
 #include <iostream>
 #include <string>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
-// =====================================================
-// STRUCT DATE
-// =====================================================
+// =========================
+// DATE
+// =========================
 struct Date {
     int year;
     int month;
@@ -24,13 +26,11 @@ struct Date {
     }
 };
 
-// =====================================================
-// CLASS STUDENT
-// =====================================================
+// =========================
+// STUDENT
+// =========================
 class Student {
-
 private:
-    // Properties
     string name;
     string address;
     Date birthdate;
@@ -38,11 +38,10 @@ private:
 
 public:
 
-    // =================================================
+    // =========================
     // CONSTRUCTORS
-    // =================================================
+    // =========================
 
-    // Constructor mac dinh
     Student() {
         name = "";
         address = "";
@@ -50,7 +49,6 @@ public:
         cccd = "";
     }
 
-    // Constructor 1 tham so
     Student(string n) {
         name = n;
         address = "";
@@ -58,7 +56,6 @@ public:
         cccd = "";
     }
 
-    // Constructor Date
     Student(Date d) {
         name = "";
         address = "";
@@ -66,7 +63,6 @@ public:
         cccd = "";
     }
 
-    // Constructor name + address
     Student(string n, string addr) {
         name = n;
         address = addr;
@@ -74,7 +70,6 @@ public:
         cccd = "";
     }
 
-    // Constructor name + address + Date
     Student(string n, string addr, Date d) {
         name = n;
         address = addr;
@@ -82,7 +77,6 @@ public:
         cccd = "";
     }
 
-    // Constructor day du
     Student(string n, string addr, Date d, string id) {
         name = n;
         address = addr;
@@ -90,32 +84,15 @@ public:
         cccd = id;
     }
 
-    // =================================================
-    // GET BIRTH YEAR
-    // =================================================
-
-    int getBirthYear() {
-        return birthdate.year;
-    }
-
-    // =================================================
-    // GET ADDRESS
-    // =================================================
-
-    string getAddress() {
-        return address;
-    }
-
-    // =================================================
-    // NHAP THONG TIN SINH VIEN
-    // =================================================
+    // =========================
+    // NHAP THONG TIN
+    // =========================
 
     void setStudentInfo() {
-
         cout << "Nhap ten: ";
         getline(cin, name);
 
-        cout << "Nhap dia chi (tinh/thanh pho): ";
+        cout << "Nhap dia chi: ";
         getline(cin, address);
 
         cout << "Nhap nam sinh: ";
@@ -133,233 +110,229 @@ public:
         getline(cin, cccd);
     }
 
-    // =================================================
-    // LAY THONG TIN SINH VIEN THEO CCCD
-    // =================================================
+    // =========================
+    // CHI DISPLAY THONG TIN
+    // =========================
 
-    Student getStudentInfo(string search_cccd) {
-
-        if (this->cccd == search_cccd) {
-            return *this;
-        }
-
-        return Student();
-    }
-
-    // =================================================
-    // IN THONG TIN SINH VIEN
-    // =================================================
-
-    void printInfo() {
-
-        cout << "Ten       : " << name << endl;
-        cout << "Tinh      : " << address << endl;
-
-        cout << "Ngay sinh : "
+    void getStudentInfo() const {
+        cout << "-----------------------------" << endl;
+        cout << "Ten      : " << name << endl;
+        cout << "Dia chi  : " << address << endl;
+        cout << "Ngay sinh: "
              << birthdate.day << "/"
              << birthdate.month << "/"
              << birthdate.year << endl;
+        cout << "CCCD     : " << cccd << endl;
+    }
 
-        cout << "CCCD      : " << cccd << endl;
+    // =========================
+    // GET
+    // =========================
 
-        cout << "----------------------------------------"
-             << endl;
+    int getBirthYear() const {
+        return birthdate.year;
+    }
+
+    int getBirthMonth() const {
+        return birthdate.month;
+    }
+
+    int getBirthDay() const {
+        return birthdate.day;
+    }
+
+    string getAddress() const {
+        return address;
+    }
+
+    string getName() const {
+        return name;
+    }
+
+    string getCccd() const {
+        return cccd;
+    }
+
+    // ==================================================
+    // LAY DANH SACH THEO NAM SINH
+    // KHONG DUOC VOID
+    // TRA VE VECTOR
+    // ==================================================
+
+    vector<Student> getStudentbyYear(
+        int year,
+        vector<Student> students
+    ) {
+
+        vector<Student> result;
+
+        for (int i = 0; i < students.size(); i++) {
+
+            if (students[i].getBirthYear() == year) {
+                result.push_back(students[i]);
+            }
+        }
+
+        // Liet ke theo ngay sinh
+        sort(result.begin(), result.end(),
+            [](Student a, Student b) {
+
+                if (a.getBirthMonth() != b.getBirthMonth()) {
+                    return a.getBirthMonth() < b.getBirthMonth();
+                }
+
+                return a.getBirthDay() < b.getBirthDay();
+            }
+        );
+
+        return result;
+    }
+
+    // ==================================================
+    // LAY DANH SACH THEO TINH
+    // KHONG DUOC VOID
+    // TRA VE VECTOR
+    // ==================================================
+
+    vector<Student> getStudentsbyAddress(
+        string address,
+        vector<Student> students
+    ) {
+
+        vector<Student> result;
+
+        for (int i = 0; i < students.size(); i++) {
+
+            if (students[i].getAddress() == address) {
+                result.push_back(students[i]);
+            }
+        }
+
+        return result;
     }
 };
 
-// =====================================================
-// THONG KE SINH VIEN THEO NAM SINH
-// =====================================================
 
-void thongKeTheoNamSinh(
-    Student arr[],
-    int size,
-    int targetYear
-) {
+// ==================================================
+// DISPLAY
+// VOID CHI DUNG DE DISPLAY
+// ==================================================
 
-    int count = 0;
+void display(vector<Student> students) {
 
-    cout << endl;
-    cout << "========================================"
-         << endl;
-
-    cout << "THONG KE SINH VIEN SINH NAM "
-         << targetYear
-         << endl;
-
-    cout << "========================================"
-         << endl;
-
-    for (int i = 0; i < size; i++) {
-
-        if (arr[i].getBirthYear() == targetYear) {
-
-            arr[i].printInfo();
-
-            count++;
-        }
+    for (int i = 0; i < students.size(); i++) {
+        students[i].getStudentInfo();
     }
-
-    cout << "=> Tong so luong sinh vien sinh nam "
-         << targetYear
-         << ": "
-         << count
-         << endl;
 }
 
-// =====================================================
-// THONG KE SINH VIEN THEO TINH
-// =====================================================
 
-void thongKeTheoTinh(
-    Student arr[],
-    int size,
-    string targetProvince
-) {
-
-    int count = 0;
-
-    cout << endl;
-    cout << "========================================"
-         << endl;
-
-    cout << "THONG KE SINH VIEN O TINH: "
-         << targetProvince
-         << endl;
-
-    cout << "========================================"
-         << endl;
-
-    for (int i = 0; i < size; i++) {
-
-        if (arr[i].getAddress() == targetProvince) {
-
-            arr[i].printInfo();
-
-            count++;
-        }
-    }
-
-    cout << "=> Tong so luong sinh vien o "
-         << targetProvince
-         << ": "
-         << count
-         << endl;
-}
-
-// =====================================================
+// ==================================================
 // MAIN
-// =====================================================
+// ==================================================
 
 int main() {
 
-    // =================================================
-    // TAO DANH SACH SINH VIEN
-    // =================================================
+    // Tao danh sach sinh vien
+    vector<Student> students;
 
-    Student database[5] = {
-
-        Student(
-            "Khang",
-            "Ho Chi Minh",
-            Date(2007, 12, 1),
-            "001"
-        ),
-
-        Student(
-            "Huong",
-            "Dong Nai",
-            Date(2000, 5, 10),
-            "002"
-        ),
-
-        Student(
-            "Bao",
-            "Ho Chi Minh",
-            Date(2001, 8, 15),
-            "003"
-        ),
-
-        Student(
-            "Phuc",
-            "Binh Duong",
-            Date(2000, 2, 20),
-            "004"
-        ),
-
-        Student(
-            "Linh",
-            "Dong Nai",
-            Date(2007, 10, 5),
-            "005"
-        )
-    };
-
-    int total_students = 5;
-
-    // =================================================
-    // IN DANH SACH SINH VIEN
-    // =================================================
-
-    cout << "========================================"
-         << endl;
-
-    cout << "          DANH SACH SINH VIEN"
-         << endl;
-
-    cout << "========================================"
-         << endl;
-
-    for (int i = 0; i < total_students; i++) {
-
-        cout << endl;
-
-        cout << "Sinh vien " << i + 1 << ":" << endl;
-
-        database[i].printInfo();
-    }
-
-    // =================================================
-    // THONG KE THEO NAM SINH 2000
-    // =================================================
-
-    thongKeTheoNamSinh(
-        database,
-        total_students,
-        2000
+    Student student1(
+        "Nguyen Van An",
+        "Ho Chi Minh",
+        Date(2000, 5, 15),
+        "001"
     );
 
-    // =================================================
-    // THONG KE THEO NAM SINH 2001
-    // =================================================
-
-    thongKeTheoNamSinh(
-        database,
-        total_students,
-        2001
+    Student student2(
+        "Tran Thi Huong",
+        "Dong Nai",
+        Date(2000, 3, 10),
+        "002"
     );
 
-    // =================================================
+    Student student3(
+        "Le Van Bao",
+        "Ho Chi Minh",
+        Date(2001, 8, 20),
+        "003"
+    );
+
+    Student student4(
+        "Pham Thi Lan",
+        "Dong Nai",
+        Date(2001, 1, 5),
+        "004"
+    );
+
+    Student student5(
+        "Nguyen Van Nam",
+        "Binh Duong",
+        Date(2000, 1, 25),
+        "005"
+    );
+
+    students.push_back(student1);
+    students.push_back(student2);
+    students.push_back(student3);
+    students.push_back(student4);
+    students.push_back(student5);
+
+
+    // ==================================================
+    // THONG KE NAM 2000
+    // ==================================================
+
+    cout << "======================================" << endl;
+    cout << "SINH VIEN SINH NAM 2000" << endl;
+    cout << "======================================" << endl;
+
+    vector<Student> s =
+        student1.getStudentbyYear(2000, students);
+
+    display(s);
+
+
+    // ==================================================
+    // THONG KE NAM 2001
+    // ==================================================
+
+    cout << "\n======================================" << endl;
+    cout << "SINH VIEN SINH NAM 2001" << endl;
+    cout << "======================================" << endl;
+
+    vector<Student> s2 =
+        student1.getStudentbyYear(2001, students);
+
+    display(s2);
+
+
+    // ==================================================
     // THONG KE THEO TINH
-    // =================================================
+    // ==================================================
 
-    thongKeTheoTinh(
-        database,
-        total_students,
-        "Ho Chi Minh"
-    );
+    cout << "\n======================================" << endl;
+    cout << "SINH VIEN O HO CHI MINH" << endl;
+    cout << "======================================" << endl;
 
-    thongKeTheoTinh(
-        database,
-        total_students,
-        "Dong Nai"
-    );
+    vector<Student> s3 =
+        student1.getStudentsbyAddress(
+            "Ho Chi Minh",
+            students
+        );
 
-    thongKeTheoTinh(
-        database,
-        total_students,
-        "Binh Duong"
-    );
+    display(s3);
+
+
+    cout << "\n======================================" << endl;
+    cout << "SINH VIEN O DONG NAI" << endl;
+    cout << "======================================" << endl;
+
+    vector<Student> s4 =
+        student1.getStudentsbyAddress(
+            "Dong Nai",
+            students
+        );
+
+    display(s4);
 
     return 0;
 }
