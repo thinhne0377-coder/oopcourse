@@ -20,7 +20,7 @@ public:
         description = "";
     }
 
-    // Constructor with 3 parameters
+    // Constructor with parameters
     Category(int id, string name, string desc) {
         categoryId = id;
         categoryName = name;
@@ -53,12 +53,11 @@ public:
         description = desc;
     }
 
-    // Display
+    // Display category information
     void displayCategoryInfo() const {
-        cout << "Category ID   : " << categoryId << endl;
-        cout << "Category Name : " << categoryName << endl;
-        cout << "Description   : " << description << endl;
-        cout << "-----------------------------------" << endl;
+        cout << "Category ID: " << categoryId
+             << " | Name: " << categoryName
+             << " | Description: " << description << endl;
     }
 };
 
@@ -170,183 +169,181 @@ public:
 
     // Display fish information
     void displayFishInfo() const {
-        cout << "Fish ID         : " << id << endl;
-        cout << "Fish Name       : " << name << endl;
-        cout << "Fish Color      : " << color << endl;
+        cout << "ID              : " << id << endl;
+        cout << "Name            : " << name << endl;
+        cout << "Color           : " << color << endl;
         cout << "Characteristic  : " << characteristic << endl;
         cout << "Category ID     : " << categoryId << endl;
-        cout << "-----------------------------------" << endl;
+        cout << "------------------------------" << endl;
     }
 };
 
-// ==================== MAIN ====================
+// ==================== MAIN FUNCTION ====================
 int main() {
-    // QUESTION 1-5:
-    // Create 5 fish using 5 different constructors
-    Fish fish1;
-    Fish fish2(113);
-    Fish fish3(114, "Olise");
-    Fish fish4(115, "Iniesta", "Blue");
-    Fish fish5(116, "Musiala", "Red", "Curly Hair");
+    // Create at least 3 categories
+    vector<Category> categories = {
+        Category(1, "Freshwater Fish", "Ca nuoc ngot"),
+        Category(2, "Saltwater Fish", "Ca nuoc man"),
+        Category(3, "Tropical Fish", "Ca nhiet doi")
+    };
 
-    // Assign category IDs
-    fish1.setCategoryId(1);
-    fish2.setCategoryId(1);
-    fish3.setCategoryId(2);
-    fish4.setCategoryId(3);
-    fish5.setCategoryId(3);
+    // Create 5 original fish objects
+    // Use different constructors
+    vector<Fish> fishList = {
+        Fish(),
+        Fish(113),
+        Fish(114, "Olise"),
+        Fish(115, "Iniesta", "Blue"),
+        Fish(116, "Musiala", "Red", "Curly Hair")
+    };
 
-    // Display original information
-    cout << "========== FIVE FISHES INFO ==========" << endl;
+    // Set information for the first 5 fish
+    fishList[0].setID(100);
+    fishList[0].setName("Kevin");
+    fishList[0].setColor("Purple");
+    fishList[0].setCharacteristic("Wearing glasses");
+    fishList[0].setCategoryId(1);
 
-    fish1.displayFishInfo();
-    fish2.displayFishInfo();
-    fish3.displayFishInfo();
-    fish4.displayFishInfo();
-    fish5.displayFishInfo();
+    fishList[1].setName("Goldfish");
+    fishList[1].setColor("Red");
+    fishList[1].setCharacteristic("Friendly");
+    fishList[1].setCategoryId(1);
 
-    // Update information using setters
-    cout << "\n========== UPDATE FISH1 ==========" << endl;
+    fishList[2].setColor("Blue");
+    fishList[2].setCharacteristic("Small size");
+    fishList[2].setCategoryId(2);
 
-    fish1.setID(100);
-    fish1.setName("Kevin");
-    fish1.setColor("Purple");
-    fish1.setCharacteristic("Wearing glasses");
+    fishList[3].setCharacteristic("Long fins");
+    fishList[3].setCategoryId(3);
 
-    // Retrieve updated information using getters
-    cout << "\n========== USING GETTERS ==========" << endl;
+    fishList[4].setCategoryId(3);
 
-    cout << "ID             : " << fish1.getID() << endl;
-    cout << "Name           : " << fish1.getName() << endl;
-    cout << "Color          : " << fish1.getColor() << endl;
-    cout << "Characteristic : "
-         << fish1.getCharacteristic() << endl;
-
-    // Display again to verify changes
-    cout << "\n========== VERIFY UPDATED FISH1 ==========" << endl;
-    fish1.displayFishInfo();
-
-    // ==================== QUESTION 6 ====================
-    // Create a list containing the first 5 fish
-    vector<Fish> fishList;
-
-    fishList.push_back(fish1);
-    fishList.push_back(fish2);
-    fishList.push_back(fish3);
-    fishList.push_back(fish4);
-    fishList.push_back(fish5);
-
-    // Add 10 more ornamental fish
-    fishList.push_back(
-        Fish(101, "Goldfish", "Red", "Friendly", 1));
-
-    fishList.push_back(
-        Fish(102, "Betta", "Blue", "Aggressive", 3));
-
-    fishList.push_back(
-        Fish(103, "Guppy", "Red", "Small size", 1));
-
-    fishList.push_back(
-        Fish(104, "Angelfish", "Yellow", "Long fins", 3));
-
-    fishList.push_back(
-        Fish(105, "Neon Tetra", "Blue", "Glowing body", 3));
-
-    fishList.push_back(
-        Fish(106, "Clownfish", "Orange", "Active", 2));
-
-    fishList.push_back(
-        Fish(107, "Blue Tang", "Blue", "Fast swimmer", 2));
-
-    fishList.push_back(
-        Fish(108, "Discus", "Yellow", "Flat body", 3));
-
-    fishList.push_back(
-        Fish(109, "Koi", "Orange", "Large size", 1));
-
-    fishList.push_back(
-        Fish(110, "Molly", "Black", "Easy to care for", 1));
-
-    // Display all 15 fish
-    cout << "\n========== QUESTION 6: ALL FISH ==========" << endl;
+    // Display the original 5 fish
+    cout << "\n========== ORIGINAL 5 FISH ==========\n";
 
     for (const Fish& f : fishList) {
         f.displayFishInfo();
     }
 
-    // Group and display fish by color
-    cout << "\n========== GROUP FISH BY COLOR ==========" << endl;
+    // Demonstrate getters and setters
+    cout << "\n========== GETTER EXAMPLE ==========\n";
+    cout << "Fish ID: " << fishList[0].getID() << endl;
+    cout << "Fish Name: " << fishList[0].getName() << endl;
+    cout << "Fish Color: " << fishList[0].getColor() << endl;
+    cout << "Fish Characteristic: "
+         << fishList[0].getCharacteristic() << endl;
+    cout << "Fish Category ID: "
+         << fishList[0].getCategoryId() << endl;
+
+    // Question 6: Add 10 more ornamental fish
+    fishList.push_back(
+        Fish(101, "Betta", "Blue", "Beautiful fins", 3)
+    );
+
+    fishList.push_back(
+        Fish(102, "Guppy", "Red", "Small size", 1)
+    );
+
+    fishList.push_back(
+        Fish(103, "Angelfish", "Yellow", "Long fins", 3)
+    );
+
+    fishList.push_back(
+        Fish(104, "Neon Tetra", "Blue", "Glowing body", 3)
+    );
+
+    fishList.push_back(
+        Fish(105, "Clownfish", "Orange", "Active swimmer", 2)
+    );
+
+    fishList.push_back(
+        Fish(106, "Blue Tang", "Blue", "Fast swimmer", 2)
+    );
+
+    fishList.push_back(
+        Fish(107, "Discus", "Yellow", "Flat body", 3)
+    );
+
+    fishList.push_back(
+        Fish(108, "Koi", "Orange", "Large size", 1)
+    );
+
+    fishList.push_back(
+        Fish(109, "Molly", "Black", "Easy to care", 1)
+    );
+
+    fishList.push_back(
+        Fish(110, "Swordtail", "Red", "Sword-shaped tail", 1)
+    );
+
+    // Display all 15 fish
+    cout << "\n========== ALL FISH ==========\n";
+
+    for (const Fish& f : fishList) {
+        f.displayFishInfo();
+    }
+
+    // Question 6: Group and display fish by color
+    cout << "\n========== GROUP FISH BY COLOR ==========\n";
 
     vector<string> colors;
 
     // Collect unique colors
     for (const Fish& f : fishList) {
+        string currentColor = f.getColor();
+
+        if (currentColor == "" || currentColor == "N/A") {
+            continue;
+        }
+
         bool exists = false;
 
         for (const string& c : colors) {
-            if (c == f.getColor()) {
+            if (c == currentColor) {
                 exists = true;
                 break;
             }
         }
 
-        if (!exists && f.getColor() != "") {
-            colors.push_back(f.getColor());
+        if (!exists) {
+            colors.push_back(currentColor);
         }
     }
 
-    // Display fish in each color group
+    // Display all fish of each color
     for (const string& color : colors) {
-        cout << "\n--- COLOR: " << color << " ---" << endl;
+        cout << "\n--- COLOR: " << color << " ---\n";
 
         for (const Fish& f : fishList) {
             if (f.getColor() == color) {
-                cout << "ID: " << f.getID()
-                     << " | Name: " << f.getName()
-                     << " | Color: " << f.getColor()
-                     << endl;
+                f.displayFishInfo();
             }
         }
     }
 
-    // ==================== QUESTION 7 ====================
-    // Create at least 3 categories
-    vector<Category> categories;
-
-    categories.push_back(
-        Category(1, "Freshwater Fish", "Ca nuoc ngot"));
-
-    categories.push_back(
-        Category(2, "Saltwater Fish", "Ca nuoc man"));
-
-    categories.push_back(
-        Category(3, "Tropical Fish", "Ca nhiet doi"));
-
-    // Display all categories
-    cout << "\n========== ALL CATEGORIES ==========" << endl;
+    // Question 7: Display all categories
+    cout << "\n========== ALL CATEGORIES ==========\n";
 
     for (const Category& cat : categories) {
         cat.displayCategoryInfo();
     }
 
-    // Select a category using keyboard input
+    // Question 7: Select a category and display its fish
     int selectedCatId;
 
-    cout << "\nEnter category ID (1-3): ";
+    cout << "\nEnter Category ID to view fish (1-3): ";
     cin >> selectedCatId;
 
-    bool categoryFound = false;
+    bool categoryExists = false;
+    bool fishFound = false;
 
     for (const Category& cat : categories) {
         if (cat.getCategoryId() == selectedCatId) {
-            categoryFound = true;
+            categoryExists = true;
 
-            cout << "\n========== SELECTED CATEGORY ==========" << endl;
-            cat.displayCategoryInfo();
-
-            cout << "\n========== FISH IN THIS CATEGORY ==========" << endl;
-
-            bool fishFound = false;
+            cout << "\n========== FISH IN CATEGORY: "
+                 << cat.getCategoryName()
+                 << " ==========\n";
 
             for (const Fish& f : fishList) {
                 if (f.getCategoryId() == selectedCatId) {
@@ -355,16 +352,14 @@ int main() {
                 }
             }
 
-            if (!fishFound) {
-                cout << "No fish in this category." << endl;
-            }
-
             break;
         }
     }
 
-    if (!categoryFound) {
-        cout << "Category not found!" << endl;
+    if (!categoryExists) {
+        cout << "Invalid Category ID!\n";
+    } else if (!fishFound) {
+        cout << "No fish found in this category!\n";
     }
 
     return 0;
