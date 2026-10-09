@@ -59,6 +59,13 @@ public:
     void setColor (string c) {color = c;}
     void setCharacteristic (string ch) {characteristic = ch;}
 
+    // Display
+    void displayFishInfo(){
+        cout << " ID               : " << id << endl;
+        cout << " | Name           : " << name << endl;
+        cout << " | Color          : " << color << endl;
+        cout << " | Characteristic : " << characteristic << endl;   
+    }
 };
 
 int main(){
