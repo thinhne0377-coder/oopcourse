@@ -47,6 +47,18 @@ public:
         characteristic = ch;
     }
 
+    // Getter
+    int getID () {return id;}
+    string getName () {return name;}
+    string getColor () {return color;}
+    string getCharacteristic () {return characteristic;}
+
+    // Setter
+    void setID (int i) {id = i;}
+    void setName (string n) {name = n;}
+    void setColor (string c) {color = c;}
+    void setCharacteristic (string ch) {characteristic = ch;}
+
 };
 
 int main(){
