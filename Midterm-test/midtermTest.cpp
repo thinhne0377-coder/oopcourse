@@ -18,30 +18,35 @@ public:
         color = "";
         characteristic = "";
     }
+    // A constructor with 1 parameter
     Fish (int i){
         id = i;
         name = "";
         color = "";
         characteristic = "";
     }
+    // A constructor with 2 parameters
     Fish (int i, string n){
         id = i;
         name = n;
         color = "";
         characteristic = "";
     }
+    // A constructor with 3 parameters
     Fish (int i, string n, string c){
         id = i;
         name = n;
         color = c;
         characteristic = "";
     }
+    // A constructor with all 4 parameters
     Fish (int i, string n, string c, string ch){
         id = i;
         name = n;
         color = c;
         characteristic = ch;
     }
+
 };
 
 int main(){
