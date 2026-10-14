@@ -1,226 +1,415 @@
+
 #include <iostream>
 #include <string>
 #include <vector>
-
-#define MAX 100
+#include <algorithm>
+#include <iomanip>
 
 using namespace std;
 
+// ==================== 1. CLASS EMPLOYEE ====================
 class Employee {
 protected:
-    string cccd;      // CCCD
-    string sdt;       // Số điện thoại
-    string address;   // Địa chỉ
+    string cccd;
+    string sdt;
+    string address;
+
 public:
+    // Constructor mac dinh
     Employee() {
         cccd = "";
         sdt = "";
         address = "";
     }
+
+    // Constructor co tham so
     Employee(string c, string s, string a) {
         cccd = c;
         sdt = s;
         address = a;
     }
 
-    void displayInfo() const {
+    // Ham huy ao
+    virtual ~Employee() {}
+
+    // Hien thi thong tin
+    virtual void displayInfo() const {
         cout << "CCCD: " << cccd << endl;
         cout << "SDT: " << sdt << endl;
         cout << "Address: " << address << endl;
     }
 
-    string getCCCD() const { return cccd; }
-    string getSDT() const { return sdt; }
-    string getAddress() const { return address; }
+    // Ham tinh luong ao
+    virtual double tinhLuong() const {
+        return 0;
+    }
 
-    void setCCCD(string c) { cccd = c; }
-    void setSDT(string s) { sdt = s; }
-    void setAddress(string a) { address = a; }
+    // Getter
+    string getCCCD() const {
+        return cccd;
+    }
+
+    string getSDT() const {
+        return sdt;
+    }
+
+    string getAddress() const {
+        return address;
+    }
+
+    // Setter
+    void setCCCD(string c) {
+        cccd = c;
+    }
+
+    void setSDT(string s) {
+        sdt = s;
+    }
+
+    void setAddress(string a) {
+        address = a;
+    }
 };
 
+// ==================== 2. CLASS HOURLYEMPLOYEE ====================
 class HourlyEmployee : public Employee {
 private:
-    int soGioLamViec;   // số giờ làm việc
-    double donGia;      // đơn giá (vnd/giờ)
+    int soGioLamViec;
+    double donGia;
+
 public:
+    // Constructor mac dinh
     HourlyEmployee() : Employee() {
         soGioLamViec = 0;
         donGia = 0;
     }
-    HourlyEmployee(string c, string s, string a, int soGio, double dg)
+
+    // Constructor co tham so
+    HourlyEmployee(string c, string s, string a,
+                   int soGio, double donGia)
         : Employee(c, s, a) {
         soGioLamViec = soGio;
+        this->donGia = donGia;
+    }
+
+    // Ghi de ham displayInfo()
+    void displayInfo() const override {
+        Employee::displayInfo();
+
+        cout << "So gio lam viec: "
+             << soGioLamViec << endl;
+
+        cout << "Don gia: "
+             << donGia << endl;
+
+        cout << "Luong: "
+             << tinhLuong() << endl;
+    }
+
+    // Luong = so gio lam viec * don gia
+    double tinhLuong() const override {
+        return soGioLamViec * donGia;
+    }
+
+    // Getter
+    int getSoGioLamViec() const {
+        return soGioLamViec;
+    }
+
+    double getDonGia() const {
+        return donGia;
+    }
+
+    // Setter
+    void setSoGioLamViec(int g) {
+        soGioLamViec = g;
+    }
+
+    void setDonGia(double dg) {
         donGia = dg;
     }
-
-    void displayInfo() const {
-        Employee::displayInfo();   // gọi hàm lớp cha
-        cout << "So gio lam viec: " << soGioLamViec << endl;
-        cout << "Don gia: " << donGia << endl;
-        cout << "Luong: " << tinhLuong() << endl;
-    }
-    double tinhLuong() const { return soGioLamViec * donGia; }
-
-    int getSoGioLamViec() const { return soGioLamViec; }
-    double getDonGia() const { return donGia; }
-    void setSoGioLamViec(int g) { soGioLamViec = g; }
-    void setDonGia(double dg) { donGia = dg; }
 };
 
+// ==================== 3. CLASS MONTHLYEMPLOYEE ====================
 class MonthlyEmployee : public Employee {
 private:
-    double luongCoBan;   // lương cơ bản
-    double phuCap;       // phụ cấp
-    double heSoThuong;   // hệ số thưởng
+    double luongCoBan;
+    double phuCap;
+    double heSoThuong;
+
 public:
+    // Constructor mac dinh
     MonthlyEmployee() : Employee() {
         luongCoBan = 0;
         phuCap = 0;
         heSoThuong = 0;
     }
-    MonthlyEmployee(string c, string s, string a, double lcb, double pc, double hs)
+
+    // Constructor co tham so
+    MonthlyEmployee(string c, string s, string a,
+                    double lcb, double pc, double hs)
         : Employee(c, s, a) {
         luongCoBan = lcb;
         phuCap = pc;
         heSoThuong = hs;
     }
 
-    void displayInfo() const {
-        Employee::displayInfo();   // gọi hàm lớp cha
-        cout << "Luong co ban: " << luongCoBan << endl;
-        cout << "Phu cap: " << phuCap << endl;
-        cout << "He so thuong: " << heSoThuong << endl;
-        cout << "Luong: " << tinhLuong() << endl;
-    }
-    double tinhLuong() const { return luongCoBan + phuCap + luongCoBan * heSoThuong; }
+    // Ghi de ham displayInfo()
+    void displayInfo() const override {
+        Employee::displayInfo();
 
-    double getLuongCoBan() const { return luongCoBan; }
-    double getPhuCap() const { return phuCap; }
-    double getHeSoThuong() const { return heSoThuong; }
-    void setLuongCoBan(double lcb) { luongCoBan = lcb; }
-    void setPhuCap(double pc) { phuCap = pc; }
-    void setHeSoThuong(double hs) { heSoThuong = hs; }
+        cout << "Luong co ban: "
+             << luongCoBan << endl;
+
+        cout << "Phu cap: "
+             << phuCap << endl;
+
+        cout << "He so thuong: "
+             << heSoThuong << endl;
+
+        cout << "Luong: "
+             << tinhLuong() << endl;
+    }
+
+    // Luong = luong co ban + phu cap
+    //       + luong co ban * he so thuong
+    double tinhLuong() const override {
+        return luongCoBan + phuCap
+               + luongCoBan * heSoThuong;
+    }
+
+    // Getter
+    double getLuongCoBan() const {
+        return luongCoBan;
+    }
+
+    double getPhuCap() const {
+        return phuCap;
+    }
+
+    double getHeSoThuong() const {
+        return heSoThuong;
+    }
+
+    // Setter
+    void setLuongCoBan(double lcb) {
+        luongCoBan = lcb;
+    }
+
+    void setPhuCap(double pc) {
+        phuCap = pc;
+    }
+
+    void setHeSoThuong(double hs) {
+        heSoThuong = hs;
+    }
 };
 
-// Tính lương theo loại (l = 1: Hourly, l = 2: Monthly)
-double luong(Employee* p, int l) {
-    if (l == 1) return static_cast<HourlyEmployee*>(p)->tinhLuong();
-    return static_cast<MonthlyEmployee*>(p)->tinhLuong();
+// ==================== 4. HIEN THI DANH SACH ====================
+void hienThiDanhSach(const vector<Employee*>& ds) {
+    for (int i = 0; i < (int)ds.size(); i++) {
+        cout << "\nNhan vien thu " << i + 1 << endl;
+        cout << "------------------------" << endl;
+        ds[i]->displayInfo();
+    }
 }
 
-// Hiển thị thông tin theo loại
-void hienThi(Employee* p, int l) {
-    if (l == 1) static_cast<HourlyEmployee*>(p)->displayInfo();
-    else static_cast<MonthlyEmployee*>(p)->displayInfo();
-}
-
-double tongQuyLuong(Employee* ds[], int loai[], int n) {
+// ==================== 5. TONG QUY LUONG ====================
+double tongQuyLuong(const vector<Employee*>& ds) {
     double tong = 0;
-    for (int i = 0; i < n; i++)
-        tong += luong(ds[i], loai[i]);
+
+    for (Employee* p : ds) {
+        tong += p->tinhLuong();
+    }
+
     return tong;
 }
 
-int timMax(Employee* ds[], int loai[], int n) {
-    int vt = 0;
-    for (int i = 1; i < n; i++)
-        if (luong(ds[i], loai[i]) > luong(ds[vt], loai[vt])) vt = i;
-    return vt;
-}
-
-int timMin(Employee* ds[], int loai[], int n) {
-    int vt = 0;
-    for (int i = 1; i < n; i++)
-        if (luong(ds[i], loai[i]) < luong(ds[vt], loai[vt])) vt = i;
-    return vt;
-}
-
-void demTheoLoai(int loai[], int n, int &demHourly, int &demMonthly) {
-    demHourly = 0;
-    demMonthly = 0;
-    for (int i = 0; i < n; i++) {
-        if (loai[i] == 1) demHourly++;
-        else demMonthly++;
+// ==================== 6. TIM LUONG CAO NHAT ====================
+Employee* timLuongCaoNhat(const vector<Employee*>& ds) {
+    if (ds.empty()) {
+        return nullptr;
     }
+
+    Employee* maxNV = ds[0];
+
+    for (Employee* p : ds) {
+        if (p->tinhLuong() > maxNV->tinhLuong()) {
+            maxNV = p;
+        }
+    }
+
+    return maxNV;
 }
 
-void locLuongLonHon(Employee* ds[], int loai[], int n, double nguong) {
+// ==================== 7. TIM LUONG THAP NHAT ====================
+Employee* timLuongThapNhat(const vector<Employee*>& ds) {
+    if (ds.empty()) {
+        return nullptr;
+    }
+
+    Employee* minNV = ds[0];
+
+    for (Employee* p : ds) {
+        if (p->tinhLuong() < minNV->tinhLuong()) {
+            minNV = p;
+        }
+    }
+
+    return minNV;
+}
+
+// ==================== 8. DEM NHAN VIEN TUNG LOAI ====================
+void demTheoLoai(const vector<Employee*>& ds) {
+    int demHourly = 0;
+    int demMonthly = 0;
+
+    for (Employee* p : ds) {
+        if (dynamic_cast<HourlyEmployee*>(p) != nullptr) {
+            demHourly++;
+        }
+        else if (dynamic_cast<MonthlyEmployee*>(p) != nullptr) {
+            demMonthly++;
+        }
+    }
+
+    cout << "So HourlyEmployee: " << demHourly << endl;
+    cout << "So MonthlyEmployee: " << demMonthly << endl;
+}
+
+// ==================== 9. LOC NHAN VIEN THEO LUONG ====================
+void locLuongLonHon(const vector<Employee*>& ds, double nguong) {
     bool co = false;
-    for (int i = 0; i < n; i++) {
-        if (luong(ds[i], loai[i]) > nguong) {
-            hienThi(ds[i], loai[i]);
-            cout << endl;
+
+    for (Employee* p : ds) {
+        if (p->tinhLuong() > nguong) {
+            p->displayInfo();
+            cout << "------------------------" << endl;
             co = true;
         }
     }
-    if (!co) cout << "Khong co nhan vien nao." << endl;
-}
 
-void sapXepGiamDan(Employee* ds[], int loai[], int n) {
-    for (int i = 0; i < n - 1; i++){
-        for (int j = i + 1; j < n; j++) {
-            if (luong(ds[i], loai[i]) < luong(ds[j], loai[j])) {
-                Employee* tamP = ds[i];
-                ds[i] = ds[j];
-                ds[j] = tamP;
-
-                int tamL = loai[i];
-                loai[i] = loai[j];
-                loai[j] = tamL;
-            }
-        }
+    if (!co) {
+        cout << "Khong co nhan vien nao co luong lon hon "
+             << nguong << endl;
     }
 }
 
+// ==================== 10. SAP XEP LUONG GIAM DAN ====================
+void sapXepGiamDan(vector<Employee*>& ds) {
+    sort(ds.begin(), ds.end(),
+         [](Employee* a, Employee* b) {
+             return a->tinhLuong() > b->tinhLuong();
+         });
+}
+
+// ==================== HAM MAIN ====================
 int main() {
+    cout << fixed << setprecision(0);
 
-    Employee e1("079123456789", "Nguyen Van A", "Ho Chi Minh");
-    HourlyEmployee h1("079876543210", "Tran Thi B", "Ha Noi", 160, 50000);
-    MonthlyEmployee m1("079987654321", "Le Minh C", "Da Nang", 15000000, 2000000, 1.2);
+    // Tao doi tuong Employee
+    Employee e1(
+        "079123456789",
+        "Nguyen Van A",
+        "Ho Chi Minh"
+    );
 
-    cout << "--- Thong tin Employee ---" << endl;
+    // Tao doi tuong HourlyEmployee
+    HourlyEmployee h1(
+        "079876543210",
+        "Tran Thi B",
+        "Ha Noi",
+        160,
+        50000
+    );
+
+    // Tao doi tuong MonthlyEmployee
+    MonthlyEmployee m1(
+        "079987654321",
+        "Le Minh C",
+        "Da Nang",
+        15000000,
+        2000000,
+        1.2
+    );
+
+    // ===== HIEN THI THONG TIN 3 DOI TUONG =====
+    cout << "========== THONG TIN EMPLOYEE ==========" << endl;
     e1.displayInfo();
-    cout << "\n--- Thong tin HourlyEmployee ---" << endl;
+
+    cout << "\n========== THONG TIN HOURLYEMPLOYEE ==========" << endl;
     h1.displayInfo();
-    cout << "\n--- Thong tin MonthlyEmployee ---" << endl;
+
+    cout << "\n========== THONG TIN MONTHLYEMPLOYEE ==========" << endl;
     m1.displayInfo();
 
-    HourlyEmployee h2("079111111111", "Pham Van D", "Hue", 100, 60000);
-    MonthlyEmployee m2("079222222222", "Do Thi E", "Can Tho", 8000000, 1000000, 0.5);
+    // Tao them nhan vien de thuc hanh
+    HourlyEmployee h2(
+        "079111111111",
+        "Pham Van D",
+        "Hue",
+        100,
+        60000
+    );
 
-    Employee* ds[MAX];
-    int loai[MAX];   // 1: Hourly, 2: Monthly
-    int n = 0;
-    ds[n] = &h1; loai[n] = 1; n++;
-    ds[n] = &m1; loai[n] = 2; n++;
-    ds[n] = &h2; loai[n] = 1; n++;
-    ds[n] = &m2; loai[n] = 2; n++;
+    MonthlyEmployee m2(
+        "079222222222",
+        "Do Thi E",
+        "Can Tho",
+        8000000,
+        1000000,
+        0.5
+    );
 
-    cout << "\nTong quy luong: " << tongQuyLuong(ds, loai, n) << endl;
+    // Danh sach nhan vien dung da hinh
+    vector<Employee*> ds;
 
-    int vtMax = timMax(ds, loai, n);
-    int vtMin = timMin(ds, loai, n);
-    cout << "\n--- Nhan vien luong cao nhat ---" << endl;
-    hienThi(ds[vtMax], loai[vtMax]);
-    cout << "\n--- Nhan vien luong thap nhat ---" << endl;
-    hienThi(ds[vtMin], loai[vtMin]);
+    ds.push_back(&h1);
+    ds.push_back(&m1);
+    ds.push_back(&h2);
+    ds.push_back(&m2);
 
-    int dh, dm;
-    demTheoLoai(loai, n, dh, dm);
-    cout << "\nSo HourlyEmployee: " << dh << endl;
-    cout << "So MonthlyEmployee: " << dm << endl;
+    // ===== TONG QUY LUONG =====
+    cout << "\n========== TONG QUY LUONG ==========" << endl;
+    cout << "Tong quy luong: "
+         << tongQuyLuong(ds) << " VND" << endl;
 
+    // ===== NHAN VIEN LUONG CAO NHAT =====
+    cout << "\n========== LUONG CAO NHAT ==========" << endl;
+    Employee* maxNV = timLuongCaoNhat(ds);
+
+    if (maxNV != nullptr) {
+        maxNV->displayInfo();
+    }
+
+    // ===== NHAN VIEN LUONG THAP NHAT =====
+    cout << "\n========== LUONG THAP NHAT ==========" << endl;
+    Employee* minNV = timLuongThapNhat(ds);
+
+    if (minNV != nullptr) {
+        minNV->displayInfo();
+    }
+
+    // ===== DEM SO LUONG TUNG LOAI =====
+    cout << "\n========== DEM NHAN VIEN ==========" << endl;
+    demTheoLoai(ds);
+
+    // ===== LOC NHAN VIEN THEO LUONG =====
     double nguong;
+
     cout << "\nNhap nguong luong: ";
     cin >> nguong;
-    locLuongLonHon(ds, loai, n, nguong);
 
-    sapXepGiamDan(ds, loai, n);
-    cout << "\n--- Danh sach sau khi sap xep giam dan ---" << endl;
-    for (int i = 0; i < n; i++) {
-        hienThi(ds[i], loai[i]);
-        cout << endl;
-    }
-    
+    cout << "\n========== NHAN VIEN LUONG LON HON "
+         << nguong << " ==========" << endl;
+
+    locLuongLonHon(ds, nguong);
+
+    // ===== SAP XEP LUONG GIAM DAN =====
+    sapXepGiamDan(ds);
+
+    cout << "\n========== DANH SACH LUONG GIAM DAN ==========" << endl;
+    hienThiDanhSach(ds);
+
     return 0;
 }
