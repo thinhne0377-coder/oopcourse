@@ -1,98 +1,109 @@
 #include <iostream>
-#include <string>
 using namespace std;
 
+// 1. Class People (lớp cha)
 class People {
 private:
     string cccd;
     string name;
     string address;
-
 public:
-// Constructors không tham số
-    People () {
-        cccd = "00000000000000";
-        name = "Unknown";
-        address = "Unknown";
+    // Constructor không tham số - gán giá trị mặc định
+    People() {
+        cccd = "";
+        name = "";
+        address = "";
     }
-// Constructor có tham số
-    People(string c, string n, string a){
+
+    // Constructor có tham số
+    People(string c, string n, string a) {
         cccd = c;
         name = n;
         address = a;
     }
 
-    string getCCCD() const { return cccd; }
-    string getName() const { return name; }
-    string getAddress() const { return address; }
-    void setCCCD(string c) { cccd = c; }
-    void setName(string n) { name = n; }
-    void setAddress(string a) { address = a; }
+    // Hàm hiển thị thông tin
+    void displayInfo() const {
+        cout << "CCCD: " << cccd << endl;
+        cout << "Name: " << name << endl;
+        cout << "Address: " << address << endl;
+    }
 };
 
+// 2. Class Student (kế thừa từ People)
 class Student : public People {
 private:
     string mssv;
     int yearEntrance;
 public:
+    // Constructor không tham số - gán giá trị mặc định
     Student() : People() {
-        mssv = "Unknown";
+        mssv = "";
         yearEntrance = 0;
     }
 
+    // Constructor có tham số
     Student(string c, string n, string a, string m, int y) : People(c, n, a) {
         mssv = m;
         yearEntrance = y;
     }
 
-    string getMSSV() const { return mssv; }
-    int getYearEntrance() const { return yearEntrance; }
-    void setMSSV(string m) { mssv = m; }
-    void setYearEntrance(int y) { yearEntrance = y; }
+    // Hàm hiển thị thông tin (ghi đè)
+    void displayInfo() const {
+        People::displayInfo(); // gọi hàm của lớp cha
+        cout << "MSSV: " << mssv << endl;
+        cout << "Year Entrance: " << yearEntrance << endl;
+    }
 };
 
-class FIEstudents : public Student {
+// 3. Class FIEStudent (kế thừa từ Student)
+class FIEStudent : public Student {
 private:
-   int credits;
+    int credits;
 public:
-    FIEstudents() : Student() {
+    // Constructor không tham số - gán giá trị mặc định
+    FIEStudent() : Student() {
         credits = 0;
     }
 
-    FIEstudents(string c, string n, string a, string m, int y, int cr) : Student(c, n, a, m, y) {
+    // Constructor có tham số
+    FIEStudent(string c, string n, string a, string m, int y, int cr)
+        : Student(c, n, a, m, y) {
         credits = cr;
     }
 
-    int getCredits() const { return credits; }
-    void setCredits(int cr) { credits = cr; }
-
+    // Hàm hiển thị thông tin (ghi đè)
     void displayInfo() const {
-        cout << "CCCD: " << getCCCD() << endl;
-        cout << " | Name: " << getName() << endl;
-        cout << " | Address: " << getAddress() << endl;
-        cout << " | MSSV: " << getMSSV() << endl;
-        cout << " | Year Entrance: " << getYearEntrance() << endl;
-        cout << " | Credits: " << credits << endl;
-        cout << "-----------------------------" << endl;
-
+        Student::displayInfo(); // gọi hàm của lớp cha (và People)
+        cout << "Credits: " << credits << endl;
     }
 };
 
+// 4. Sử dụng trong hàm main()
 int main() {
-    People p1();
-    People p2("23456789012345", "Tran Thi B", "Hanoi");
+    // Tạo đối tượng People (mặc định)
+    People p1;
+    cout << "--- People p1 (mặc định) ---" << endl;
+    p1.displayInfo();
+    cout << endl;
 
-    Student s1();
-    Student s2("34567890123456", "Nguyen Van C", "HCMC", "B12345", 2020);
+    // Tạo đối tượng People (có tham số)
+    People p2("079123456789", "Nguyen Van A", "Ho Chi Minh");
+    cout << "--- People p2 (có tham số) ---" << endl;
+    p2.displayInfo();
+    cout << endl;
 
-    FIEstudents f1;
-    FIEstudents f2("45678901234567", "Le Thi D", "Da Nang", "C67890", 2021, 90);
+    // Tạo đối tượng Student (có tham số)
+    Student s1("079123456789", "Tran Thi B", "Ha Noi", "SV001", 2023);
+    cout << "--- Student s1 ---" << endl;
+    s1.displayInfo();
+    cout << endl;
 
-    cout << "=== Thông tin đối tượng f1 ===" << endl;
+    // Tạo đối tượng FIEStudent (có tham số)
+    FIEStudent f1("079987654321", "Le Minh C", "Da Nang", "FIE2023801", 2023, 120);
+    cout << "--- FIEStudent f1 ---" << endl;
     f1.displayInfo();
-    cout << "=== Thông tin đối tượng f2 ===" << endl;
-    f2.displayInfo();
+    cout << endl;
 
     return 0;
-    
 }
