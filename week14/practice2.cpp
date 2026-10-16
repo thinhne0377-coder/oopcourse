@@ -1,4 +1,3 @@
-```cpp
 #include <iostream>
 #include <string>
 #include <iomanip>
@@ -61,7 +60,7 @@ public:
     virtual ~Employee() = default;
 };
 
-// ==================== CLASS HOURLY EMPLOYEE ====================
+// ==================== HOURLY EMPLOYEE ====================
 class HourlyEmployee : public Employee {
 private:
     int hours;
@@ -85,6 +84,7 @@ public:
         year = y;
     }
 
+    // Getter
     int getHours() const {
         return hours;
     }
@@ -101,6 +101,7 @@ public:
         return year;
     }
 
+    // Setter
     void setHours(int h) {
         hours = h;
     }
@@ -118,7 +119,7 @@ public:
     }
 
     double calculateSalary(int m, int y) override {
-        if (m == month && y == year) {
+        if (y == year && m >= 1 && m <= 12) {
             return hours * salaryPerHour;
         }
         return 0;
@@ -128,12 +129,12 @@ public:
         cout << "\n--- HOURLY EMPLOYEE ---" << endl;
         Employee::displayInfo();
         cout << "Hours: " << hours << endl;
-        cout << "Salary per hour: " << salaryPerHour << endl;
-        cout << "Month: " << month << "/" << year << endl;
+        cout << "Salary per hour: "
+             << salaryPerHour << endl;
     }
 };
 
-// ==================== CLASS MONTHLY EMPLOYEE ====================
+// ==================== MONTHLY EMPLOYEE ====================
 class MonthlyEmployee : public Employee {
 private:
     double monthlySalary;
@@ -154,6 +155,7 @@ public:
         year = y;
     }
 
+    // Getter
     double getMonthlySalary() const {
         return monthlySalary;
     }
@@ -166,6 +168,7 @@ public:
         return year;
     }
 
+    // Setter
     void setMonthlySalary(double s) {
         monthlySalary = s;
     }
@@ -179,7 +182,7 @@ public:
     }
 
     double calculateSalary(int m, int y) override {
-        if (m == month && y == year) {
+        if (y == year && m >= 1 && m <= 12) {
             return monthlySalary;
         }
         return 0;
@@ -188,12 +191,12 @@ public:
     void displayInfo() override {
         cout << "\n--- MONTHLY EMPLOYEE ---" << endl;
         Employee::displayInfo();
-        cout << "Monthly salary: " << monthlySalary << endl;
-        cout << "Month: " << month << "/" << year << endl;
+        cout << "Monthly salary: "
+             << monthlySalary << endl;
     }
 };
 
-// ==================== CLASS DAILY EMPLOYEE ====================
+// ==================== DAILY EMPLOYEE ====================
 class DailyEmployee : public Employee {
 private:
     int numberOfDays;
@@ -217,6 +220,7 @@ public:
         year = y;
     }
 
+    // Getter
     int getNumberOfDays() const {
         return numberOfDays;
     }
@@ -233,6 +237,7 @@ public:
         return year;
     }
 
+    // Setter
     void setNumberOfDays(int d) {
         numberOfDays = d;
     }
@@ -250,7 +255,7 @@ public:
     }
 
     double calculateSalary(int m, int y) override {
-        if (m == month && y == year) {
+        if (y == year && m >= 1 && m <= 12) {
             return numberOfDays * salaryPerDay;
         }
         return 0;
@@ -259,19 +264,23 @@ public:
     void displayInfo() override {
         cout << "\n--- DAILY EMPLOYEE ---" << endl;
         Employee::displayInfo();
-        cout << "Number of days: " << numberOfDays << endl;
-        cout << "Salary per day: " << salaryPerDay << endl;
-        cout << "Month: " << month << "/" << year << endl;
+        cout << "Number of days: "
+             << numberOfDays << endl;
+        cout << "Salary per day: "
+             << salaryPerDay << endl;
     }
 };
 
 // ==================== CALCULATE YEARLY SALARY ====================
-double calculateYearlySalary(Employee* employees[], int n, int year) {
+double calculateYearlySalary(
+    Employee* employees[], int n, int year
+) {
     double totalSalary = 0;
 
     for (int i = 0; i < n; i++) {
         for (int month = 1; month <= 12; month++) {
-            totalSalary += employees[i]->calculateSalary(month, year);
+            totalSalary +=
+                employees[i]->calculateSalary(month, year);
         }
     }
 
@@ -295,7 +304,6 @@ int main() {
         22, 400000, 10, 2026
     );
 
-    // Mang con tro lop cha
     Employee* employees[] = { &h, &m, &d };
     int n = 3;
 
@@ -306,30 +314,39 @@ int main() {
     m.displayInfo();
     d.displayInfo();
 
-    // Tinh luong thang 10/2026
-    cout << "\n========== MONTHLY SALARY ==========" << endl;
+    // Tinh luong thang
+    int selectedMonth = 10;
+    int selectedYear = 2026;
+
+    cout << "\n===== MONTHLY SALARY =====" << endl;
 
     double totalMonthlySalary = 0;
 
     for (int i = 0; i < n; i++) {
-        double salary = employees[i]->calculateSalary(10, 2026);
+        double salary = employees[i]->calculateSalary(
+            selectedMonth, selectedYear
+        );
+
         cout << "Employee " << i + 1
              << ": " << salary << " VND" << endl;
 
         totalMonthlySalary += salary;
     }
 
-    cout << "Total salary October 2026: "
+    cout << "Total monthly salary: "
          << totalMonthlySalary << " VND" << endl;
 
-    // Tinh luong theo nam
-    cout << "\n========== YEARLY SALARY ==========" << endl;
+    // Tinh tong luong theo nam
+    cout << "\n===== YEARLY SALARY =====" << endl;
+
+    int selectedYearForSalary = 2026;
 
     double yearlySalary = calculateYearlySalary(
-        employees, n, 2026
+        employees, n, selectedYearForSalary
     );
 
-    cout << "Total salary in 2026: "
+    cout << "Total salary in "
+         << selectedYearForSalary << ": "
          << yearlySalary << " VND" << endl;
 
     return 0;
