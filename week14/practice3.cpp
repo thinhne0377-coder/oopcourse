@@ -10,9 +10,7 @@ using namespace std;
 // ==================================================
 class Date {
 private:
-    int day;
-    int month;
-    int year;
+    int day, month, year;
 
 public:
     Date() {
@@ -27,22 +25,13 @@ public:
         year = y;
     }
 
-    int getDay() const {
-        return day;
-    }
-
-    int getMonth() const {
-        return month;
-    }
-
-    int getYear() const {
-        return year;
-    }
+    int getDay() const { return day; }
+    int getMonth() const { return month; }
+    int getYear() const { return year; }
 
     bool isValid() const {
-        if (year < 1 || month < 1 || month > 12 || day < 1) {
+        if (year < 1 || month < 1 || month > 12 || day < 1)
             return false;
-        }
 
         int daysInMonth[] = {
             31, 28, 31, 30, 31, 30,
@@ -52,9 +41,8 @@ public:
         bool leapYear = (year % 400 == 0) ||
                         (year % 4 == 0 && year % 100 != 0);
 
-        if (leapYear) {
+        if (leapYear)
             daysInMonth[1] = 29;
-        }
 
         return day <= daysInMonth[month - 1];
     }
@@ -70,9 +58,9 @@ public:
             cout << "Nhap nam: ";
             cin >> year;
 
-            if (!isValid()) {
+            if (!isValid())
                 cout << "Ngay thang nam khong hop le! Nhap lai.\n";
-            }
+
         } while (!isValid());
     }
 
@@ -92,7 +80,7 @@ public:
 };
 
 // ==================================================
-// 2. CLASS PRODUCT: LOP CHA
+// 2. CLASS PRODUCT: LOP CHA TRUU TUONG
 // ==================================================
 class Product {
 protected:
@@ -101,11 +89,7 @@ protected:
     double price;
 
 public:
-    Product() {
-        id = 0;
-        name = "";
-        price = 0;
-    }
+    Product() : id(0), name(""), price(0) {}
 
     Product(int id, string name, double price) {
         this->id = id;
@@ -115,20 +99,14 @@ public:
 
     virtual ~Product() {}
 
-    int getId() const {
-        return id;
-    }
+    int getId() const { return id; }
+    string getName() const { return name; }
+    double getPrice() const { return price; }
 
-    string getName() const {
-        return name;
-    }
-
-    double getPrice() const {
-        return price;
-    }
-
+    // Ham thuan ao
     virtual string getParent() const = 0;
 
+    // Ham ao
     virtual void displayInfo() const {
         cout << "ID: " << id
              << " | Ten: " << name
@@ -139,7 +117,7 @@ public:
 };
 
 // ==================================================
-// 3. CLASS DRINK: LOP CON CUA PRODUCT
+// 3. CLASS DRINK: KE THUA PRODUCT
 // ==================================================
 class Drink : public Product {
 public:
@@ -153,12 +131,13 @@ public:
     }
 
     void displayInfo() const override {
+        cout << "[DRINK] ";
         Product::displayInfo();
     }
 };
 
 // ==================================================
-// 4. CLASS FOOD: LOP CON CUA PRODUCT
+// 4. CLASS FOOD: KE THUA PRODUCT
 // ==================================================
 class Food : public Product {
 public:
@@ -172,6 +151,7 @@ public:
     }
 
     void displayInfo() const override {
+        cout << "[FOOD] ";
         Product::displayInfo();
     }
 };
@@ -190,13 +170,8 @@ public:
         this->quantity = quantity;
     }
 
-    int getProductId() const {
-        return productId;
-    }
-
-    int getQuantity() const {
-        return quantity;
-    }
+    int getProductId() const { return productId; }
+    int getQuantity() const { return quantity; }
 };
 
 // ==================================================
@@ -214,13 +189,8 @@ public:
         this->date = date;
     }
 
-    int getOrderId() const {
-        return orderId;
-    }
-
-    Date getDate() const {
-        return date;
-    }
+    int getOrderId() const { return orderId; }
+    Date getDate() const { return date; }
 
     void addDetail(int productId, int quantity) {
         details.push_back(OrderDetail(productId, quantity));
@@ -246,11 +216,10 @@ private:
     vector<Order> orders;
 
 public:
-    // Giai phong bo nho cac san pham
+    // Giai phong bo nho san pham
     ~Shop() {
-        for (Product* p : products) {
+        for (Product* p : products)
             delete p;
-        }
     }
 
     // Them san pham
@@ -266,11 +235,9 @@ public:
     // Tim san pham theo ma
     Product* findProduct(int id) const {
         for (Product* p : products) {
-            if (p->getId() == id) {
+            if (p->getId() == id)
                 return p;
-            }
         }
-
         return nullptr;
     }
 
@@ -279,21 +246,30 @@ public:
         cout << "\n========== DRINKS (PARENT) ==========\n";
 
         for (Product* p : products) {
-            if (p->getParent() == "Drinks") {
+            if (p->getParent() == "Drinks")
                 p->displayInfo();
-            }
         }
 
         cout << "\n========== FOODS (PARENT) ==========\n";
 
         for (Product* p : products) {
-            if (p->getParent() == "Foods") {
+            if (p->getParent() == "Foods")
                 p->displayInfo();
-            }
         }
     }
 
-    // Nhap mot chi tiet don hang
+    // MINH HOA TINH DA HINH
+    void demonstratePolymorphism() const {
+        cout << "\n===== DEMONSTRATE POLYMORPHISM =====\n";
+
+        for (Product* p : products) {
+            // Goi ham ao qua con tro lop cha.
+            // Chuong trinh tu chon Drink hay Food khi chay.
+            p->displayInfo();
+        }
+    }
+
+    // Them chi tiet don hang
     bool addOrderDetail(int orderId, int productId,
                         int quantity, Date date) {
         if (!date.isValid() || quantity <= 0 ||
@@ -323,7 +299,9 @@ public:
         cout << "Nhap so luong chi tiet ban hang: ";
         cin >> n;
 
-        if (n < 0) {
+        if (cin.fail() || n < 0) {
+            cin.clear();
+            cin.ignore(10000, '\n');
             cout << "So luong khong hop le!\n";
             return;
         }
@@ -360,9 +338,8 @@ public:
         double total = 0;
 
         for (const Order& order : orders) {
-            if (!(order.getDate() == date)) {
+            if (!(order.getDate() == date))
                 continue;
-            }
 
             for (const OrderDetail& detail : order.getDetails()) {
                 Product* p = findProduct(detail.getProductId());
@@ -376,7 +353,7 @@ public:
         return total;
     }
 
-    // Hien thi doanh thu cua hai nhom
+    // Hien thi doanh thu theo ngay
     void displayRevenue(Date date) const {
         cout << fixed << setprecision(0);
 
@@ -391,6 +368,11 @@ public:
 
         cout << "- Foods: "
              << calculateRevenue("Foods", date)
+             << " VND\n";
+
+        cout << "- Tong doanh thu: "
+             << calculateRevenue("Drinks", date)
+                + calculateRevenue("Foods", date)
              << " VND\n";
 
         cout << "====================================\n";
@@ -447,7 +429,8 @@ int main() {
         cout << "1. Hien thi danh sach san pham\n";
         cout << "2. Nhap don hang\n";
         cout << "3. Hien thi danh sach don hang\n";
-        cout << "4. Tinh doanh thu theo ngay/thang/nam\n";
+        cout << "4. Tinh doanh thu theo ngay\n";
+        cout << "5. Minh hoa tinh da hinh\n";
         cout << "0. Thoat\n";
         cout << "==================================\n";
         cout << "Nhap lua chon: ";
@@ -468,13 +451,15 @@ int main() {
 
         case 4: {
             Date date;
-
             cout << "\nNhap ngay can tinh doanh thu:\n";
             date.input();
-
             shop.displayRevenue(date);
             break;
         }
+
+        case 5:
+            shop.demonstratePolymorphism();
+            break;
 
         case 0:
             cout << "Ket thuc chuong trinh!\n";
@@ -488,3 +473,4 @@ int main() {
 
     return 0;
 }
+
