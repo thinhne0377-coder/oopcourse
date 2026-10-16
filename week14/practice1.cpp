@@ -4,7 +4,7 @@
 #include <iomanip>
 using namespace std;
 
-// ==================== CLASS EMPLOYEE ====================
+// ==================== EMPLOYEE ====================
 class Employee {
 private:
     string name;
@@ -27,11 +27,7 @@ public:
     }
 
     virtual void display() const {
-        cout << "Ho ten: " << name << endl;
-    }
-
-    virtual double calculateSalary() const {
-        return 0;
+        cout << "Name: " << name << endl;
     }
 
     virtual double calculateSalary(int month, int year) const {
@@ -41,7 +37,7 @@ public:
     virtual ~Employee() {}
 };
 
-// ==================== CLASS HOURLYEMPLOYEE ====================
+// ==================== HOURLY EMPLOYEE ====================
 class HourlyEmployee : public Employee {
 private:
     double hours;
@@ -54,7 +50,7 @@ public:
         hours = 0;
         salaryPerHour = 0;
         month = 1;
-        year = 2026;
+        year = 2000;
     }
 
     HourlyEmployee(string name, double hours,
@@ -102,28 +98,24 @@ public:
             this->year = year;
     }
 
-    double calculateSalary() const override {
-        return hours * salaryPerHour;
-    }
-
     double calculateSalary(int month, int year) const override {
         if (this->month == month && this->year == year)
-            return calculateSalary();
+            return hours * salaryPerHour;
+
         return 0;
     }
 
     void display() const override {
-        cout << "\nLoai nhan vien: Hourly Employee\n";
         Employee::display();
-        cout << "So gio lam: " << hours << endl;
-        cout << "Luong moi gio: " << salaryPerHour << endl;
-        cout << "Thang: " << month << endl;
-        cout << "Nam: " << year << endl;
-        cout << "Luong: " << calculateSalary() << " VND\n";
+        cout << "Type: Hourly Employee\n";
+        cout << "Hours: " << hours << endl;
+        cout << "Salary per hour: " << salaryPerHour << endl;
+        cout << "Month: " << month << endl;
+        cout << "Year: " << year << endl;
     }
 };
 
-// ==================== CLASS MONTHLYEMPLOYEE ====================
+// ==================== MONTHLY EMPLOYEE ====================
 class MonthlyEmployee : public Employee {
 private:
     int month;
@@ -133,7 +125,7 @@ private:
 public:
     MonthlyEmployee() : Employee() {
         month = 1;
-        year = 2026;
+        year = 2000;
         monthlySalary = 0;
     }
 
@@ -167,38 +159,35 @@ public:
             this->year = year;
     }
 
-    void setMonthlySalary(double salary) {
-        if (salary >= 0)
-            monthlySalary = salary;
-    }
-
-    double calculateSalary() const override {
-        return monthlySalary;
+    void setMonthlySalary(double monthlySalary) {
+        if (monthlySalary >= 0)
+            this->monthlySalary = monthlySalary;
     }
 
     double calculateSalary(int month, int year) const override {
         if (this->month == month && this->year == year)
             return monthlySalary;
+
         return 0;
     }
 
     double calculateYearSalary(int year) const {
         if (this->year == year)
             return monthlySalary * 12;
+
         return 0;
     }
 
     void display() const override {
-        cout << "\nLoai nhan vien: Monthly Employee\n";
         Employee::display();
-        cout << "Luong thang: " << monthlySalary << " VND\n";
-        cout << "Thang: " << month << endl;
-        cout << "Nam: " << year << endl;
-        cout << "Luong: " << calculateSalary() << " VND\n";
+        cout << "Type: Monthly Employee\n";
+        cout << "Monthly salary: " << monthlySalary << endl;
+        cout << "Month: " << month << endl;
+        cout << "Year: " << year << endl;
     }
 };
 
-// ==================== CLASS DAILYEMPLOYEE ====================
+// ==================== DAILY EMPLOYEE ====================
 class DailyEmployee : public Employee {
 private:
     int numberOfDays;
@@ -210,7 +199,7 @@ public:
     DailyEmployee() : Employee() {
         numberOfDays = 0;
         month = 1;
-        year = 2026;
+        year = 2000;
         salaryPerDay = 0;
     }
 
@@ -239,9 +228,9 @@ public:
         return salaryPerDay;
     }
 
-    void setNumberOfDays(int days) {
-        if (days >= 0)
-            numberOfDays = days;
+    void setNumberOfDays(int numberOfDays) {
+        if (numberOfDays >= 0)
+            this->numberOfDays = numberOfDays;
     }
 
     void setMonth(int month) {
@@ -254,29 +243,25 @@ public:
             this->year = year;
     }
 
-    void setSalaryPerDay(double salary) {
-        if (salary >= 0)
-            salaryPerDay = salary;
-    }
-
-    double calculateSalary() const override {
-        return numberOfDays * salaryPerDay;
+    void setSalaryPerDay(double salaryPerDay) {
+        if (salaryPerDay >= 0)
+            this->salaryPerDay = salaryPerDay;
     }
 
     double calculateSalary(int month, int year) const override {
         if (this->month == month && this->year == year)
-            return calculateSalary();
+            return numberOfDays * salaryPerDay;
+
         return 0;
     }
 
     void display() const override {
-        cout << "\nLoai nhan vien: Daily Employee\n";
         Employee::display();
-        cout << "So ngay lam: " << numberOfDays << endl;
-        cout << "Luong moi ngay: " << salaryPerDay << endl;
-        cout << "Thang: " << month << endl;
-        cout << "Nam: " << year << endl;
-        cout << "Luong: " << calculateSalary() << " VND\n";
+        cout << "Type: Daily Employee\n";
+        cout << "Number of days: " << numberOfDays << endl;
+        cout << "Salary per day: " << salaryPerDay << endl;
+        cout << "Month: " << month << endl;
+        cout << "Year: " << year << endl;
     }
 };
 
@@ -284,121 +269,93 @@ public:
 int main() {
     cout << fixed << setprecision(0);
 
+    string name;
     int month, year;
+    double hours, salaryPerHour;
+    double monthlySalary;
+    int numberOfDays;
+    double salaryPerDay;
 
-    cout << "========== NHAP THANG VA NAM CAN TINH LUONG ==========\n";
-    cout << "Nhap thang (1-12): ";
+    cout << "===== ENTER MONTH AND YEAR TO CALCULATE SALARY =====\n";
+    cout << "Enter month (1-12): ";
     cin >> month;
 
-    cout << "Nhap nam: ";
+    cout << "Enter year: ";
     cin >> year;
 
     if (month < 1 || month > 12 || year <= 0) {
-        cout << "Thang hoac nam khong hop le!\n";
+        cout << "Invalid month or year!\n";
         return 1;
     }
 
-    // Nhap HourlyEmployee
-    string name1;
-    double hours, salaryPerHour;
-    int month1, year1;
-
-    cout << "\n========== HOURLY EMPLOYEE ==========\n";
+    // Hourly Employee
+    cout << "\n===== HOURLY EMPLOYEE =====\n";
     cin.ignore(10000, '\n');
 
-    cout << "Nhap ho ten: ";
-    getline(cin, name1);
+    cout << "Enter name: ";
+    getline(cin, name);
 
-    cout << "Nhap so gio lam: ";
+    cout << "Enter hours: ";
     cin >> hours;
 
-    cout << "Nhap luong moi gio: ";
+    cout << "Enter salary per hour: ";
     cin >> salaryPerHour;
 
-    cout << "Nhap thang: ";
-    cin >> month1;
+    HourlyEmployee hourly(name, hours, salaryPerHour, month, year);
 
-    cout << "Nhap nam: ";
-    cin >> year1;
-
-    HourlyEmployee hourly(name1, hours, salaryPerHour, month1, year1);
-
-    // Nhap MonthlyEmployee
-    string name2;
-    double monthlySalary;
-    int month2, year2;
-
-    cout << "\n========== MONTHLY EMPLOYEE ==========\n";
+    // Monthly Employee
+    cout << "\n===== MONTHLY EMPLOYEE =====\n";
     cin.ignore(10000, '\n');
 
-    cout << "Nhap ho ten: ";
-    getline(cin, name2);
+    cout << "Enter name: ";
+    getline(cin, name);
 
-    cout << "Nhap luong thang: ";
+    cout << "Enter monthly salary: ";
     cin >> monthlySalary;
 
-    cout << "Nhap thang: ";
-    cin >> month2;
+    MonthlyEmployee monthly(name, monthlySalary, month, year);
 
-    cout << "Nhap nam: ";
-    cin >> year2;
-
-    MonthlyEmployee monthly(name2, monthlySalary, month2, year2);
-
-    // Nhap DailyEmployee
-    string name3;
-    int numberOfDays, month3, year3;
-    double salaryPerDay;
-
-    cout << "\n========== DAILY EMPLOYEE ==========\n";
+    // Daily Employee
+    cout << "\n===== DAILY EMPLOYEE =====\n";
     cin.ignore(10000, '\n');
 
-    cout << "Nhap ho ten: ";
-    getline(cin, name3);
+    cout << "Enter name: ";
+    getline(cin, name);
 
-    cout << "Nhap so ngay lam: ";
+    cout << "Enter number of working days: ";
     cin >> numberOfDays;
 
-    cout << "Nhap luong moi ngay: ";
+    cout << "Enter salary per day: ";
     cin >> salaryPerDay;
 
-    cout << "Nhap thang: ";
-    cin >> month3;
+    DailyEmployee daily(name, numberOfDays, salaryPerDay, month, year);
 
-    cout << "Nhap nam: ";
-    cin >> year3;
+    // Display information
+    cout << "\n===== EMPLOYEE INFORMATION =====\n";
 
-    DailyEmployee daily(name3, numberOfDays, salaryPerDay, month3, year3);
-
-    // Hien thi thong tin
-    cout << "\n\n========== THONG TIN NHAN VIEN ==========\n";
     hourly.display();
+    cout << "Salary: "
+         << hourly.calculateSalary(month, year) << " VND\n";
+
     monthly.display();
+    cout << "Salary: "
+         << monthly.calculateSalary(month, year) << " VND\n";
+
     daily.display();
+    cout << "Salary: "
+         << daily.calculateSalary(month, year) << " VND\n";
 
-    // Tinh luong theo thang va nam da chon
-    cout << "\n========== TONG KET LUONG ==========\n";
-    cout << "Thang can tinh: " << month
-         << "/" << year << "\n";
+    // Total salary
+    double totalSalary =
+        hourly.calculateSalary(month, year) +
+        monthly.calculateSalary(month, year) +
+        daily.calculateSalary(month, year);
 
-    double salaryHourly = hourly.calculateSalary(month, year);
-    double salaryMonthly = monthly.calculateSalary(month, year);
-    double salaryDaily = daily.calculateSalary(month, year);
+    cout << "\n===== SALARY SUMMARY =====\n";
+    cout << "Month/Year: " << month << "/" << year << endl;
+    cout << "Total salary: " << totalSalary << " VND\n";
 
-    cout << "Luong HourlyEmployee: "
-         << salaryHourly << " VND\n";
-
-    cout << "Luong MonthlyEmployee: "
-         << salaryMonthly << " VND\n";
-
-    cout << "Luong DailyEmployee: "
-         << salaryDaily << " VND\n";
-
-    cout << "Tong luong: "
-         << salaryHourly + salaryMonthly + salaryDaily
-         << " VND\n";
-
-    cout << "\nTong luong nam cua MonthlyEmployee: "
+    cout << "Monthly employee annual salary: "
          << monthly.calculateYearSalary(year) << " VND\n";
 
     return 0;
